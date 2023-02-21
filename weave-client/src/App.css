@@ -1,42 +1,40 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* max-width: 1280px; */
+  /* margin: 0 auto; */
+  padding: 0.1rem;
+  margin: 0 5%;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.navBar .nav-elements{
+  display: flex;
+  padding: 0 0.8rem;
+  align-items: center;
+  width: 100%;
+  /* background-color: antiquewhite; */
+  justify-content: space-between;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.navBar .nav-elements h1{
+  cursor: pointer;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.navBar .nav-elements ul{
+  display: flex;
+  /* background-color: aquamarine; */
+  justify-content: space-between;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navBar .nav-elements ul li{
+  padding: 0.3rem 1rem;
+  border-radius: 0.5rem;
+  margin-right: 0.8rem;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.navBar .nav-elements ul li:hover{
+  cursor: pointer;
+  scale: 1.1;
+  color: black;
+  transition: 0.5s all ease;
 }
-
-.card {
-  padding: 2em;
+ul li{
+  text-decoration: none;
+  list-style: none;
 }
-
-.read-the-docs {
-  color: #888;
+.navBar .nav-elements ul li i{
+  font-size: 1.5rem;
 }
