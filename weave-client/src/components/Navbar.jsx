@@ -6,9 +6,9 @@ export default function Navbar(){
                 <h1>Weave</h1>
                 {/* <div className='searchTop'><input type="text" placeholder='Search'/></div> */}
                 <ul>
+                    <li>Home</li>
                     <li>Explore</li>
                     <li>My Projects</li>
-                    <li>Create</li>
                     <li><i className="fa fa-user"></i></li>
                 </ul>
             </div>
