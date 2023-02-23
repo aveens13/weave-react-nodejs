@@ -38,3 +38,82 @@ ul li{
 .navBar .nav-elements ul li i{
   font-size: 1.5rem;
 }
+/*Landing Page Css */
+.landingNav button{
+  padding: 1rem 6rem;
+  border-radius: 1.8rem;
+  color: white;
+  font-size: 1.2rem;
+  background-color: #3e4684;
+}
+/* Login Form Css  */
+.login-registration-form{
+  height: 90vh;
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-registration-form .loginSection .login-card{
+  width: 20vw;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.2rem;
+  background-color: #eff5fe;
+}
+
+.login-registration-form .loginSection .login-card .login-form form{
+  display: flex;
+  flex-direction: column;
+}
+.login-form form input[type='email'],input[type='password']{
+  padding: 1rem;
+  margin: 1rem 0;
+  border: none;
+  background-color: white;
+  color: #213547;
+  border-radius: 0.8rem;
+}
+
+.login-form form input[type='submit']{
+  padding: 1.2rem;
+  border-radius: 0.8rem;
+  width: 15vw;
+  margin-top: 3rem;
+  color: white;
+  background-color: #3e4684;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.login-form form input[type='submit']:hover{
+  transform: scale(1.03);
+  color: white;
+  transition: all 0.5s ease;
+}
+.login-card .link-section{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1rem 0;
+  /* background-color: antiquewhite; */
+}
+.login-card .link-section a{
+  margin: 2rem;
+  font-weight: 300;
+  font-size: 0.7rem;
+  color: #213547;
+}
+.login-card .logo{
+  background-color: white;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+}
+.login-card .logo img{
+  height: 150px;
+  width: 160px;
+}
