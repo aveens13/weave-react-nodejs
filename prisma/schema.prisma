@@ -14,4 +14,45 @@ model Organization {
   organizationId String @id @default(uuid())
   name           String
   location       Json
+  contactMail    String @unique
+  mailSuffix     String @unique
+}
+
+model User {
+  userId        String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  password      String
+  accountType   Role      @default(User)
+  authorProject Project[] @relation("author")
+  memberProject Project[] @relation("member")
+  File          File[]
+}
+
+model Project {
+  projectId    String   @id @default(uuid())
+  projectTitle String
+  deadline     DateTime
+  tags         String
+  author       User     @relation("author", fields: [userId], references: [userId])
+  userId       String
+  members      User[]   @relation("member")
+  File         File[]
+}
+
+model File {
+  fileId      String   @id @default(uuid())
+  fileName    String
+  fileCreated DateTime @default(now())
+  filePath    String
+  fileType    String
+  uploadedBy  User     @relation(fields: [authorId], references: [userId])
+  project     Project  @relation(fields: [projectId], references: [projectId])
+  authorId    String
+  projectId   String
+}
+
+enum Role {
+  User
+  Supervisor
 }

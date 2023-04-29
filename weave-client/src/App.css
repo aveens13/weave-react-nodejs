@@ -3,6 +3,12 @@
   /* margin: 0 auto; */
   padding: 0.1rem;
   margin: 0 5%;
+  height: 100%;
+}
+.gray{
+  margin: 0.4rem;
+  font-size: 0.8rem;
+  color: #a2a2a2;
 }
 .navBar .nav-elements{
   display: flex;
@@ -24,11 +30,11 @@
   padding: 0.3rem 1rem;
   border-radius: 0.5rem;
   margin-right: 0.8rem;
+  color: black;
 }
 .navBar .nav-elements ul li:hover{
   cursor: pointer;
   scale: 1.1;
-  color: black;
   transition: 0.5s all ease;
 }
 ul li{
@@ -46,74 +52,48 @@ ul li{
   font-size: 1.2rem;
   background-color: #3e4684;
 }
-/* Login Form Css  */
-.login-registration-form{
-  height: 90vh;
-  /* background-color: red; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.login-registration-form .loginSection .login-card{
-  width: 20vw;
-  align-items: center;
-  justify-content: center;
-  height: 70%;
-  display: flex;
-  flex-direction: column;
-  border-radius: 1.2rem;
-  background-color: #eff5fe;
-}
 
-.login-registration-form .loginSection .login-card .login-form form{
-  display: flex;
-  flex-direction: column;
+.modal--hero{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: fit-content;
+  background-color: transparent;
+  padding: 5rem;
+  border-radius: 0.5rem;
+  z-index: 1000;
 }
-.login-form form input[type='email'],input[type='password']{
-  padding: 1rem;
-  margin: 1rem 0;
-  border: none;
-  background-color: white;
-  color: #213547;
-  border-radius: 0.8rem;
+.modal--overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.2);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
 }
-
-.login-form form input[type='submit']{
-  padding: 1.2rem;
-  border-radius: 0.8rem;
-  width: 15vw;
-  margin-top: 3rem;
-  color: white;
-  background-color: #3e4684;
+.modal--hero .close-button{
+  background: transparent;
+  z-index: 10000;
   border: none;
-  font-size: 1rem;
   cursor: pointer;
+  color: black;
+  position: absolute;
+  top: 23%;
+  left: 83%;
 }
 
-.login-form form input[type='submit']:hover{
-  transform: scale(1.03);
-  color: white;
-  transition: all 0.5s ease;
+input[type=date]::-webkit-calendar-picker-indicator {
+  background-color: #a2a2a23d;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  font-size: 1.5rem;
 }
-.login-card .link-section{
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  padding: 1rem 0;
-  /* background-color: antiquewhite; */
-}
-.login-card .link-section a{
-  margin: 2rem;
-  font-weight: 300;
-  font-size: 0.7rem;
-  color: #213547;
-}
-.login-card .logo{
+::-webkit-datetime-edit-fields-wrapper{
   background-color: white;
-  border-radius: 50%;
-  margin-bottom: 2rem;
 }
-.login-card .logo img{
-  height: 150px;
-  width: 160px;
+::-webkit-datetime-edit-fields-wrapper:hover::-webkit-datetime-edit-day-field {
+  background-color: #eee;
 }
