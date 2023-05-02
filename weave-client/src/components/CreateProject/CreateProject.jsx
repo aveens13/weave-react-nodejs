@@ -5,13 +5,21 @@ import Member from "./Member";
 export default function CreateProject() {
   const [members, setMembers] = useState([]);
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(false);
   function handleAddmember(event) {
     event.preventDefault();
-    if (email != "") {
-      setMembers((prev) => {
-        return [...prev, email];
-      });
-    }
+    fetch(`/api/checkmail/${email}`).then((response) => {
+      if (response.ok) {
+        response.json().then((e) => {
+          setError(false);
+          setMembers((prev) => {
+            return [...prev, email];
+          });
+        });
+      } else {
+        setError(true);
+      }
+    });
   }
 
   useEffect(() => {
@@ -21,21 +29,49 @@ export default function CreateProject() {
   function handleaddEmail(event) {
     setEmail(event.target.value);
   }
+
+  //Handle the cross button on the member
+  function handleCross(id) {
+    setMembers((prev) => {
+      return prev.filter((email) => {
+        return email != id;
+      });
+    });
+  }
+  // Handle the form
+  const handleForm = async (event) => {
+    console.log("called");
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    let circulartoPlain = Object.fromEntries(formData);
+    circulartoPlain = { ...circulartoPlain, members: members };
+    const formDataJsonString = JSON.stringify(circulartoPlain);
+
+    const response = await fetch("http://localhost:8000/api/create-project", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: formDataJsonString,
+    });
+    console.log(response);
+  };
   return (
     <div className="create_projects_main">
       <div className="project_card">
-        <form>
+        <form onSubmit={handleForm}>
           <label htmlFor="Title">Title</label>
           <input
             type="text"
-            name="Title"
+            name="projectTitle"
             id="Title"
             placeholder="Project Title"
           />
           <div className="deadline_section">
             <div className="date">
               <label htmlFor="date">Deadline</label>
-              <input type="date" name="date" id="date" />
+              <input type="date" name="deadline" id="date" />
             </div>
             <div className="tags">
               <label htmlFor="tags">Tags</label>
@@ -63,21 +99,26 @@ export default function CreateProject() {
           <input
             type="email"
             id="add-members"
-            name="add-members"
+            name="members"
             placeholder="Member email"
             onChange={handleaddEmail}
           ></input>
           <button
             className={
-              members.length === 0 ? "add-button" : "add-button update"
+              members.length === 0 && !error
+                ? "add-button"
+                : "add-button update"
             }
             onClick={handleAddmember}
           >
             <AddIcon fontSize="1rem" /> Add
           </button>
+          <p className={error ? "email-error" : "email"}>
+            User with that mail does not exist
+          </p>
           <ul className="member-card">
             {members.map((member) => (
-              <Member member={member} />
+              <Member member={member} handleCross={handleCross} />
             ))}
           </ul>
           <div className="create-button">

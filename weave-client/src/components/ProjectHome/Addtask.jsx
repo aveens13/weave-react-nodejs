@@ -1,12 +1,11 @@
-export default function AddTask({ handleAddTask }) {
+export default function AddTask({ handleAddTask, project }) {
   async function handleCreate(event) {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
     const circulartoPlain = Object.fromEntries(formData.entries());
     const formDataJsonString = JSON.stringify(circulartoPlain);
-    console.log(circulartoPlain);
-    handleAddTask(circulartoPlain);
+    handleAddTask(formDataJsonString);
   }
   return (
     <div className="login-registration-form">
@@ -20,12 +19,6 @@ export default function AddTask({ handleAddTask }) {
           </div>
           <div className="login-form">
             <form action="" onSubmit={handleCreate}>
-              <input
-                type="hidden"
-                name="taskId"
-                value={Math.floor(Math.random() * 10000)}
-              />
-              <input type="hidden" name="status" value="created" />
               <label htmlFor="title">Title</label>
               <input
                 type="text"
@@ -44,14 +37,13 @@ export default function AddTask({ handleAddTask }) {
               <input type="date" name="deadline" id="deadline" />
               <div className="select-task">
                 <label for="cars">Assign this task:</label>
-                <select name="name" id="name">
+                <select name="userid" id="name">
                   <option value="" selected>
                     None
                   </option>
-                  <option value="Avinav Bhattarai">Avinav Bhattarai</option>
-                  <option value="Sulav Pokharel">Sulav Pokharel</option>
-                  <option value="Krishna Lamsal">Krishna Lamsal</option>
-                  <option value="Ankit Dahal">Ankit Dahal</option>
+                  {project.members.map((member) => (
+                    <option value={member.userId}>{member.name}</option>
+                  ))}
                 </select>
               </div>
               <div className="submitbutton">

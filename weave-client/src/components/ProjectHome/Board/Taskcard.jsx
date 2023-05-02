@@ -48,7 +48,7 @@ export default function TaskCard(props) {
         <p className="date">{deadline}</p>
         <div className="bottom">
           <img src={image} alt="" />
-          <p>{props.task.name}</p>
+          <p>NA</p>
         </div>
       </div>
     </motion.div>

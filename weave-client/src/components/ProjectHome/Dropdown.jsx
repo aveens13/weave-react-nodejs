@@ -55,7 +55,7 @@ export default function DropDown(props) {
           <div className="drop--info">
             <p className="fas-fa-grey">Description</p>
             <div className="desc-button">
-              {props.project.description == "" ? (
+              {props.project.description == null ? (
                 <p className="fas-fa-button">Add Description</p>
               ) : (
                 <p>{props.project.description}</p>

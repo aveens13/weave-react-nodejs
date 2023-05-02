@@ -7,18 +7,6 @@
 }
 
 
-.task-list::-webkit-scrollbar{
-    width: 0.4rem;
-    background-color: #44444443;
-}
-.task-list::-webkit-scrollbar-thumb{
-    border-radius: 50px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: #323ee29a;
-}
-.task-card .task-list{
-    overflow-y: auto;
-}
 .task-card .card--main{
     width: 90%;
     display: flex;
@@ -239,6 +227,7 @@
     flex-direction: column;
     height: 100%;
     background-color: #eceef1;
+    overflow-y: auto;
     border-radius: 0.8rem;
 }
 
@@ -284,4 +273,13 @@
     font-weight: 600;
     border-bottom-right-radius: 0.8rem;
     border-top-right-radius: 0.8rem;
+}
+.board--section::-webkit-scrollbar{
+    width: 0.4rem;
+    background-color: #44444443;
+}
+.board--section::-webkit-scrollbar-thumb{
+    border-radius: 50px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #323ee29a;
 }

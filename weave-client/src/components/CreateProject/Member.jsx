@@ -1,10 +1,18 @@
 import img1 from "../../assets/avatars/6.png";
+import { motion } from "framer-motion";
 
 export default function Member(props) {
   return (
-    <li key={props.member}>
+    <motion.li
+      animate={{ scale: 1 }}
+      initial={{ scale: 0.5 }}
+      transition={{ type: "spring", duration: 0.1 }}
+      key={props.member}
+    >
       <img src={img1} alt="member" />
-      <button>x</button>
-    </li>
+      <div className="button" onClick={() => props.handleCross(props.member)}>
+        x
+      </div>
+    </motion.li>
   );
 }

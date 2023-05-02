@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DropDown from "./Dropdown";
@@ -12,89 +12,48 @@ export default function Project() {
   const [showTask, setShowTask] = useState(false);
   const [drop, setDrop] = useState(false);
   const [navig, setNavig] = useState("overview");
-  const [tasks, setTasks] = useState([
-    {
-      taskId: 1,
-      title: "Weave Project Initiate",
-      deadline: Date.now(),
-      name: "Avinav Bhattarai",
-      status: "progress",
-      info: "Initiate the Project",
-    },
-    {
-      taskId: 2,
-      title: "Approval",
-      deadline: Date.now(),
-      name: "Avinav Bhattarai",
-      status: "completed",
-      info: "Approve the Project",
-    },
-    {
-      taskId: 3,
-      title: "Login Form",
-      deadline: Date.now(),
-      name: "Avinav Bhattarai",
-      status: "created",
-      info: "Create Login Form",
-    },
-  ]);
-  const [projects, setProjects] = useState({
-    projectId: "1",
-    projectTitle: "Weave",
-    visibility: "public",
-    github_link: "https://github.com/aveens13/mymovieslist-react-express",
-    deadline: "1993-04-22T00:00:00.000Z",
-    tags: "javascript,react,postgresql",
-    userId: "avinav-400",
-    description: "creative space",
-    members: [
-      {
-        userId: "sulav-655",
-        name: "sulav",
-        email: "sulav@gmail.com",
-        accountType: "User",
-      },
-      {
-        userId: "krishna-600",
-        name: "krishna",
-        email: "krishna@gmail.com",
-        accountType: "User",
-      },
-      {
-        userId: "ankit-700",
-        name: "ankit",
-        email: "ankit@gmail.com",
-        accountType: "User",
-      },
-    ],
-  });
+  const [loading, setLoading] = useState(true);
+
   const [isShowing, setIsShowing] = useState(false);
+  const [projectData, setProjectData] = useState({});
+
+  //Fetch the project data
+  const fetchProject = () => {
+    fetch("/api/project/8c5d8d3e-b3a3-48ef-a80d-2bbf0241a95d").then(
+      (response) => {
+        response.json().then((e) => {
+          console.log(e);
+          setLoading(false);
+          setProjectData(e);
+        });
+      }
+    );
+  };
+  useEffect(fetchProject, []);
 
   //This adds a new task
-  function handleAddTask(formdata) {
-    setTasks((prev) => {
-      return [...prev, formdata];
+  async function handleAddTask(formdata) {
+    const response = await fetch(
+      "/api/task/8c5d8d3e-b3a3-48ef-a80d-2bbf0241a95d",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: formdata,
+      }
+    );
+    response.json().then((e) => {
+      console.log(e);
     });
-    console.log(tasks);
+    // setTasks((prev) => {
+    //   return [...prev, formdata];
+    // });
     setIsShowing(false);
   }
-  //This changes the task's status
-  function handleEvent(id, status) {
-    console.log(id, status);
-    setTasks((prev) => {
-      const newTasks = [];
-      for (let i = 0; i < prev.length; i++) {
-        const currentTask = prev[i];
-        if (currentTask.taskId == id) {
-          const updatedTask = { ...currentTask, status: status };
-          newTasks.push(updatedTask);
-        } else {
-          newTasks.push(currentTask);
-        }
-      }
-      console.log(newTasks);
-      return newTasks;
-    });
+
+  if (loading) {
+    return <div>Loading</div>;
   }
   return (
     <div className="project-home-hero">
@@ -154,21 +113,24 @@ export default function Project() {
             </ul>
           </div>
           {drop && (
-            <DropDown project={projects} handleClick={() => setDrop(false)} />
+            <DropDown
+              project={projectData}
+              handleClick={() => setDrop(false)}
+            />
           )}
         </div>
       </div>
       {navig == "board" ? (
-        <Board tasks={tasks} handleEvent={handleEvent} />
+        <Board show={isShowing} />
       ) : navig == "calendar" ? (
         <div>Calendar</div>
       ) : navig == "file" ? (
         <File />
       ) : (
-        <Overview />
+        <Overview project={projectData} />
       )}
       <Modal open={isShowing} close={() => setIsShowing(false)}>
-        <AddTask handleAddTask={handleAddTask} />
+        <AddTask handleAddTask={handleAddTask} project={projectData} />
       </Modal>
     </div>
   );
