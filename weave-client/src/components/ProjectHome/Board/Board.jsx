@@ -26,7 +26,6 @@ export default function Board({ show }) {
         status: status,
       }),
     });
-
     setTasks((prev) => {
       const newTasks = [];
       for (let i = 0; i < prev.length; i++) {
@@ -42,6 +41,7 @@ export default function Board({ show }) {
       return newTasks;
     });
   }
+
   return (
     <div className="board--section">
       <nav>

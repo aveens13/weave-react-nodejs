@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const projects = require("../lib/projects.js");
+const logsheet = require("../lib/logsheet.js");
 const fileUpload = require("express-fileupload");
 const router = Router();
 
@@ -15,4 +16,5 @@ router.get("/api/project/:projectId", projects.getIndividualProject);
 router.get("/api/tasks/:projectId", projects.getTasks);
 router.post("/api/task/:projectId", projects.addTask);
 router.post("/api/updatetask/:taskid", projects.updateTask);
+router.get("/api/logsheet", logsheet.logsheet);
 module.exports = router;

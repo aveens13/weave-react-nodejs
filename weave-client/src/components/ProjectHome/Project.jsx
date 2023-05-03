@@ -52,6 +52,19 @@ export default function Project() {
     setIsShowing(false);
   }
 
+  //Function to handle create logsheet
+  function handleCreateLogsheet() {
+    fetch("/api/logsheet")
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "logsheet.pdf";
+        a.click(); //Automatically calling the download
+      });
+  }
+
   if (loading) {
     return <div>Loading</div>;
   }
@@ -94,7 +107,9 @@ export default function Project() {
               )}
               {navig == "board" && (
                 <li>
-                  <button>Create Logsheet</button>
+                  <button onClick={handleCreateLogsheet}>
+                    Create Logsheet
+                  </button>
                 </li>
               )}
 
