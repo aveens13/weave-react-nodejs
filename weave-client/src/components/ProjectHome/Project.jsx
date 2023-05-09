@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Swal from "sweetalert2";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DropDown from "./Dropdown";
 import Modal from "../Modal/Modal";
@@ -8,6 +7,7 @@ import Board from "./Board/Board";
 import AddTask from "./Addtask";
 import File from "./File/File";
 import Overview from "./Overview/Overview";
+import Loader from "../Loader";
 export default function Project() {
   const [showTask, setShowTask] = useState(false);
   const [drop, setDrop] = useState(false);
@@ -46,9 +46,6 @@ export default function Project() {
     response.json().then((e) => {
       console.log(e);
     });
-    // setTasks((prev) => {
-    //   return [...prev, formdata];
-    // });
     setIsShowing(false);
   }
 
@@ -66,7 +63,7 @@ export default function Project() {
   }
 
   if (loading) {
-    return <div>Loading</div>;
+    return <Loader />;
   }
   return (
     <div className="project-home-hero">

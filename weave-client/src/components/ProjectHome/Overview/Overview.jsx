@@ -4,6 +4,7 @@ import SendIcon from "@mui/icons-material/Send";
 import img from "../../../assets/avatars/2.png";
 import img1 from "../../../assets/avatars/4.png";
 import { useState, useEffect } from "react";
+import Description from "./Description";
 export default function Overview({ project }) {
   return (
     <>
@@ -35,7 +36,9 @@ export default function Overview({ project }) {
         </div>
       </div>
       <div className="project-announcements">
-        <div className="main-overview"></div>
+        <div className="main-overview">
+          <Description />
+        </div>
         <div className="activity">
           <h3>Activity</h3>
           <div className="comment-section">

@@ -7,10 +7,12 @@ const router = Router();
 router.post("/api/create-project", projects.create);
 router.get("/api/project", projects.getProject);
 router.post(
-  "/api/fileupload",
+  "/api/fileupload/:projectId",
   fileUpload({ createParentPath: true }),
   projects.fileupload
 );
+router.get("/api/files", projects.getFiles);
+router.get("/api/file/:fileId", projects.fileAction);
 router.get("/api/checkmail/:email", projects.checkEmail);
 router.get("/api/project/:projectId", projects.getIndividualProject);
 router.get("/api/tasks/:projectId", projects.getTasks);

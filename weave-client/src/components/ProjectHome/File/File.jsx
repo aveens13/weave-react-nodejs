@@ -6,7 +6,7 @@ import xlsx from "../../../assets/xlsx.png";
 import svg from "../../../assets/svg.png";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Uploader from "./uploader";
 import Modal from "../../Modal/Modal";
 export default function File() {
@@ -17,36 +17,32 @@ export default function File() {
     year: "numeric",
   });
   const [uploader, setUploader] = useState(false);
-  const [files, setFiles] = useState([
-    {
-      name: "background.docx",
-      image: docx,
-      fileType: "docx",
-      fileSize: 4,
-      fileUploaded: uploaded,
-    },
-    {
-      name: "logsheet.pdf",
-      image: pdf,
-      fileType: "Pdf",
-      fileSize: 1,
-      fileUploaded: uploaded,
-    },
-    {
-      name: "background.docx",
-      image: docx,
-      fileType: "docx",
-      fileSize: 4,
-      fileUploaded: uploaded,
-    },
-    {
-      name: "logsheet.pdf",
-      image: pdf,
-      fileType: "Pdf",
-      fileSize: 1,
-      fileUploaded: uploaded,
-    },
-  ]);
+  const [files, setFiles] = useState([]);
+
+  //Fetch the files
+  useEffect(() => {
+    fetch("/api/files").then((result) => {
+      result.json().then((e) => {
+        setFiles(e);
+      });
+    });
+  }, [uploader]);
+
+  //Download the file
+  const downloadFileClicked = (id) => {
+    fetch(`/api/file/${id}`)
+      .then((result) => {
+        const fileName = result.headers.get("Content-Disposition");
+        return result.blob().then((blob) => ({ fileName, blob }));
+      })
+      .then(({ fileName, blob }) => {
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        link.click();
+        URL.revokeObjectURL(link.href);
+      });
+  };
   return (
     <>
       <motion.div
@@ -103,14 +99,25 @@ export default function File() {
           </ul>
           <div className="file-wrapper">
             {files.map((file) => (
-              <ul className="file-items">
+              <ul
+                className="file-items"
+                onClick={() => downloadFileClicked(file.fileId)}
+              >
                 <li className="file--name">
-                  <img src={file.image} alt="" />
-                  <div>{file.name}</div>
+                  {file.fileType == "application/pdf" ? (
+                    <img src={pdf} alt="" />
+                  ) : file.fileType == "docx" ? (
+                    <img src={docx} alt="" />
+                  ) : file.fileType == "xlsx/excel" ? (
+                    <img src={xlsx} alt="" />
+                  ) : (
+                    <img src={jpeg} alt="" />
+                  )}
+                  <div>{file.fileName}</div>
                 </li>
                 <li>{file.fileType}</li>
-                <li>{file.fileSize} MB</li>
-                <li>{file.fileUploaded}</li>
+                <li>{Math.round(file.fileSize / 1024)} KB</li>
+                <li>{file.fileCreated}</li>
               </ul>
             ))}
           </div>

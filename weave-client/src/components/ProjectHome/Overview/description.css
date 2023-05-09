@@ -1,0 +1,64 @@
+.description--hero{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 1rem 5rem;
+}
+
+.description--hero h3{
+    font-family: 'Lato', sans-serif;
+    font-size: 2rem;
+    font-weight: 400;
+}
+.description--hero p{
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+}
+.key-resources{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.key-resources .resource--card{
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    border-radius: 0.6rem;
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resource--card .image-div{
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2rem;
+}
+.resource--card .add-items{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.resource--card .image-div img{
+    width: 5rem;
+}
+.add-buttons{
+    display: flex;
+}
+.description--hero button{
+    margin-right: 2rem;
+    cursor: pointer;
+    /* border: none; */
+    border-radius: 0.35rem;
+}
+.add-buttons .create{
+    padding: 0.5rem 1rem;
+    background-color: blue;
+    border: none;
+}
+.add-buttons .add{
+    background-color: transparent;
+    border: 2.4px dotted black;
+    padding: 0.5rem 2rem;
+    color: black;
+}

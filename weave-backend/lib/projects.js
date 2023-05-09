@@ -1,7 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const fileUpload = require("express-fileupload");
-
+const fileSystem = require("fs");
+const mime = require("mime");
 //This function creates project
 exports.create = async (req, res) => {
   let members = req.body.members;
@@ -21,7 +22,6 @@ exports.create = async (req, res) => {
     let data = {
       ...req.body,
       deadline: new Date(req.body.deadline),
-      userId: "avinav-400",
       members: { connect: memberData },
     };
     const dbResp = await prisma.project.create({
@@ -35,6 +35,9 @@ exports.create = async (req, res) => {
 
 exports.getProject = async (req, res) => {
   const data = await prisma.project.findMany({
+    where: {
+      visibility: "public",
+    },
     include: {
       members: {
         select: {
@@ -103,21 +106,64 @@ exports.updateTask = async (req, res) => {
   console.log(response);
 };
 
-exports.fileupload = (req, res) => {
+exports.fileupload = async (req, res) => {
   if (req.files) {
     const file = req.files.file;
-    file.mv("./uploads/" + file.name, (err) => {
+    console.log(file);
+    const filePath = "./uploads/" + file.name;
+    file.mv(filePath, (err) => {
       if (err) {
         res.send(err);
-      } else {
-        res.status(200).json({
-          name: file.name,
-        });
       }
     });
+    if (
+      file.mimetype ==
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
+      file.mimetype = "docx";
+    } else if (
+      file.mimetype ==
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ) {
+      file.mimetype = "xlsx/excel";
+    }
+    try {
+      const result = await prisma.file.create({
+        data: {
+          fileName: file.name,
+          filePath: filePath,
+          fileType: file.mimetype,
+          projectId: req.params.projectId,
+          authorId: "avinav-400",
+          fileSize: file.size,
+        },
+      });
+      res.status(200).send(result);
+    } catch (error) {
+      res.send(error);
+    }
   }
 };
 
+exports.getFiles = async (req, res) => {
+  const result = await prisma.file.findMany();
+  res.status(200).send(result);
+};
+
+exports.fileAction = async (req, res) => {
+  const result = await prisma.file.findUnique({
+    where: {
+      fileId: req.params.fileId,
+    },
+  });
+  let filePath = result.filePath;
+  let file = fileSystem.createReadStream(filePath);
+  res.writeHead(200, {
+    "Content-Type": mime.getType(filePath),
+    "Content-Disposition": `${result.fileName}`,
+  });
+  file.pipe(res);
+};
 exports.checkEmail = async (req, res) => {
   const result = await prisma.user.findUnique({
     where: {

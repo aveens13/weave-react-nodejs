@@ -12,11 +12,14 @@ export default function Uploader({ close }) {
 
     const formData = new FormData();
     formData.append("file", file);
-
-    const response = await fetch("http://localhost:8000/api/fileupload", {
-      method: "POST",
-      body: formData,
-    });
+    const projectId = "04b274b2-5706-4904-b101-bef4875807ef";
+    const response = await fetch(
+      `http://localhost:8000/api/fileupload/${projectId}`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     if (response.ok) {
       response.json().then((e) => {
@@ -37,7 +40,7 @@ export default function Uploader({ close }) {
           <form>
             <input
               type="file"
-              accept=".doc,.docx,.pdf"
+              accept=".doc,.docx,.pdf,.xlsx,image/png,image/jpeg,image/jpg"
               id="fileID"
               onChange={handleChange}
             />

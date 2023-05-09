@@ -26,6 +26,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/create-project" element={<CreateProject />} />
             <Route path="/project" element={<Project />} />
+            <Route path="/explore" element={<ExplorePage />} />
           </Routes>
         </BrowserRouter>
       </div>

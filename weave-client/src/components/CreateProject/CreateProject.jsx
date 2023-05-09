@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Member from "./Member";
 export default function CreateProject() {
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState(["aveenavbhattarai@gmail.com"]);
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
   function handleAddmember(event) {
