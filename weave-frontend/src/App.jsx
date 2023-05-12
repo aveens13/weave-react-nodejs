@@ -2,10 +2,11 @@ import "./App.css";
 import Landingpage from "./components/landingpage/landingpage";
 import React, { useState, useEffect } from "react";
 import User from "./components/User/User";
+import Load from "./components/Loading";
 
 export const UserContext = React.createContext();
 function App() {
-  const [state, setState] = useState("landing");
+  const [state, setState] = useState("load");
   const [userData, setUserData] = useState({});
 
   //Checks the jwt token stored in the cookies for previous logins to automatically log the user in
@@ -17,6 +18,8 @@ function App() {
           setState("login");
           setUserData(result);
         });
+      } else {
+        setState("landing");
       }
     });
   }, [state]);
@@ -33,6 +36,8 @@ function App() {
         <User />
       </UserContext.Provider>
     );
+  } else {
+    return <Load />;
   }
 }
 export default App;

@@ -74,3 +74,13 @@
       border-radius: 0.3rem;
       font-size: 1.5rem;
     }
+  .load-content{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .load-content video{
+    width: 60%;
+    height: 60%;
+  }
