@@ -1,0 +1,68 @@
+/* form-css */
+.userdetail-form {
+  width: 60%;
+  padding: 2rem;
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.userdetail-form div {
+  padding: 1rem;
+  border-bottom: 1px solid rgb(0, 0, 256, 0.1);
+}
+
+.input-label {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.325rem;
+  display: inline-block;
+  width: 25rem;
+}
+
+.input-area {
+  display: flex;
+  border-bottom: 1px solid rgb(0, 0, 256, 0.1);
+}
+
+input {
+  flex: 1;
+  border-color: blue;
+  color: black;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  line-height: 1.325rem;
+  padding: 0.5rem 1rem;
+  margin-right: 20%;
+  box-sizing: border-box;
+}
+
+.image-inputbox {
+  font-size: 1rem;
+  line-height: 1.372rem;
+  color: grey;
+  background-color: white;
+  border: 1px solid blue;
+}
+
+/* to remove the default choose file button */
+.image-inputbox[type='file']::-webkit-file-upload-button {
+  display: none;
+}
+.image-inputbox[type='file']::file-selector-button {
+  display: none;
+}
+
+.bio-input {
+  border-color: blue;
+  font-size: 1rem;
+  line-height: 1.325rem;
+  height: 100px;
+  padding: 0.5rem;
+}
+
+.bio-div {
+  display: flex;
+}
