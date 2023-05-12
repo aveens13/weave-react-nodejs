@@ -68,7 +68,9 @@
 .side_card{
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: 25%;
+    align-items: center;
+    /* background-color: #A9A9A9; */
 }
 
 .task_title h1{
@@ -83,7 +85,7 @@
     flex-direction: column;
     background-color: white;
     height:55%;
-    width:23rem;
+    width:80%;
     padding:1rem;
     border-radius: 0.8rem;
     margin: 0rem 0.5rem 1rem 0.5rem;
@@ -109,7 +111,6 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 1rem;
-
 }
 
 .individual_tasks{
@@ -124,13 +125,22 @@
  .showing{
     display:flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 1rem ;
 }
 
 .showing span{
-    font-size: 0.9rem;
-    font-weight: 300;
-    font-style:italic;
+    height: 1.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: 100%;
+    display: flex;
+    margin: 0.2rem 0;
+    border-radius: 0.4rem;
+    justify-content: center;
+    align-items: center;
+    background-color: #c0e4cc;
 }
 
 
@@ -174,8 +184,8 @@ input[type=checkbox]:checked + span:before{
     background-color: white;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     height:15rem;
-    width: 24rem;
-    padding: 0.2rem;
+    width: 80%;
+    padding: 0.5rem;
     margin: 0rem 0.5rem 1rem 0.5rem;
     border-radius: 0.8rem;
 }
@@ -196,4 +206,10 @@ input[type=checkbox]:checked + span:before{
 
 .meeting_detail > p{
     font-weight: 700;
+}
+.meeting_detail > h3{
+    color: #f0d3b1;
+}
+.meeting_icon{
+    color: #f0d3b1;
 }

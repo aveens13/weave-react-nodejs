@@ -50,6 +50,31 @@ exports.getProject = async (req, res) => {
   res.send(data);
 };
 
+//Get the projects with assiciated members
+exports.getProjectusingMember = async (req, res) => {
+  const userId = req.params.userId;
+  const data = await prisma.project.findMany({
+    where: {
+      members: {
+        some: {
+          userId: userId,
+        },
+      },
+    },
+    include: {
+      members: {
+        select: {
+          userId: true,
+          name: true,
+          email: true,
+          accountType: true,
+        },
+      },
+    },
+  });
+  res.status(200).send(data);
+};
+
 exports.getIndividualProject = async (req, res) => {
   const data = await prisma.project.findUnique({
     where: {

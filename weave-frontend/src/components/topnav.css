@@ -51,3 +51,30 @@ a{
     margin-left: 0.5rem;
 }
 
+.settings{
+    position: fixed;
+    width: 10%;
+    top: 5%;
+    right: 5%;
+    background-color: black;
+    box-shadow: rgba(255, 255, 255, 0.5) 0px 4px 12px;
+    border-radius: 0.4rem;
+}
+.settings ul{
+    display: flex;
+    flex-direction: column;
+    padding: 0 0.5rem;
+}
+.settings ul li{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.3rem 1rem;
+    border-bottom: 0.2px solid #E5E4E2;
+    cursor: pointer;
+    border-radius: 0.4rem;
+}
+.settings ul li:hover{
+    background-color: rgba(63, 61, 61, 0.576);
+}

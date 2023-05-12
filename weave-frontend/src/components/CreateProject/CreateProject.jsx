@@ -1,9 +1,11 @@
 import "./createproject.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Member from "./Member";
+import { UserContext } from "../../App";
 export default function CreateProject(props) {
-  const [members, setMembers] = useState(["aveenavbhattarai@gmail.com"]);
+  const user = React.useContext(UserContext);
+  const [members, setMembers] = useState([user.data.email]);
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
   function handleAddmember(event) {

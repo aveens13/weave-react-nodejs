@@ -8,7 +8,6 @@ export const UserContext = React.createContext();
 function App() {
   const [state, setState] = useState("load");
   const [userData, setUserData] = useState({});
-
   //Checks the jwt token stored in the cookies for previous logins to automatically log the user in
   useEffect(() => {
     fetch("/api/v1/user/verifytoken").then((response) => {
@@ -26,6 +25,7 @@ function App() {
 
   function handleState(status) {
     setState(status);
+    window.location.reload(true);
   }
 
   if (state == "landing") {

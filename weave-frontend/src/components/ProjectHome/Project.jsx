@@ -21,7 +21,7 @@ export default function Project(props) {
   // useEffect(() => navigate("/"), [!props.projectId]);
   //Fetch the project data
   const fetchProject = () => {
-    fetch(`/api/project/${props.projectId}`).then((response) => {
+    fetch(`/api/projectinfo/${props.projectId}`).then((response) => {
       response.json().then((e) => {
         console.log(e);
         setLoading(false);
@@ -33,7 +33,7 @@ export default function Project(props) {
 
   //This adds a new task
   async function handleAddTask(formdata) {
-    const response = await fetch(`/api/project/${props.projectId}`, {
+    const response = await fetch(`/api/task/${props.projectId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

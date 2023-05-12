@@ -38,4 +38,9 @@ const deleteUser = async (req, res) => {
   res.status(200).json(user);
 };
 
-module.exports = { getAllUsers, createUser, updateUser, deleteUser };
+const logout = (req, res) => {
+  res.clearCookie("jwt");
+  // Response indicating that the user has been logged out
+  res.status(200).json({ message: "Logged out successfully" });
+};
+module.exports = { getAllUsers, createUser, updateUser, deleteUser, logout };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProCard from "./sub-components/projectcard";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
+import { motion } from "framer-motion";
 import {
   AccessTimeFilledOutlined,
   FilterListOutlined,
@@ -10,8 +11,9 @@ import {
 import taskdata from "./sub-components/taskdata";
 import Modal from "./Modal/Modal";
 import CreateProject from "./CreateProject/CreateProject";
-
+import { UserContext } from "../App";
 function Home(props) {
+  const user = React.useContext(UserContext);
   const navigate = useNavigate();
   const [open, setOpen] = useState();
   const [project, setproject] = useState([]);
@@ -19,7 +21,7 @@ function Home(props) {
   const [create, setCreate] = useState(false);
   //Fetch api to fetch the projects info
   useEffect(() => {
-    fetch("/api/project").then((response) => {
+    fetch(`/api/project/${user.data.userId}`).then((response) => {
       response.json().then((e) => {
         setproject(e);
         console.log(e);
@@ -85,17 +87,22 @@ function Home(props) {
                   </div>
 
                   {open === task.id && (
-                    <div className="showing">
+                    <motion.div
+                      animate={{ x: 5 }}
+                      transition={{ ease: "easeOut", duration: 0.2 }}
+                      className="showing"
+                    >
                       <span>Project : {task.project}</span>
                       <span>Assigned date : {task.assigned_date}</span>
                       <span>Deadline : {task.deadline}</span>
-                    </div>
+                    </motion.div>
                   )}
                 </li>
               ))}
             </ul>
           </div>
         </div>
+        <h3>Upcoming meetings</h3>
         <div className="meetings">
           <div className="individual_meeting">
             <div className="meeting_icon">
@@ -107,6 +114,7 @@ function Home(props) {
               <p>
                 <b>10:00 am - 10:30 am </b>
               </p>
+              <h3>Weave</h3>
             </div>
           </div>
           <div className="individual_meeting"></div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./topnav.css";
 import {
@@ -7,8 +7,10 @@ import {
   SearchOutlined,
   SettingsOutlined,
 } from "@mui/icons-material";
+import Settings from "./sub-components/Settings";
 
 function TopNav() {
+  const [settings, setSettings] = useState(false);
   return (
     <div className="top_nav">
       <div className="box">
@@ -20,13 +22,20 @@ function TopNav() {
         <a href="#">
           <NotificationAddOutlined className="top_nav_icon" fontSize="medium" />
         </a>
-        <a href="#">
+        <a
+          onClick={() =>
+            setSettings((prev) => {
+              return !prev;
+            })
+          }
+        >
           <SettingsOutlined className="top_nav_icon" fontSize="medium" />
         </a>
         <Link to="/profile">
           <AccountCircle className="top_nav_icon" fontSize="medium" />
         </Link>
       </div>
+      {settings && <Settings />}
     </div>
   );
 }
