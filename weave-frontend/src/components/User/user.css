@@ -1,0 +1,22 @@
+
+.user{
+    display: grid;
+    grid-template-columns: 4rem calc(100% - 4rem);
+    width: 100%;
+    /* border: 1px solid red; */
+    /* overflow-x: hidden; */
+    /* overflow-y: hidden; */
+}
+
+.rest{
+    height: 100vh;
+    display: flex;
+    flex-direction: column ;
+}
+.home{
+    overflow: auto;
+}
+
+.sidenav{
+    z-index: 999;
+}

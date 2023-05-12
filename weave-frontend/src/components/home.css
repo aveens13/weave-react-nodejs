@@ -1,0 +1,199 @@
+.main_home{
+    display:flex;
+    flex-direction: row;
+    gap: 1rem;
+    /* position: relative; */
+    height: 100%;
+    /* margin-left:1.5rem; */
+    border-radius: 2rem;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.project{
+    width:75%;
+    /* height:100%; */
+    background-color: white;
+    padding: 0.5rem;
+
+    /* background-color: aquamarine; */
+    
+}
+
+.title{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.7rem;
+    /* background-color: aqua; */
+}
+
+.title_left{
+    margin-left: 0.2rem;
+}
+
+.title_right{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 1.5rem;
+    gap: 1.5rem;
+
+}
+
+#create{
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.3rem;
+    font-weight: 600;
+    letter-spacing: 0.08rem;
+    color:white;
+    background-color: blueviolet;
+    cursor: pointer;
+}
+
+.card{
+    display: grid;
+    grid-template-columns: repeat(3,100%);
+    grid-column-gap:3rem;
+    grid-row-gap:3rem;
+    margin: 2rem;
+    width:28%;
+    height:33%;
+    cursor: pointer;
+}
+
+.side_card{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.task_title h1{
+    text-align: center;
+    margin-bottom: 2rem;
+    display: block;
+}
+
+.main_task_due{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    height:55%;
+    width:23rem;
+    padding:1rem;
+    border-radius: 0.8rem;
+    margin: 0rem 0.5rem 1rem 0.5rem;
+    gap: 1rem;
+    overflow: auto;
+}
+.main_task_due::-webkit-scrollbar{
+    border-radius: 10px;
+    background-color: gray;
+    width: 0.4rem;
+}
+.main_task_due::-webkit-scrollbar-thumb{
+    background-color: blueviolet;
+    border-radius: 0.3rem;
+}
+
+.tasks_due ul{
+    margin: 0;
+    padding: 0;
+}
+.tasks {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+
+}
+
+.individual_tasks{
+    display:flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    height: 1.5rem;
+}
+ .showing{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.showing span{
+    font-size: 0.9rem;
+    font-weight: 300;
+    font-style:italic;
+}
+
+
+
+
+input[type=checkbox]{
+    display:none;
+}
+
+input[type=checkbox] + span:before{
+    content:'\2714';
+    border: 0.1em solid black;
+    width: 0.5rem;
+    height: 0.4rem;
+    padding-left: 0.1rem;
+    padding-bottom:0.1rem;
+    border-radius: 0.2rem;
+    margin-right:0.3rem;
+    color:transparent;
+
+}
+
+input[type=checkbox]:checked + span:before{
+    color: white;
+    background-color: blueviolet;
+}
+
+.task_deadline{
+    font-size: 0.85rem;
+    font-weight: 100;
+    /* color: #A9A9A9; */
+    font-style: italic;
+}
+
+
+.arrow_icon{
+    cursor:pointer;
+}
+
+.meetings{
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    height:15rem;
+    width: 24rem;
+    padding: 0.2rem;
+    margin: 0rem 0.5rem 1rem 0.5rem;
+    border-radius: 0.8rem;
+}
+
+.individual_meeting{
+    display:flex;
+    flex-direction: row;
+    padding: 3rem;
+    border: 1px black;
+    gap: 2rem;
+}
+
+.meeting_detail > span{
+    font-weight: 500;
+    font-size: 1rem;
+    color: #A9A9A9;
+}
+
+.meeting_detail > p{
+    font-weight: 700;
+}
