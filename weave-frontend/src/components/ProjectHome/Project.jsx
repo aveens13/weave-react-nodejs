@@ -134,7 +134,7 @@ export default function Project(props) {
       ) : navig == "calendar" ? (
         <div>Calendar</div>
       ) : navig == "file" ? (
-        <File />
+        <File project={projectData} />
       ) : (
         <Overview project={projectData} />
       )}

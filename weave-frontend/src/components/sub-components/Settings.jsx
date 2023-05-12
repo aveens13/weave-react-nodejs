@@ -1,4 +1,5 @@
 import LogoutIcon from "@mui/icons-material/Logout";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useNavigate } from "react-router-dom";
 export default function Settings() {
   const navigate = useNavigate();
@@ -25,6 +26,10 @@ export default function Settings() {
         >
           <p>Logout</p>
           <LogoutIcon />
+        </li>
+        <li>
+          <p>Delete Account</p>
+          <DeleteOutlineIcon />
         </li>
       </ul>
     </div>

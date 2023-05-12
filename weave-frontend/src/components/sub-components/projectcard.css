@@ -1,6 +1,6 @@
 .main_card{
     width: 100%;
-    height:100%;
+    height:85%;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     border-radius: 1.5rem;
@@ -42,9 +42,39 @@
 
 .members{
     margin:0.3rem;
-    padding: 1rem;
+    display: flex;
+    padding: 1rem 1rem 0 1rem;
+}
+.members span img{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+.members .organization{
+    margin-left: auto;
+    display: flex;
+    height: 1.2rem;
+    padding: 0.1rem 0.3rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    align-items: center;
+    border-radius: 1rem;
+    justify-content: center;
+}
+.organization >p {
+    margin-left: 0.3rem;
+    font-size: 0.7rem;
 }
 
+.hide{
+    position: fixed;
+    background-color: rgba(193, 191, 191, 0.64);
+    display: none;
+    border-radius: 0.3rem;
+    padding: 0.2rem 0.8rem;
+}
+.members > span > img:hover + .hide{
+    display: block;
+}
 .members span::after{
     content:"\ ";
 }

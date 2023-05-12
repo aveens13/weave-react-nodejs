@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Uploader from "./uploader";
 import Modal from "../../Modal/Modal";
-export default function File() {
+export default function File({ project }) {
   const date = new Date(Date.now());
   const uploaded = date.toLocaleDateString("en-US", {
     month: "short",
@@ -125,7 +125,7 @@ export default function File() {
       </motion.div>
 
       <Modal open={uploader} close={() => setUploader(false)}>
-        <Uploader close={() => setUploader(false)} />
+        <Uploader close={() => setUploader(false)} project={project} />
       </Modal>
     </>
   );
