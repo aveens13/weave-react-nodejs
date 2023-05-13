@@ -1,31 +1,27 @@
 .profilepage-container {
   display: flex;
-  /* height: 80vh; */
-  /* overflow: hidden; */
+  background-color: rgb(247, 244, 244);
+  height: 100vh;
 }
 
-
 .profile-section {
-  background-color: #fcfcfc;
   display: flex;
-  height: 100%;
   flex-direction: column;
   width: 100%;
 }
 
 .cover-image {
-  height: 7rem;
+  height: 8rem;
   object-fit: cover;
 }
 
 .picture-section img {
   float: left;
-  height: 8rem;
-  width: 8rem;
+  height: 9rem;
+  width: 9rem;
   border-radius: 50%;
-  z-index: 1;
-  transform: translateY(-2.5rem);
-  margin: 0 2rem 0 3rem;
+  transform: translateY(-2rem);
+  margin: 0 2rem 0 5rem;
   padding: 5px;
   background-color: #fcfcfc;
   object-fit: cover;
@@ -35,26 +31,19 @@
   margin-top: 1rem;
 }
 
-.picture-section h4 {
-  clear: left;
-  margin-left: 3rem;
-  transform: translateY(-1.5rem);
-}
-
-.projects-section {
+.profile-navbar-section {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 15rem;
-  transform: translateY(-3rem);
+  transform: translateY(-4rem);
 }
 
 .projects-button {
   font-size: 1rem;
   line-height: 1.375rem;
-  padding: 0.75rem 0.75rem;
-  background-color: white;
+  padding: 0.75rem 2rem;
+  background-color: rgb(247, 244, 244);
   margin: 0 2rem;
   border: none;
 }
@@ -65,10 +54,9 @@
 }
 
 .component-container {
-  background-color: #fcfcfc;
-  transform: translateY(-1.5rem);
   display: flex;
   justify-content: center;
   width: 100%;
   height: 100%;
+  transform: translateY(-4rem);
 }
