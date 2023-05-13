@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./uploader.css";
-export default function Uploader({ close }) {
+export default function Uploader({ close, project }) {
   const [file, setFile] = useState("");
 
   function handleChange(e) {
@@ -13,7 +13,7 @@ export default function Uploader({ close }) {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch("http://localhost:8000/api/fileupload", {
+    const response = await fetch(`/api/fileupload/${project.projectId}`, {
       method: "POST",
       body: formData,
     });
