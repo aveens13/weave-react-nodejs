@@ -3,6 +3,8 @@ import "./projectcard.css";
 import Progress from "./progress";
 import { MoreHorizOutlined } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import tg from "../../assets/tag.png";
+import avatar from "../../assets/avatars/5.png";
 function ProCard(props) {
   const tag = props.project.tags.split(",");
   const dateNow = new Date();
@@ -36,8 +38,15 @@ function ProCard(props) {
       </div>
       <div className="members">
         {members.map((member) => (
-          <span>{member.name}</span>
+          <span>
+            <img src={avatar} alt="" />
+            <p className="hide">{member.name}</p>
+          </span>
         ))}
+        <div className="organization">
+          <img src={tg} alt="" />
+          <p>Kathmandu University</p>
+        </div>
       </div>
     </motion.div>
   );

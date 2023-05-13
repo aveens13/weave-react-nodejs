@@ -71,10 +71,10 @@ a{
     align-items: center;
     justify-content: space-between;
     padding: 0.3rem 1rem;
-    border-bottom: 0.2px solid #E5E4E2;
+    border-bottom: 0.2px dotted #E5E4E2;
     cursor: pointer;
-    border-radius: 0.4rem;
 }
 .settings ul li:hover{
+    border-radius: 0.4rem;
     background-color: rgba(63, 61, 61, 0.576);
 }
