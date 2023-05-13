@@ -1,9 +1,9 @@
 .projects-container {
-  /* padding: 1rem; */
+  padding: 1rem;
   border-radius: 1rem;
   margin: 0 13%;
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
 }
 
 .individual-project {
@@ -40,7 +40,6 @@
 
 .project-section-languages {
   display: flex;
-  list-style: none;
   padding: 1rem;
 }
 .project-section-languages li {
@@ -48,9 +47,6 @@
 }
 
 .project-section-languages li span {
-  background-color: #c0e4cc;
   position: relative;
-  padding: 0.4rem 1rem;
-  border-radius: 0.4rem;
   left: -10px;
 }

@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import DropDown from "./Dropdown";
-import Modal from "../Modal/Modal";
-import "./project.css";
-import Board from "./Board/Board";
-import AddTask from "./Addtask";
-import File from "./File/File";
-import Overview from "./Overview/Overview";
-import Loader from "../Loader";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import DropDown from './Dropdown';
+import Modal from '../Modal/Modal';
+import './project.css';
+import Board from './Board/Board';
+import AddTask from './Addtask';
+import File from './File/File';
+import Overview from './Overview/Overview';
+import Loader from '../Loader';
+import Calendar from '../calendar/calendar';
+import { useNavigate } from 'react-router-dom';
 export default function Project(props) {
   const [showTask, setShowTask] = useState(false);
   const [drop, setDrop] = useState(false);
-  const [navig, setNavig] = useState("overview");
+  const [navig, setNavig] = useState('overview');
   const [loading, setLoading] = useState(true);
   const [isShowing, setIsShowing] = useState(false);
   const [projectData, setProjectData] = useState({});
@@ -34,9 +35,9 @@ export default function Project(props) {
   //This adds a new task
   async function handleAddTask(formdata) {
     const response = await fetch(`/api/task/${props.projectId}`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: formdata,
     });
@@ -48,13 +49,13 @@ export default function Project(props) {
 
   //Function to handle create logsheet
   function handleCreateLogsheet() {
-    fetch("/api/logsheet")
+    fetch('/api/logsheet')
       .then((response) => response.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
+        const a = document.createElement('a');
         a.href = url;
-        a.download = "logsheet.pdf";
+        a.download = 'logsheet.pdf';
         a.click(); //Automatically calling the download
       });
   }
@@ -63,43 +64,43 @@ export default function Project(props) {
     return <Loader />;
   }
   return (
-    <div className="project-home-hero">
-      <div className="document-section">
-        <div className="document--hero">
-          <div className="top-document-info">
+    <div className='project-home-hero'>
+      <div className='document-section'>
+        <div className='document--hero'>
+          <div className='top-document-info'>
             <ul>
               <li
-                onClick={() => setNavig("overview")}
-                className={navig == "overview" ? "active" : ""}
+                onClick={() => setNavig('overview')}
+                className={navig == 'overview' ? 'active' : ''}
               >
                 Overview
               </li>
               <li
-                onClick={() => setNavig("board")}
-                className={navig == "board" ? "active" : ""}
+                onClick={() => setNavig('board')}
+                className={navig == 'board' ? 'active' : ''}
               >
                 Board
               </li>
               <li
-                onClick={() => setNavig("calendar")}
-                className={navig == "calendar" ? "active" : ""}
+                onClick={() => setNavig('calendar')}
+                className={navig == 'calendar' ? 'active' : ''}
               >
                 Calendar
               </li>
               <li
-                onClick={() => setNavig("file")}
-                className={navig == "file" ? "active" : ""}
+                onClick={() => setNavig('file')}
+                className={navig == 'file' ? 'active' : ''}
               >
                 File
               </li>
-              {navig == "board" && (
+              {navig == 'board' && (
                 <li>
                   <button onClick={() => setIsShowing(true)}>
                     Add New Task
                   </button>
                 </li>
               )}
-              {navig == "board" && (
+              {navig == 'board' && (
                 <li>
                   <button onClick={handleCreateLogsheet}>
                     Create Logsheet
@@ -107,9 +108,9 @@ export default function Project(props) {
                 </li>
               )}
 
-              <li className="top-document">
+              <li className='top-document'>
                 <div
-                  className="drop-icon"
+                  className='drop-icon'
                   onClick={() =>
                     setDrop((prev) => {
                       return !prev;
@@ -129,11 +130,12 @@ export default function Project(props) {
           )}
         </div>
       </div>
-      {navig == "board" ? (
+      {navig == 'board' ? (
         <Board show={isShowing} />
-      ) : navig == "calendar" ? (
-        <div>Calendar</div>
-      ) : navig == "file" ? (
+      ) : navig == 'calendar' ? (
+        <Calendar />
+      ) : // <h2>calendar</h2>
+      navig == 'file' ? (
         <File />
       ) : (
         <Overview project={projectData} />
