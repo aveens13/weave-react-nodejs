@@ -21,7 +21,7 @@ export default function File({ project }) {
 
   //Fetch the files
   useEffect(() => {
-    fetch("/api/files").then((result) => {
+    fetch(`/api/files/${project.projectId}`).then((result) => {
       result.json().then((e) => {
         setFiles(e);
       });

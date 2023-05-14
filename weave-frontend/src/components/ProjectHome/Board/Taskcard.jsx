@@ -6,7 +6,9 @@ import {
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import image from "../../../assets/avatars/6.png";
+import { useEffect, useState } from "react";
 export default function TaskCard(props) {
+  const [user, setUser] = useState({});
   const date = new Date(props.task.deadline);
   const deadline = date.toLocaleDateString("en-US", {
     month: "short",
@@ -19,6 +21,14 @@ export default function TaskCard(props) {
       props.handleMe(props.task.taskId, "progress");
     else props.handleMe(props.task.taskId, "completed");
   }
+
+  useEffect(() => {
+    fetch(`/api/getuserinfo/${props.task.userid}`).then((res) => {
+      res.json().then((e) => {
+        setUser(e);
+      });
+    });
+  }, []);
   return (
     <motion.div
       animate={{ scale: 1 }}
@@ -48,7 +58,7 @@ export default function TaskCard(props) {
         <p className="date">{deadline}</p>
         <div className="bottom">
           <img src={image} alt="" />
-          <p>NA</p>
+          <p>{user.name}</p>
         </div>
       </div>
     </motion.div>

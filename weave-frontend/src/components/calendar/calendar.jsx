@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import FullCalendar from '@fullcalendar/react';
-import { formatDate } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import listPlugin from '@fullcalendar/list';
+import { useEffect, useState } from "react";
+import FullCalendar from "@fullcalendar/react";
+import { formatDate } from "@fullcalendar/core";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import listPlugin from "@fullcalendar/list";
 import {
   Box,
   List,
@@ -12,13 +12,27 @@ import {
   ListItemText,
   Typography,
   useTheme,
-} from '@mui/material';
+} from "@mui/material";
 
-const Calendar = () => {
+const Calendar = (props) => {
   const [currentEvents, setCurrentEvents] = useState([]);
+  // useEffect(() => {
+  //   fetch(`/api/tasks/${props.project.projectId}`).then((res) => {
+  //     res.json().then((result) => {
+  //       const list = result.map((task) => {
+  //         const date = task.deadline;
+  //         const data = [...task, date];
+  //         return data;
+  //       });
+  //       setCurrentEvents(list);
+  //     });
+  //   });
+  // }, []);
+
+  console.log(currentEvents);
 
   const handleDateClick = (selected) => {
-    const title = prompt('Please enter a new title for your event');
+    const title = prompt("Please enter a new title for your event");
     const calendarApi = selected.view.calendar;
     calendarApi.unselect();
 
@@ -44,19 +58,24 @@ const Calendar = () => {
   };
 
   return (
-    <Box m='20px'>
-      <Box display='flex' justifyContent='space-between'>
+    <Box m="20px">
+      <Box display="flex" justifyContent="space-between">
         {/* CALENDAR SIDEBAR */}
-        <Box flex='1 1 20%' backgroundColor='grey' p='15px' borderRadius='4px'>
-          <Typography variant='h5'>Events</Typography>
+        <Box
+          flex="1 1 20%"
+          backgroundColor="#323ee29a"
+          p="15px"
+          borderRadius="4px"
+        >
+          <Typography variant="h5">Events</Typography>
           <List>
             {currentEvents.map((event) => (
               <ListItem
                 key={event.id}
                 sx={{
-                  backgroundColor: 'grey',
-                  margin: '10px 0',
-                  borderRadius: '2px',
+                  backgroundColor: "grey",
+                  margin: "10px 0",
+                  borderRadius: "2px",
                 }}
               >
                 <ListItemText
@@ -64,9 +83,9 @@ const Calendar = () => {
                   secondary={
                     <Typography>
                       {formatDate(event.start, {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
                       })}
                     </Typography>
                   }
@@ -77,9 +96,9 @@ const Calendar = () => {
         </Box>
 
         {/* CALENDAR */}
-        <Box flex='1 1 100%' ml='15px'>
+        <Box flex="1 1 100%" ml="15px">
           <FullCalendar
-            height='75vh'
+            height="75vh"
             plugins={[
               dayGridPlugin,
               timeGridPlugin,
@@ -87,11 +106,11 @@ const Calendar = () => {
               listPlugin,
             ]}
             headerToolbar={{
-              left: 'prev,next today',
-              center: 'title',
-              right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
+              left: "prev,next today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
-            initialView='dayGridMonth'
+            initialView="dayGridMonth"
             editable={true}
             selectable={true}
             selectMirror={true}
@@ -101,14 +120,14 @@ const Calendar = () => {
             eventsSet={(events) => setCurrentEvents(events)}
             initialEvents={[
               {
-                id: '12315',
-                title: 'All-day event',
-                date: '2022-09-14',
+                id: "12315",
+                title: "All-day event",
+                date: "2023-05-14",
               },
               {
-                id: '5123',
-                title: 'Timed event',
-                date: '2022-09-28',
+                id: "5123",
+                title: "What the",
+                date: "2023-05-28",
               },
             ]}
           />

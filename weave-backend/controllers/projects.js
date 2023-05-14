@@ -1,6 +1,21 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+//This is redundant api for getting user details using provided id
+exports.getUserInfo = async (req, res) => {
+  const result = await prisma.user.findUnique({
+    where: {
+      userId: req.params.userId,
+    },
+    select: {
+      userId: true,
+      name: true,
+      email: true,
+      accountType: true,
+    },
+  });
+  res.status(200).send(result);
+};
 //This function creates project
 exports.create = async (req, res) => {
   let members = req.body.members;

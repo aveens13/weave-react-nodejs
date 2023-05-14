@@ -43,7 +43,11 @@ exports.fileupload = async (req, res) => {
 };
 
 exports.getFiles = async (req, res) => {
-  const result = await prisma.file.findMany();
+  const result = await prisma.file.findMany({
+    where: {
+      projectId: req.params.projectId,
+    },
+  });
   res.status(200).send(result);
 };
 

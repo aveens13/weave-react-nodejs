@@ -45,7 +45,7 @@ function ProCard(props) {
         ))}
         <div className="organization">
           <img src={tg} alt="" />
-          <p>Kathmandu University</p>
+          {props.project.organization ?? <p>{props.project.organization}</p>}
         </div>
       </div>
     </motion.div>
