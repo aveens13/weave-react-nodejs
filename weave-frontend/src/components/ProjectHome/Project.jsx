@@ -131,9 +131,9 @@ export default function Project(props) {
         </div>
       </div>
       {navig == "board" ? (
-        <Board show={isShowing} />
+        <Board show={isShowing} projectId={projectData.projectId} />
       ) : navig == "calendar" ? (
-        <Calendar />
+        <Calendar project={projectData} />
       ) : navig == "file" ? (
         <File project={projectData} />
       ) : (

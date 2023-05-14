@@ -27,10 +27,12 @@
   border-bottom: 1px solid rgb(0, 0, 256, 0.1);
 }
 
-input {
+.userdetail-form .input-area input {
   flex: 1;
-  border-color: blue;
+  /* border-color: blue; */
   color: black;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border: none;
   border-radius: 0.8rem;
   font-size: 1rem;
   line-height: 1.325rem;
@@ -38,7 +40,15 @@ input {
   margin-right: 20%;
   box-sizing: border-box;
 }
-
+.userdetail-form input[type="submit"]{
+  width: 10rem;
+  line-height: 2rem;
+  align-items: center;
+  border: none;
+  border-radius: 0.4rem;
+  color: white;
+  background-color: blueviolet;
+}
 .image-inputbox {
   font-size: 1rem;
   line-height: 1.372rem;

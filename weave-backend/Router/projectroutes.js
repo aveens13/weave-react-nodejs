@@ -10,6 +10,7 @@ router.get("/api/checkmail/:email", projects.checkEmail); //Checks mail when add
 router.get("/api/project", projects.getProject);
 router.get("/api/project/:userId", projects.getProjectusingMember);
 router.get("/api/projectinfo/:projectId", projects.getIndividualProject);
+router.get("/api/getuserinfo/:userId", projects.getUserInfo);
 
 //File Actions
 //Router to upload files
@@ -18,7 +19,7 @@ router.post(
   fileUpload({ createParentPath: true }),
   file.fileupload
 );
-router.get("/api/files", file.getFiles);
+router.get("/api/files/:projectId", file.getFiles);
 router.get("/api/file/:fileId", file.fileAction);
 
 //Task Actions
