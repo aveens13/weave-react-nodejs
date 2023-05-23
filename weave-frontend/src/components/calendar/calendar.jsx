@@ -63,9 +63,10 @@ const Calendar = (props) => {
         {/* CALENDAR SIDEBAR */}
         <Box
           flex="1 1 20%"
-          backgroundColor="#323ee29a"
+          backgroundColor="black"
           p="15px"
           borderRadius="4px"
+          color="white"
         >
           <Typography variant="h5">Events</Typography>
           <List>
@@ -73,8 +74,9 @@ const Calendar = (props) => {
               <ListItem
                 key={event.id}
                 sx={{
-                  backgroundColor: "grey",
+                  backgroundColor: "#3788d8",
                   margin: "10px 0",
+                  color: "white",
                   borderRadius: "2px",
                 }}
               >
