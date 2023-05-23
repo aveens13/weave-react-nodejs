@@ -7,10 +7,24 @@ const projectRoutes = require("./Router/projectroutes.js");
 const cors = require("cors");
 const cookieparser = require("cookie-parser");
 dotenv.config();
+const http = require("http");
 const PORT = process.env.PORT || 8080;
+const WebSocket = require("ws");
 
 //Creating an express app
 const app = express();
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
+wss.on("connection", (ws) => {
+  ws.on("message", (data) => {
+    wss.clients.forEach((client) => {
+      if (client != ws && client.readyState == WebSocket.OPEN) {
+        client.send(data);
+      }
+    });
+  });
+});
 
 //middleware
 app.use(express.json());
@@ -23,6 +37,11 @@ app.use(
 );
 app.use(cookieparser());
 
+// Root route handler
+app.get("/", (req, res) => {
+  res.send("Hello, Express!");
+});
+
 //Routes
 app.use(projectRoutes);
 app.use("/api/v1/user", require("./Router/login.js"));
@@ -33,6 +52,6 @@ app.use((req, res, next) => {
 });
 
 //Listening to the server
-app.listen(PORT, (req, res) => {
+server.listen(PORT, (req, res) => {
   console.log(`Server Started on http://localhost:${PORT}`);
 });
