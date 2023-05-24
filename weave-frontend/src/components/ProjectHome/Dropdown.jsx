@@ -21,12 +21,14 @@ export default function DropDown(props) {
       <div className="drop-nav">
         <nav>
           <ul>
-            <li>
-              <GitHub />
-              <a href={props.project.github_link} target="_blank">
-                Github
-              </a>
-            </li>
+            {props.project.github_link && (
+              <li>
+                <GitHub />
+                <a href={props.project.github_link} target="_blank">
+                  Github
+                </a>
+              </li>
+            )}
             <li>
               <DownloadForOffline /> Download Proposal
             </li>

@@ -161,3 +161,13 @@ exports.checkEmail = async (req, res) => {
     });
   }
 };
+
+exports.update = async (req, res) => {
+  const result = await prisma.project.update({
+    where: {
+      projectId: req.params.projectId,
+    },
+    data: req.body,
+  });
+  console.log(result);
+};

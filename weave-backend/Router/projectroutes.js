@@ -6,6 +6,7 @@ const fileUpload = require("express-fileupload");
 const router = Router();
 
 router.post("/api/create-project", projects.create);
+router.post("/api/update/:projectId", projects.update);
 router.get("/api/checkmail/:email", projects.checkEmail); //Checks mail when adding user to the project
 router.get("/api/project", projects.getProject);
 router.get("/api/project/:userId", projects.getProjectusingMember);

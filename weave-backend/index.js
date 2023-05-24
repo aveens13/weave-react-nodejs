@@ -10,6 +10,8 @@ dotenv.config();
 const http = require("http");
 const PORT = process.env.PORT || 8080;
 const WebSocket = require("ws");
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
 //Creating an express app
 const app = express();
@@ -17,12 +19,18 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on("connection", (ws) => {
-  ws.on("message", (data) => {
+  ws.on("message", async (data) => {
     wss.clients.forEach((client) => {
       if (client != ws && client.readyState == WebSocket.OPEN) {
         client.send(data);
       }
     });
+    const e = JSON.parse(data.toString());
+    delete e.sender;
+    const result = await prisma.message.create({
+      data: e,
+    });
+    console.log(result);
   });
 });
 
@@ -55,3 +63,5 @@ app.use((req, res, next) => {
 server.listen(PORT, (req, res) => {
   console.log(`Server Started on http://localhost:${PORT}`);
 });
+
+module.exports = { server };
