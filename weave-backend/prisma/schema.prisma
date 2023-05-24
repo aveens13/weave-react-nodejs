@@ -27,20 +27,22 @@ model User {
   memberProject Project[] @relation("member")
   File          File[]
   Task          Task[]
+  Message       Message[]
 }
 
 model Project {
-  projectId    String   @id @default(uuid())
+  projectId    String    @id @default(uuid())
   projectTitle String
-  visibility   String   @default("private")
+  visibility   String    @default("private")
   github_link  String?
   deadline     DateTime
   organization String?
   tags         String
   description  String?
-  members      User[]   @relation("member")
+  members      User[]    @relation("member")
   File         File[]
   Task         Task[]
+  Message      Message[]
 }
 
 model File {
@@ -66,6 +68,16 @@ model Task {
   project   Project  @relation(fields: [projectId], references: [projectId])
   projectId String
   userid    String
+}
+
+model Message {
+  messageId     String   @id @default(uuid())
+  author        User     @relation(fields: [userId], references: [userId])
+  project       Project  @relation(fields: [projectId], references: [projectId])
+  text          String
+  timeofdeliver DateTime @default(now())
+  userId        String
+  projectId     String
 }
 
 enum Role {

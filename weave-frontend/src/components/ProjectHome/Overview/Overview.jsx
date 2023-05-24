@@ -3,19 +3,18 @@ import FlagIcon from "@mui/icons-material/Flag";
 import { Send, AccessTimeFilledTwoTone } from "@mui/icons-material";
 import img from "../../../assets/avatars/2.png";
 import img1 from "../../../assets/avatars/4.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Swal from "sweetalert2";
 import Description from "./Description";
 import Message from "./message_component/message";
+import { UserContext } from "../../../App";
+
 export default function Overview({ project }) {
-  const [text, setText] = useState("");
-  const [message, setMessage] = useState("");
+  const [text, setText] = useState();
+  const [message, setMessage] = useState([]);
+  const user = useContext(UserContext);
   let ws = new WebSocket("ws://localhost:8000/");
   useEffect(() => {
-    // if (ws) {
-    //   ws.onerror = ws.onopen = ws.onclose = null;
-    //   ws.close();
-    // }
     ws.onopen = () => {
       console.log("Connection opened!");
     };
@@ -23,7 +22,9 @@ export default function Overview({ project }) {
       const reader = new FileReader();
       reader.onload = () => {
         const text = reader.result;
-        setMessage(text);
+        setMessage((prev) => {
+          return [...prev, JSON.parse(text)];
+        });
       };
       reader.readAsText(data);
     };
@@ -36,8 +37,17 @@ export default function Overview({ project }) {
     };
   }, []);
 
+  useEffect(() => {
+    console.log(message); // Log the updated message
+  }, [message]);
+
   function handleChange(e) {
-    setText(e.target.value);
+    setText({
+      sender: user.data.name,
+      userId: user.data.userId,
+      projectId: project.projectId,
+      text: e.target.value,
+    });
   }
 
   function handleClick() {
@@ -45,7 +55,7 @@ export default function Overview({ project }) {
       console.log("No WebSocket connection :(");
       return;
     }
-    ws.send(text);
+    ws.send(JSON.stringify(text));
   }
 
   async function handleAddLink() {
@@ -56,7 +66,15 @@ export default function Overview({ project }) {
     });
 
     if (url) {
-      Swal.fire(`Entered URL: ${url}`);
+      fetch(`/api/update/${project.projectId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          github_link: url,
+        }),
+      });
     }
   }
   return (
@@ -103,7 +121,9 @@ export default function Overview({ project }) {
         <div className="activity">
           <h3>Activity</h3>
           <div className="comment-section">
-            <Message message={message} />
+            {message.map((e) => (
+              <Message message={e} />
+            ))}
           </div>
           <div className="announce">
             <input type="text" placeholder="Announce" onChange={handleChange} />
