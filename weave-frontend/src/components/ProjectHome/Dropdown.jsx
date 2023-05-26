@@ -6,8 +6,10 @@ import {
   EnhancedEncryption,
   Public,
 } from "@mui/icons-material";
+import { useEffect, useState } from "react";
 
 export default function DropDown(props) {
+  const [status, setStatus] = useState(props.project.visibility);
   let tags = props.project.tags;
   const tagArray = tags.split(",");
   const date = new Date(props.project.deadline);
@@ -16,6 +18,19 @@ export default function DropDown(props) {
     day: "numeric",
     year: "numeric",
   });
+  console.log(status);
+  function handleUpdate(status) {
+    setStatus(status);
+    fetch(`/api/update/${props.project.projectId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        visibility: status,
+      }),
+    });
+  }
   return (
     <div className="drop--main">
       <div className="drop-nav">
@@ -59,12 +74,12 @@ export default function DropDown(props) {
           <div className="drop--info">
             <p className="fas-fa-grey">Visibility</p>
             <div className="desc-button">
-              {props.project.visibility == "private" ? (
-                <div className="private">
+              {status == "private" ? (
+                <div className="private" onClick={() => handleUpdate("public")}>
                   <EnhancedEncryption /> <p>Private</p>
                 </div>
               ) : (
-                <div className="public">
+                <div className="public" onClick={() => handleUpdate("private")}>
                   <Public /> <p>Public</p>
                 </div>
               )}

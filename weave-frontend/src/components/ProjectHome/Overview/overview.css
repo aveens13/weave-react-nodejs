@@ -6,8 +6,10 @@
     display: flex;
     align-items: center;
 }
-.header button{
+.header .button{
     margin-left: auto;
+}
+.header button{
     height: 3rem;
     display: flex;
     color: white;

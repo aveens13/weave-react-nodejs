@@ -98,6 +98,12 @@ export default function CreateProject(props) {
             placeholder="Organization Name"
           />
           <p className="gray">* Leave it blank if this is personal project</p>
+          <input
+            type="text"
+            name="projectSupervisor"
+            id="Title"
+            placeholder="Project Supervisor"
+          />
           <label htmlFor="add-members">Add members</label>
           <input
             type="email"

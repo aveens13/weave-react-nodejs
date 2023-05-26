@@ -56,13 +56,13 @@
 
 .card{
     display: grid;
-    grid-template-columns: repeat(3,100%);
+    grid-template-columns: repeat(3,3fr);
     grid-column-gap:3rem;
     grid-row-gap:3rem;
     margin: 2rem;
-    width:28%;
-    height:33%;
-    cursor: pointer;
+    /* width:28%; */
+    /* height:100%; */
+    /* cursor: pointer; */
 }
 
 .side_card{

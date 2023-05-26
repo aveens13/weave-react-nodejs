@@ -21,14 +21,6 @@ export default function TaskCard(props) {
       props.handleMe(props.task.taskId, "progress");
     else props.handleMe(props.task.taskId, "completed");
   }
-
-  useEffect(() => {
-    fetch(`/api/getuserinfo/${props.task.userid}`).then((res) => {
-      res.json().then((e) => {
-        setUser(e);
-      });
-    });
-  }, []);
   return (
     <motion.div
       animate={{ scale: 1 }}
@@ -58,7 +50,7 @@ export default function TaskCard(props) {
         <p className="date">{deadline}</p>
         <div className="bottom">
           <img src={image} alt="" />
-          <p>{user.name}</p>
+          <p>{props.task.name.name}</p>
         </div>
       </div>
     </motion.div>

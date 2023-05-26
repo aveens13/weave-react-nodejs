@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./overview.css";
 import ProjectBox from "./projectBox/projectBox";
 import Piechart from "./piechart/piechart";
@@ -6,6 +6,7 @@ import { BsListCheck } from "react-icons/bs";
 import { FaUniversity } from "react-icons/fa";
 import project from "../../../assets/project.png";
 import { Pie } from "@nivo/pie";
+import { UserContext } from "../../../App";
 
 const data = {
   completedProjects: 5,
@@ -20,6 +21,7 @@ const data1 = {
 };
 
 const overview = () => {
+  const { data } = useContext(UserContext);
   return (
     <div className="overview-container">
       <div className="highlights-container">
@@ -38,7 +40,7 @@ const overview = () => {
               alt="project-icon"
             />
             <div>
-              <h3> Completed Projects</h3>
+              <h3>Projects</h3>
               <h2>5</h2>
             </div>
           </div>
@@ -60,9 +62,9 @@ const overview = () => {
       </div>
       <div className="pinned-projects-container">
         <div className="pinned-projects">
-          <ProjectBox />
-          <ProjectBox />
-          <ProjectBox />
+          {data.pinnedProjects.map((project) => (
+            <ProjectBox project={project} />
+          ))}
         </div>
       </div>
     </div>

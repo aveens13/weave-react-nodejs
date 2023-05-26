@@ -8,8 +8,8 @@ import {
   FilterListOutlined,
   ArrowDropDown,
 } from "@mui/icons-material";
-import taskdata from "./sub-components/taskdata";
-import Modal from "./Modal/Modal";
+// import taskdata from "./sub-components/taskdata";
+import { Modal } from "antd";
 import CreateProject from "./CreateProject/CreateProject";
 import { UserContext } from "../App";
 function Home(props) {
@@ -17,7 +17,7 @@ function Home(props) {
   const navigate = useNavigate();
   const [open, setOpen] = useState();
   const [project, setproject] = useState([]);
-  const [task, settask] = useState(taskdata);
+  const [task, settask] = useState([]);
   const [create, setCreate] = useState(false);
   //Fetch api to fetch the projects info
   useEffect(() => {
@@ -28,6 +28,14 @@ function Home(props) {
       });
     });
   }, [create]);
+
+  useEffect(() => {
+    fetch(`/api/${user.data.userId}/tasks`).then((response) => {
+      response.json().then((e) => {
+        settask(e);
+      });
+    });
+  }, []);
 
   function handleClick(id) {
     console.log(id);
@@ -56,6 +64,7 @@ function Home(props) {
           {project.map((projectInfo) => (
             <ProCard
               project={projectInfo}
+              userId={user.data.userId}
               handleClick={(id) => {
                 props.handleClick(id);
                 navigate("/project");
@@ -72,29 +81,29 @@ function Home(props) {
 
           <div className="tasks_due">
             <ul>
-              {taskdata.map((task) => (
+              {task.map((task) => (
                 <li className="tasks">
                   <div className="individual_tasks">
                     <div>
                       <label>
                         <input type="checkbox" className="task_checkbox" />
-                        <span>{task.to_do}</span>
+                        <span>{task.title}</span>
                       </label>
                     </div>
-                    <div onClick={() => handleClick(task.id)}>
+                    <div onClick={() => handleClick(task.taskId)}>
                       <ArrowDropDown className="arrow_icon" />
                     </div>
                   </div>
 
-                  {open === task.id && (
+                  {open === task.taskId && (
                     <motion.div
                       animate={{ x: 5 }}
                       transition={{ ease: "easeOut", duration: 0.2 }}
                       className="showing"
                     >
-                      <span>Project : {task.project}</span>
-                      <span>Assigned date : {task.assigned_date}</span>
-                      <span>Deadline : {task.deadline}</span>
+                      <span>Project : {task.project.projectTitle}</span>
+                      <span>Information : {task.info}</span>
+                      <span>Deadline : {task.deadline.toString()}</span>
                     </motion.div>
                   )}
                 </li>
@@ -120,9 +129,21 @@ function Home(props) {
           <div className="individual_meeting"></div>
         </div>
       </div>
-      <Modal open={create} close={() => setCreate(false)}>
+      <Modal
+        title="Create a project"
+        centered
+        open={create}
+        onOk={() => setCreate(false)}
+        onCancel={() => setCreate(false)}
+        footer={null}
+        bodyStyle={{ height: 600 }}
+        width={500}
+      >
         <CreateProject close={() => setCreate(false)} />
       </Modal>
+      {/* <Modal open={create} close={() => setCreate(false)}>
+        <CreateProject close={() => setCreate(false)} />
+      </Modal> */}
     </div>
   );
 }
