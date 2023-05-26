@@ -1,21 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-//This is redundant api for getting user details using provided id
-exports.getUserInfo = async (req, res) => {
-  const result = await prisma.user.findUnique({
-    where: {
-      userId: req.params.userId,
-    },
-    select: {
-      userId: true,
-      name: true,
-      email: true,
-      accountType: true,
-    },
-  });
-  res.status(200).send(result);
-};
 //This function creates project
 exports.create = async (req, res) => {
   let members = req.body.members;
@@ -40,6 +25,7 @@ exports.create = async (req, res) => {
     const dbResp = await prisma.project.create({
       data: data,
     });
+    console.log(dbResp);
     return res.send(dbResp);
   } catch (error) {
     return res.send(error);
@@ -91,22 +77,29 @@ exports.getProjectusingMember = async (req, res) => {
 };
 
 exports.getIndividualProject = async (req, res) => {
-  const data = await prisma.project.findUnique({
-    where: {
-      projectId: req.params.projectId,
-    },
-    include: {
-      members: {
-        select: {
-          userId: true,
-          name: true,
-          email: true,
-          accountType: true,
+  if (req.params.projectId !== "undefined") {
+    const data = await prisma.project.findUnique({
+      where: {
+        projectId: req.params.projectId,
+      },
+      include: {
+        members: {
+          select: {
+            userId: true,
+            name: true,
+            email: true,
+            accountType: true,
+          },
         },
       },
-    },
-  });
-  res.status(200).send(data);
+    });
+    res.status(200).send(data);
+  } else {
+    res.status(400).send({
+      message: "No Project Id Submitted",
+      status: "Error",
+    });
+  }
 };
 
 exports.getTasks = async (req, res) => {
@@ -114,8 +107,23 @@ exports.getTasks = async (req, res) => {
     where: {
       projectId: req.params.projectId,
     },
+    include: {
+      name: true,
+    },
   });
   res.send(data);
+};
+
+exports.getIndividaulTasks = async (req, res) => {
+  const data = await prisma.task.findMany({
+    where: {
+      userid: req.params.id,
+    },
+    include: {
+      project: true,
+    },
+  });
+  res.status(200).send(data);
 };
 
 exports.addTask = async (req, res) => {
@@ -163,6 +171,7 @@ exports.checkEmail = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
+  console.log(req.body);
   const result = await prisma.project.update({
     where: {
       projectId: req.params.projectId,
@@ -170,4 +179,68 @@ exports.update = async (req, res) => {
     data: req.body,
   });
   console.log(result);
+};
+
+exports.getMessages = async (req, res) => {
+  const result = await prisma.message.findMany({
+    where: {
+      projectId: req.params.projectId,
+    },
+    include: {
+      author: true,
+    },
+  });
+  res.status(200).send(result);
+};
+
+exports.pinproject = async (req, res) => {
+  let userId = req.params.userId;
+  let projectId = req.params.projectId;
+  try {
+    // Fetch the user from the database
+    const user = await prisma.user.findUnique({
+      where: {
+        userId: userId,
+      },
+      include: {
+        pinnedProjects: {
+          select: {
+            projectId: true,
+          },
+        },
+      },
+    });
+
+    // Retrieve the existing pinnedProjects array
+    const pinnedProjects = user.pinnedProjects || [];
+
+    // Add the new project to the pinnedProjects array if it doesn't already exist
+    if (!pinnedProjects.find((project) => project.projectId === projectId)) {
+      pinnedProjects.push({ projectId: projectId });
+    } else {
+      return res.status(400).send({
+        message: "This Project is already pinned",
+      });
+    }
+
+    // Update the user with the updated pinnedProjects array
+    const updatedUser = await prisma.user.update({
+      where: {
+        userId: userId,
+      },
+      data: {
+        pinnedProjects: {
+          set: pinnedProjects,
+        },
+      },
+    });
+
+    return res.status(200).send(pinnedProjects);
+  } catch (error) {
+    console.error("Error adding project to pinnedProjects:", error);
+    res.status(400).send({
+      message: "Error while pinning the project",
+    });
+    throw error;
+  }
 };
