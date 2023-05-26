@@ -1,13 +1,22 @@
 import "./login.css";
 import { useRef, useEffect } from "react";
+import { Button, message } from "antd";
 import Google from "../../assets/google.svg";
 export default function Login(props) {
+  const [messageApi, contextHolder] = message.useMessage();
+  const key = "updatable";
+
   async function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
     const circulartoPlain = Object.fromEntries(formData.entries());
     const formDataJsonString = JSON.stringify(circulartoPlain);
+    messageApi.open({
+      key,
+      type: "loading",
+      content: "Loading...",
+    });
     const response = await fetch("/api/v1/user/login", {
       method: "POST",
       headers: {
@@ -17,17 +26,28 @@ export default function Login(props) {
     });
     if (response.ok) {
       response.json().then((e) => {
-        console.log(e);
+        messageApi.open({
+          key,
+          type: "success",
+          content: "Loaded!",
+          duration: 2,
+        });
         props.setState("login");
       });
     } else {
       response.json().then((e) => {
-        console.log(e);
+        messageApi.open({
+          key,
+          type: "error",
+          content: "Username or password incorrect!",
+          duration: 2,
+        });
       });
     }
   }
   return (
     <div className="login-registration-form">
+      {contextHolder}
       <div className="loginSection">
         <div className="login-card">
           <div className="top-section">

@@ -1,30 +1,25 @@
 import React from "react";
 import "./projectBox.css";
 import SellIcon from "@mui/icons-material/Sell";
-const projectBox = () => {
+const projectBox = ({ project }) => {
+  const tags = project.tags.split(",");
   return (
     <>
       <div className="projectBox-container">
-        <h3 className="project-tag">React</h3>
+        <h3 className="project-tag">{project.organization}</h3>
         <div className="project-title-container">
-          <h2 className="project-title">Weave</h2>
+          <h2 className="project-title">{project.projectTitle}</h2>
         </div>
         <ul className="language-tags">
-          <li>
-            {" "}
-            <span>
+          {tags.map((tag) => (
+            <li>
               {" "}
-              <SellIcon />
-              <p>javascript</p>
-            </span>{" "}
-          </li>
-          <li>
-            {" "}
-            <span>
-              <SellIcon />
-              <p>html/css</p>
-            </span>
-          </li>
+              <span>
+                <SellIcon />
+                <p>{tag}</p>
+              </span>
+            </li>
+          ))}
         </ul>
       </div>
     </>

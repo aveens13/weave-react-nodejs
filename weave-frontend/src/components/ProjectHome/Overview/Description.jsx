@@ -4,10 +4,51 @@ import { useState, useEffect } from "react";
 import image from "../../../assets/image.jpg";
 import pdf from "../../../assets/pdf.svg";
 import { ModeCommentTwoTone } from "@mui/icons-material";
-export default function Description({ brief }) {
+import Textarea from "./message_component/text_area";
+import { UploadOutlined } from "@ant-design/icons";
+import { Button, Space, Upload, Modal } from "antd";
+
+export default function Description({ project }) {
+  const [open, setOpen] = useState(false);
+  const [info, setInfo] = useState("");
+  const [confirmLoading, setConfirmLoading] = useState(false);
+
+  //For modal
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const handleOk = () => {
+    setConfirmLoading(true);
+    console.log(info);
+    fetch(`/api/update/${project.projectId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        description: info,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((e) => {
+          console.log(e);
+        });
+      }
+    });
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
+
   return (
     <div className="description--hero">
-      {brief ? (
+      {project.description ? (
         <div className="project-brief">
           <div className="wrapper-brief">
             <div className="image-section">
@@ -15,7 +56,7 @@ export default function Description({ brief }) {
             </div>
             <div className="brief-section">
               <h2>Project Brief</h2>
-              <p>{brief}</p>
+              <p>{project.description}</p>
               <div className="file-section">
                 <ul>
                   <li>
@@ -40,8 +81,16 @@ export default function Description({ brief }) {
                 supporting files.
               </p>
               <div className="add-buttons">
-                <button className="create">Create Project brief</button>
-                <button className="add">Add files</button>
+                <button className="create" onClick={showModal}>
+                  Create Project brief
+                </button>
+                <Upload
+                  action={`/api/fileupload/${project.projectId}`}
+                  listType="picture"
+                  maxCount={1}
+                >
+                  <Button icon={<UploadOutlined />}>Upload Proposal</Button>
+                </Upload>
               </div>
             </div>
           </div>
@@ -89,6 +138,39 @@ export default function Description({ brief }) {
           </li>
         </ul>
       </div>
+      <Modal
+        title="Project Description"
+        open={open}
+        onOk={handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+      >
+        <Textarea onChange={(info) => setInfo(info)} />
+      </Modal>
     </div>
   );
 }
+
+import React from "react";
+
+// const App: React.FC = () => (
+//   <Space direction="vertical" style={{ width: '100%' }} size="large">
+//     <Upload
+//       action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+//       listType="picture"
+//       maxCount={1}
+//     >
+//       <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
+//     </Upload>
+//     <Upload
+//       action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+//       listType="picture"
+//       maxCount={3}
+//       multiple
+//     >
+//       <Button icon={<UploadOutlined />}>Upload (Max: 3)</Button>
+//     </Upload>
+//   </Space>
+// );
+
+// export default App;

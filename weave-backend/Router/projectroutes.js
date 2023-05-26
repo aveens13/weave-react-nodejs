@@ -11,7 +11,8 @@ router.get("/api/checkmail/:email", projects.checkEmail); //Checks mail when add
 router.get("/api/project", projects.getProject);
 router.get("/api/project/:userId", projects.getProjectusingMember);
 router.get("/api/projectinfo/:projectId", projects.getIndividualProject);
-router.get("/api/getuserinfo/:userId", projects.getUserInfo);
+router.get("/api/messages/:projectId", projects.getMessages);
+router.get("/api/pinproject/:userId/:projectId", projects.pinproject);
 
 //File Actions
 //Router to upload files
@@ -25,7 +26,8 @@ router.get("/api/file/:fileId", file.fileAction);
 
 //Task Actions
 router.get("/api/tasks/:projectId", projects.getTasks);
+router.get("/api/:id/tasks", projects.getIndividaulTasks);
 router.post("/api/task/:projectId", projects.addTask);
 router.post("/api/updatetask/:taskid", projects.updateTask);
-router.get("/api/logsheet", logsheet.logsheet);
+router.get("/api/logsheet/:projectId", logsheet.logsheet);
 module.exports = router;

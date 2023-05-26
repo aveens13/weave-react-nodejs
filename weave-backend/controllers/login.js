@@ -27,9 +27,10 @@ const login = async (req, res, next) => {
   }
 
   //verify the password with the hashed password
-  const isVerified = verifyPassword(password, user.password);
+  const isVerified = await verifyPassword(password, user.password);
+  console.log(isVerified);
   if (!isVerified) {
-    res
+    return res
       .status(StatusCodes.UNAUTHORIZED)
       .json({ msg: "Please Check your Password" });
   }
@@ -60,6 +61,7 @@ const checktoken = (req, res) => {
               userId: decodedToken.userId,
             },
             select: {
+              pinnedProjects: true,
               userId: true,
               email: true,
               name: true,

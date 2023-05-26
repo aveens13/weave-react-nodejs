@@ -10,24 +10,31 @@ import Overview from "./Overview/Overview";
 import Loader from "../Loader";
 import Calendar from "../calendar/calendar";
 import { useNavigate } from "react-router-dom";
+import { Button } from "antd";
 export default function Project(props) {
   const [showTask, setShowTask] = useState(false);
   const [drop, setDrop] = useState(false);
   const [navig, setNavig] = useState("overview");
   const [loading, setLoading] = useState(true);
+  const [buttonLoad, setButtonLoad] = useState(false);
   const [isShowing, setIsShowing] = useState(false);
   const [projectData, setProjectData] = useState({});
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // useEffect(() => navigate("/"), [!props.projectId]);
   //Fetch the project data
   const fetchProject = () => {
     fetch(`/api/projectinfo/${props.projectId}`).then((response) => {
-      response.json().then((e) => {
-        console.log(e);
-        setLoading(false);
-        setProjectData(e);
-      });
+      if (response.ok) {
+        response.json().then((e) => {
+          console.log(e);
+          setLoading(false);
+          setProjectData(e);
+        });
+      } else {
+        console.log("Came here");
+        navigate("/");
+      }
     });
   };
   useEffect(fetchProject, []);
@@ -49,7 +56,8 @@ export default function Project(props) {
 
   //Function to handle create logsheet
   function handleCreateLogsheet() {
-    fetch("/api/logsheet")
+    setButtonLoad(true);
+    fetch(`/api/logsheet/${props.projectId}`)
       .then((response) => response.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(blob);
@@ -57,6 +65,9 @@ export default function Project(props) {
         a.href = url;
         a.download = "logsheet.pdf";
         a.click(); //Automatically calling the download
+      })
+      .finally(() => {
+        setButtonLoad(false);
       });
   }
 
@@ -102,9 +113,16 @@ export default function Project(props) {
               )}
               {navig == "board" && (
                 <li>
-                  <button onClick={handleCreateLogsheet}>
+                  {/* <button onClick={handleCreateLogsheet}>
                     Create Logsheet
-                  </button>
+                  </button> */}
+                  <Button
+                    type="primary"
+                    loading={buttonLoad}
+                    onClick={handleCreateLogsheet}
+                  >
+                    Create Logsheet
+                  </Button>
                 </li>
               )}
 
