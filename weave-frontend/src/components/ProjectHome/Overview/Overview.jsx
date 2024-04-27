@@ -9,7 +9,7 @@ import Message from "./message_component/message";
 import { UserContext } from "../../../App";
 import { DatePicker, Space } from "antd";
 
-export default function Overview({ project }) {
+export default function Overview({ project, taskInfo }) {
   const [text, setText] = useState();
   const [message, setMessage] = useState([]);
   const [assign, setAssign] = useState(false);
@@ -144,7 +144,7 @@ export default function Overview({ project }) {
       </div>
       <div className="project-announcements">
         <div className="main-overview">
-          <Description project={project} />
+          <Description project={project} taskInfo={taskInfo} />
         </div>
         <div className="activity">
           <h3>Activity</h3>

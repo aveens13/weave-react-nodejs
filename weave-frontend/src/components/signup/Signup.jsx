@@ -1,12 +1,21 @@
 import "../login/login.css";
 import Google from "../../assets/google.svg";
+import { Button, message } from "antd";
 export default function Signup(props) {
+  const [messageApi, contextHolder] = message.useMessage();
+  const key = "updatable";
+
   async function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
     const circulartoPlain = Object.fromEntries(formData.entries());
     const formDataJsonString = JSON.stringify(circulartoPlain);
+    messageApi.open({
+      key,
+      type: "loading",
+      content: "Signing Up...",
+    });
     const response = await fetch("/api/v1/user/", {
       method: "POST",
       headers: {
@@ -17,15 +26,28 @@ export default function Signup(props) {
     if (response.ok) {
       response.json().then((e) => {
         console.log(e);
+        messageApi.open({
+          key,
+          type: "success",
+          content: "New User Created!",
+          duration: 2,
+        });
       });
     } else {
       response.json().then((e) => {
         console.log(e);
+        messageApi.open({
+          key,
+          type: "error",
+          content: "Error Signing you Up!",
+          duration: 2,
+        });
       });
     }
   }
   return (
     <>
+      {contextHolder}
       <div className="login-registration-form">
         <div className="loginSection">
           <div className="login-card signup">

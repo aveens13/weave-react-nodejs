@@ -12,7 +12,7 @@ import Calendar from "../calendar/calendar";
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 export default function Project(props) {
-  const [showTask, setShowTask] = useState(false);
+  const [tasks, setTasks] = useState([]);
   const [drop, setDrop] = useState(false);
   const [navig, setNavig] = useState("overview");
   const [loading, setLoading] = useState(true);
@@ -38,6 +38,17 @@ export default function Project(props) {
     });
   };
   useEffect(fetchProject, []);
+
+  //Fetch the tasks
+  //Fetch the task data
+  const fetchTask = () => {
+    fetch(`/api/tasks/${props.projectId}`).then((response) => {
+      response.json().then((e) => {
+        setTasks(e);
+      });
+    });
+  };
+  useEffect(fetchTask, [isShowing]);
 
   //This adds a new task
   async function handleAddTask(formdata) {
@@ -149,13 +160,13 @@ export default function Project(props) {
         </div>
       </div>
       {navig == "board" ? (
-        <Board show={isShowing} projectId={projectData.projectId} />
+        <Board taskInfo={tasks} />
       ) : navig == "calendar" ? (
         <Calendar project={projectData} />
       ) : navig == "file" ? (
         <File project={projectData} />
       ) : (
-        <Overview project={projectData} />
+        <Overview project={projectData} taskInfo={tasks} />
       )}
       <Modal open={isShowing} close={() => setIsShowing(false)}>
         <AddTask handleAddTask={handleAddTask} project={projectData} />
