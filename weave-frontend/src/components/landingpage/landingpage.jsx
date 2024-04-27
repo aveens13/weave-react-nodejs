@@ -85,6 +85,7 @@ export const Landingpage = (props) => {
         </Modal>
         <Modal open={signup} close={() => setSignup(false)}>
           <Signup
+            setState={(status) => props.state(status)}
             handleLogin={() => {
               setSignup(false);
               setLogin(true);

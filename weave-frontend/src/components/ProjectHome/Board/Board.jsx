@@ -1,17 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import RectangleIcon from "@mui/icons-material/Rectangle";
 import TaskCard from "./Taskcard";
-export default function Board({ show, projectId }) {
-  const [tasks, setTasks] = useState([]);
-  //Fetch the task data
-  const fetchTask = () => {
-    fetch(`/api/tasks/${projectId}`).then((response) => {
-      response.json().then((e) => {
-        setTasks(e);
-      });
-    });
-  };
-  useEffect(fetchTask, [show]);
+export default function Board({ taskInfo }) {
+  const [tasks, setTasks] = useState(taskInfo);
 
   //This changes the task's status
   function handleEvent(id, status) {

@@ -12,7 +12,7 @@ const login = async (req, res, next) => {
 
   //first check: for no email or password
   if (!email || !password) {
-    res
+    return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "Please provide email and password" });
   }
@@ -21,7 +21,7 @@ const login = async (req, res, next) => {
 
   //check for the user in database
   if (!user) {
-    res
+    return res
       .status(StatusCodes.UNAUTHORIZED)
       .json({ msg: `No user with the email: ${email}}` });
   }

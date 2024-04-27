@@ -8,7 +8,7 @@ import Textarea from "./message_component/text_area";
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Space, Upload, Modal } from "antd";
 
-export default function Description({ project }) {
+export default function Description({ project, taskInfo }) {
   const [open, setOpen] = useState(false);
   const [info, setInfo] = useState("");
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -17,6 +17,7 @@ export default function Description({ project }) {
   const showModal = () => {
     setOpen(true);
   };
+  console.log(taskInfo);
 
   const handleOk = () => {
     setConfirmLoading(true);
@@ -100,42 +101,23 @@ export default function Description({ project }) {
         <h3>Completed Tasks</h3>
 
         <ul>
-          <li>
-            <div className="card-completed-task">
-              <p className="card-title">Design Signup Flow</p>
-              <p>Complete the signup flow by this time</p>
-              <div className="footer-section">
-                <p>Sulav Pokharel</p>
-                <div className="comments-hero">
-                  <ModeCommentTwoTone />
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className="card-completed-task">
-              <p className="card-title">Design Signup Flow</p>
-              <p>Complete the signup flow by this time</p>
-              <div className="footer-section">
-                <p>Sulav Pokharel</p>
-                <div className="comments-hero">
-                  <ModeCommentTwoTone />
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className="card-completed-task">
-              <p className="card-title">Design Signup Flow</p>
-              <p>Complete the signup flow by this time</p>
-              <div className="footer-section">
-                <p>Sulav Pokharel</p>
-                <div className="comments-hero">
-                  <ModeCommentTwoTone />
-                </div>
-              </div>
-            </div>
-          </li>
+          {taskInfo.map(
+            (task) =>
+              task.status === "completed" && (
+                <li>
+                  <div className="card-completed-task">
+                    <p className="card-title">{task.title}</p>
+                    <p>{task.info}</p>
+                    <div className="footer-section">
+                      <p>{task.name.name}</p>
+                      <div className="comments-hero">
+                        <ModeCommentTwoTone />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              )
+          )}
         </ul>
       </div>
       <Modal
