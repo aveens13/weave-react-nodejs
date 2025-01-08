@@ -5,7 +5,8 @@ import boxData from "./feature-box/box-data";
 import image from "../../assets/title-picture.png";
 import Login from "../login/Login";
 import Signup from "../signup/Signup";
-import Modal from "../Modal/Modal";
+// import Modal from "../Modal/Modal";
+import { Modal } from "antd";
 export const Landingpage = (props) => {
   const [feature, setFeature] = useState(boxData);
   const [login, setLogin] = useState(false);
@@ -74,7 +75,7 @@ export const Landingpage = (props) => {
             return <Featurebox key={feature.id} {...feature} />;
           })}
         </section>
-        <Modal open={login} close={() => setLogin(false)}>
+        <Modal open={login} footer="" onCancel={() => setLogin(false)}>
           <Login
             setState={(status) => props.state(status)}
             handleSignup={() => {
@@ -83,7 +84,7 @@ export const Landingpage = (props) => {
             }}
           />
         </Modal>
-        <Modal open={signup} close={() => setSignup(false)}>
+        <Modal open={signup} footer="" onCancel={() => setSignup(false)}>
           <Signup
             setState={(status) => props.state(status)}
             handleLogin={() => {
