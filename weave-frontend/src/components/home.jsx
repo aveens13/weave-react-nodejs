@@ -131,13 +131,13 @@ function Home(props) {
       </div>
       <Modal
         title="Create a project"
-        centered
+        // centered
         open={create}
         onOk={() => setCreate(false)}
         onCancel={() => setCreate(false)}
         footer={null}
-        bodyStyle={{ height: 600 }}
-        width={500}
+        // bodyStyle={{ height: 600 }}
+        // width={500}
       >
         <CreateProject close={() => setCreate(false)} />
       </Modal>

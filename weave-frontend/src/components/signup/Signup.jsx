@@ -1,6 +1,6 @@
 import "../login/login.css";
 import Google from "../../assets/google.svg";
-import { Button, message } from "antd";
+import { Button, message, Radio } from "antd";
 export default function Signup(props) {
   const [messageApi, contextHolder] = message.useMessage();
   const key = "updatable";
@@ -87,26 +87,12 @@ export default function Signup(props) {
                   id="password"
                   placeholder="********"
                 />
-                {/* <div className="accountType">
-                  <h4>Account Type</h4>
-                  <div className="types">
-                    <input
-                      type="radio"
-                      value="Personal"
-                      name="accounttype"
-                      checked
-                      id="Personal"
-                    />
-                    <label htmlFor="Personal">Personal</label>
-                    <input
-                      type="radio"
-                      value="Supervisor"
-                      name="accounttype"
-                      id="Supervisor"
-                    />
-                    <label htmlFor="Supervisor">Supervisor</label>
-                  </div>
-                </div> */}
+                <div className="accountType">
+                  <Radio.Group defaultValue="User" className="types">
+                    <Radio value="User">User</Radio>
+                    <Radio value="Organization">Organization</Radio>
+                  </Radio.Group>
+                </div>
                 <div className="submitbutton">
                   <input
                     className="submitBtn"
