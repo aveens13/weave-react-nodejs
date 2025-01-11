@@ -1,0 +1,78 @@
+.project-card {
+  min-width: 200px;
+  max-width: 320px;
+  background-color: #111;
+  border-radius: 10px;
+  overflow: hidden;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.project-poster {
+  position: relative;
+  height: 150px;
+}
+
+.tags-krishna {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.tag {
+  background-color: #ff9f00;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.project-info-krishna {
+  padding: 15px;
+}
+
+.languages-krishna-main {
+  font-size: 14px;
+  color: #bbb;
+  margin: 5px 0;
+}
+
+.project-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.authors {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 10px;
+}
+
+.like-section {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  gap: 5px; /* Space between the icon and the text */
+}
+
+.like-icon {
+  cursor: pointer;
+  font-size: 24px;
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.like-icon.liked {
+  color: #27c437; /* Filled green color when liked */
+}
+
+.like-count {
+  font-size: 14px;
+  color: #bbb;
+}

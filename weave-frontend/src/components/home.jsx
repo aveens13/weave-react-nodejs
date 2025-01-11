@@ -9,16 +9,18 @@ import {
   ArrowDropDown,
 } from "@mui/icons-material";
 // import taskdata from "./sub-components/taskdata";
-import { Modal } from "antd";
+import { Modal, Button, notification } from "antd";
 import CreateProject from "./CreateProject/CreateProject";
 import { UserContext } from "../App";
 function Home(props) {
+  const [api, contextHolder] = notification.useNotification();
   const user = React.useContext(UserContext);
   const navigate = useNavigate();
   const [open, setOpen] = useState();
   const [project, setproject] = useState([]);
   const [task, settask] = useState([]);
   const [create, setCreate] = useState(false);
+  const [notificationForcall, setNotificationforcall] = useState([]);
   //Fetch api to fetch the projects info
   useEffect(() => {
     fetch(`/api/project/${user.data.userId}`).then((response) => {
@@ -37,6 +39,46 @@ function Home(props) {
     });
   }, []);
 
+  useEffect(() => {
+    fetch(`/api/notification/${user.data.userId}`).then((response) => {
+      response.json().then((res) => {
+        if (res.success) {
+          setNotificationforcall(res);
+          res.data.map((resp) => {
+            const key = resp.notificationID;
+            const btn = (
+              <Button
+                color="default"
+                variant="solid"
+                onClick={() => api.destroy(key)}
+              >
+                Mark as read
+              </Button>
+            );
+            const deadline = new Date(resp.timeOfDeliver).toLocaleDateString(
+              "en-US",
+              {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              }
+            );
+            api["info"]({
+              message: "Organization Notice",
+              description:
+                resp.description +
+                "You can create project and choose organizatin corresponding to recent deadline. The deadline is " +
+                deadline,
+              key,
+              btn,
+              pauseOnHover: true,
+            });
+          });
+        }
+      });
+    });
+  }, []);
+
   function handleClick(id) {
     console.log(id);
     if (open == id) setOpen();
@@ -47,6 +89,7 @@ function Home(props) {
 
   return (
     <div className="main_home">
+      {contextHolder}
       <div className="project">
         <div className="title">
           <div className="title_left">
@@ -139,7 +182,10 @@ function Home(props) {
         // bodyStyle={{ height: 600 }}
         // width={500}
       >
-        <CreateProject close={() => setCreate(false)} />
+        <CreateProject
+          close={() => setCreate(false)}
+          notificationforcall={notificationForcall}
+        />
       </Modal>
       {/* <Modal open={create} close={() => setCreate(false)}>
         <CreateProject close={() => setCreate(false)} />

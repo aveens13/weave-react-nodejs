@@ -1,78 +1,63 @@
-.explore-section-hero{
-    display: flex;
-    flex-direction: column;
-    margin: 0 2%;
+/* Explore.css */
+.explore-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  font-family: 'Arial', sans-serif;
 }
+
 .explore-section-hero {
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  max-width: 85%;
+  margin: 0 auto;
+  text-align: center;
 }
-.explore-section-hero .projects-grid{
-    display: grid;
-    /* width: 100%; */
-    grid-template-columns: repeat(4,4fr);
-    grid-gap: 5rem;
+
+.explore-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
 }
-.explore-section-hero .data-list{
-    display: flex;
-    flex-direction: column;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    border-radius: 0.8rem;
+
+.explore-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.5;
 }
-.data-list .image-data{
-    height: 80%;
+
+.projects-section {
+  width: 100%;
+  max-width: 85%;
+  margin: 20px auto 0;
 }
-.data-list .star--project{
-    position: fixed;
-    margin: 0.8rem;
-    height: 2rem;
-    width: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: white;
-    transition: all 0.3s linear;
+
+.projects-heading {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: left;
 }
-.data-list .star--project:hover{
-    background-color: black;
-    color: white;
-    cursor: pointer;
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 10px;
 }
-.image-data img{
-    border-top-left-radius: 0.8rem;
-    border-top-right-radius: 0.8rem;
-    width: 100%;
-    cursor: pointer;
-    height: 100%;
+
+.project-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
-.data-list .info{
-    height: 20%;
-    display: flex;
-    align-items: center;
-    color: black;
-}
-.data-list .info p{
-    margin: 0 2rem;
-}
-.data-list .info .name{
-    font-size: 1.3rem;
-    font-weight: 600;
-}
-.info .members{
-    margin-left: auto;
-}
-.info span{
-    display: flex;
-    color: black;
-}
-.info span img{
-    width: 2rem;
-    height: 2rem;
-    cursor: pointer;
-    border-radius: 50%;
-}
-hr{
-    color: grey;
-    width: 100%;
+
+.project-card:hover {
+  transform: translateY(-5px);
 }

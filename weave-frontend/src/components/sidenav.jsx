@@ -48,7 +48,7 @@ function SideNav(props) {
         </a> */}
       </div>
 
-      <div className="inline_text">Pinned</div>
+      {/* <div className="inline_text">Pinned</div>
       <div className="dynamic_options">
         {user.data.pinnedProjects.map((project) => (
           <Link
@@ -60,7 +60,7 @@ function SideNav(props) {
             <div className="icon_text">{project.projectTitle}</div>
           </Link>
         ))}
-      </div>
+      </div> */}
       <div style={{ borderTop: "1px solid #000000" }}></div>
       <div className="profile">
         <div className="image">

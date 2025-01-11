@@ -23,6 +23,7 @@
 .create_projects_main .project_card form {
   padding: 1rem;
   display: flex;
+  font-size: small;
   flex-direction: column;
 }
 .create_projects_main .project_card form .deadline_section {
@@ -36,7 +37,8 @@
 .project_card form .deadline_section .date {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  font-size: small;
+  /* width: 80%; */
   justify-content: space-between;
 }
 .project_card form label {
@@ -85,12 +87,12 @@
 
 .project_card form input[type="submit"] {
   padding: 0.5rem 2rem;
-  font-size: 1rem;
+  font-size: small;
   color: white;
   border: none;
   border-radius: 0.4rem;
   cursor: pointer;
-  background-color: #323ee2;
+  background-color: black;
 }
 .project_card .add-button {
   position: absolute;
@@ -144,4 +146,42 @@
 }
 .member-card li:hover {
   transform: scale(1.01);
+}
+.timeline-call {
+  padding: 1rem;
+  margin: 1rem 0;
+  font-size: small;
+}
+
+.completed-projects-hero {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 1rem;
+}
+
+.completed-projects-hero .overview-info-comp {
+  background-color: rgba(230, 245, 234, 255);
+  border-radius: 0.25rem;
+  color: rgba(82, 196, 26, 255);
+  padding: 0.25rem 0.75rem;
+  font-family: "Poppins", sans-serif;
+  font-size: small;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+
+.completed-projects-hero .projectInfoComp {
+  margin-right: 2rem;
+  margin-top: 1rem;
+  font-size: small;
+  border-radius: 0.5rem;
+}
+
+.projectInfoComp .projectComponent-hero {
+  box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px,
+    rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
+  border-radius: 0.75rem;
+  margin-top: 0.5rem;
 }

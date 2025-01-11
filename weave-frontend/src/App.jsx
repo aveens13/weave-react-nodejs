@@ -3,6 +3,7 @@ import Landingpage from "./components/landingpage/landingpage";
 import React, { useState, useEffect } from "react";
 import User from "./components/User/User";
 import Load from "./components/Loading";
+import Organization from "./components/organization/Organization";
 
 export const UserContext = React.createContext();
 function App() {
@@ -31,6 +32,13 @@ function App() {
   if (state == "landing") {
     return <Landingpage state={handleState} />;
   } else if (state == "login") {
+    if (userData.data.accountType == "Organization") {
+      return (
+        <UserContext.Provider value={userData}>
+          <Organization />
+        </UserContext.Provider>
+      );
+    }
     return (
       <UserContext.Provider value={userData}>
         <User />

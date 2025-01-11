@@ -9,15 +9,18 @@ router.post("/api/create-project", projects.create);
 router.post("/api/update/:projectId", projects.update);
 router.get("/api/checkmail/:email", projects.checkEmail); //Checks mail when adding user to the project
 router.get("/api/project", projects.getProject);
+router.get("/api/getorgprojects", projects.getOrganizationSubmittedProjects);
 router.get("/api/project/:userId", projects.getProjectusingMember);
 router.get("/api/projectinfo/:projectId", projects.getIndividualProject);
+router.post("/api/pushcallforproposal", projects.pushCall);
+router.get("/api/notification/:userId", projects.getNotification);
 router.get("/api/messages/:projectId", projects.getMessages);
 router.get("/api/pinproject/:userId/:projectId", projects.pinproject);
 
 //File Actions
 //Router to upload files
 router.post(
-  "/api/fileupload/:projectId",
+  "/api/fileupload/:projectId/:userId",
   fileUpload({ createParentPath: true }),
   file.fileupload
 );

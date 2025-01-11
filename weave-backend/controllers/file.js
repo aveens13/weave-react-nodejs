@@ -31,12 +31,14 @@ exports.fileupload = async (req, res) => {
           filePath: filePath,
           fileType: file.mimetype,
           projectId: req.params.projectId,
-          authorId: "2ccbb928-e4d2-499e-ae2a-c9a2de0d7903",
+          authorId: req.params.userId,
           fileSize: file.size,
         },
       });
       res.status(200).send(result);
     } catch (error) {
+      console.log(error);
+
       res.send(error);
     }
   }

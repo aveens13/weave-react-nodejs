@@ -32,6 +32,59 @@ exports.create = async (req, res) => {
   }
 };
 
+exports.pushCall = async (req, res) => {
+  let pushDesc = req.body;
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        accountType: "User",
+      },
+    });
+    users.map(async (user) => {
+      await prisma.notification.create({
+        data: {
+          description: pushDesc.projectDescription,
+          timeOfDeliver: new Date(pushDesc.deadline),
+          status: "unread",
+          userId: user.userId,
+        },
+      });
+    });
+    return res.send({
+      success: true,
+      data: null,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.send({
+      success: false,
+      data: error,
+    });
+  }
+};
+
+exports.getNotification = async (req, res) => {
+  const userID = req.params.userId;
+  try {
+    const resp = await prisma.notification.findMany({
+      where: {
+        userId: userID,
+        status: "unread",
+      },
+    });
+    return res.send({
+      success: true,
+      data: resp,
+    });
+  } catch (err) {
+    return res.send({
+      success: false,
+      data: null,
+    });
+  }
+};
+
 exports.getProject = async (req, res) => {
   const data = await prisma.project.findMany({
     where: {
@@ -49,6 +102,36 @@ exports.getProject = async (req, res) => {
     },
   });
   res.send(data);
+};
+
+exports.getOrganizationSubmittedProjects = async (req, res) => {
+  try {
+    const data = await prisma.project.findMany({
+      where: {
+        organization: {
+          not: null,
+        },
+      },
+      include: {
+        members: {
+          select: {
+            userId: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+    res.send({
+      success: true,
+      data,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      data: null,
+    });
+  }
 };
 
 //Get the projects with assiciated members
