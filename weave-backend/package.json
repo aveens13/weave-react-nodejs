@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/aveens13/weave-react-nodejs#readme",
   "dependencies": {
-    "@prisma/client": "^4.10.1",
+    "@prisma/client": "^6.2.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -36,6 +36,6 @@
     "ws": "^8.13.0"
   },
   "devDependencies": {
-    "prisma": "^4.10.1"
+    "prisma": "^6.2.1"
   }
 }
