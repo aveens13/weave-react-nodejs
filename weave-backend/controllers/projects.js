@@ -85,6 +85,30 @@ exports.getNotification = async (req, res) => {
   }
 };
 
+exports.markNotificationRead = async (req, res) => {
+  try {
+    const resp = await prisma.notification.update({
+      where: {
+        notificationID: req.params.notificationId,
+      },
+      data: {
+        status: "read",
+      },
+    });
+
+    return res.status(200).send({
+      success: true,
+      data: resp,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.send({
+      success: false,
+      data: null,
+    });
+  }
+};
+
 exports.getProject = async (req, res) => {
   const data = await prisma.project.findMany({
     where: {

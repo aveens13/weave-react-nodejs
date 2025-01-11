@@ -88,27 +88,22 @@ export default function Organization() {
 
   return (
     <div className="organization--hero">
-      <BrowserRouter>
-        <div className="main-page-hero-organization">
-          <div className="sidenav">
-            <SideNav className="side_nav" />
-          </div>
-          <div className="org-main-hero">
-            <div className="top-nav-org-hero">
-              <AutoComplete
-                style={{
-                  width: "30rem",
-                }}
-                options={options}
-                placeholder="Search for Projects"
-                filterOption={(inputValue, option) =>
-                  option.value
-                    .toUpperCase()
-                    .indexOf(inputValue.toUpperCase()) !== -1
-                }
-                variant="filled"
-              />
-              {/* <Input
+      <div className="main-page-hero-organization">
+        <div className="org-main-hero">
+          <div className="top-nav-org-hero">
+            <AutoComplete
+              style={{
+                width: "30rem",
+              }}
+              options={options}
+              placeholder="Search for Projects"
+              filterOption={(inputValue, option) =>
+                option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
+                -1
+              }
+              variant="filled"
+            />
+            {/* <Input
                 placeholder="Search for projects"
                 variant="filled"
                 style={{
@@ -116,126 +111,121 @@ export default function Organization() {
                   width: "30rem",
                 }}
               /> */}
-              <div className="side-settings">
-                <div className="padThis">
-                  <NotificationsActiveOutlinedIcon
-                    style={{
-                      fontSize: "1.125rem",
-                    }}
-                  />
-                </div>
-                <Button
-                  color="default"
-                  variant="solid"
-                  onClick={() => setIsmodal(true)}
-                >
-                  <CallToActionOutlinedIcon
-                    style={{
-                      fontSize: "small",
-                    }}
-                  />{" "}
-                  Call for Proposals
-                </Button>
+            <div className="side-settings">
+              <div className="padThis">
+                <NotificationsActiveOutlinedIcon
+                  style={{
+                    fontSize: "1.125rem",
+                  }}
+                />
               </div>
-            </div>
-            <div className="proposal-status-hero">
-              <div className={action == "review" ? "action-border-bottom" : ""}>
-                <Button type="text" onClick={() => setAction("review")}>
-                  <WatchLaterOutlinedIcon
-                    style={{
-                      fontSize: "small",
-                    }}
-                  />
-                  Pending Review{" "}
-                  <Badge count={project.length} showZero color="#faad14" />
-                </Button>
-              </div>
-              <div
-                className={action == "unsubmit" ? "action-border-bottom" : ""}
+              <Button
+                color="default"
+                variant="solid"
+                onClick={() => setIsmodal(true)}
               >
-                <Button type="text" onClick={() => setAction("unsubmit")}>
-                  <UnsubscribeOutlinedIcon
-                    style={{
-                      fontSize: "small",
-                    }}
-                  />
-                  Unsubmitted <Badge count={25} />
-                </Button>
-              </div>
-              <div
-                className={action == "approve" ? "action-border-bottom" : ""}
-              >
-                <Button type="text" onClick={() => setAction("approve")}>
-                  <CheckBoxOutlinedIcon
-                    style={{
-                      fontSize: "small",
-                    }}
-                  />
-                  Approved
-                  <Badge
-                    className="site-badge-count-109"
-                    count={109}
-                    style={{
-                      backgroundColor: "#52c41a",
-                    }}
-                  />
-                </Button>
-              </div>
+                <CallToActionOutlinedIcon
+                  style={{
+                    fontSize: "small",
+                  }}
+                />{" "}
+                Call for Proposals
+              </Button>
             </div>
-            {action == "review" ? (
-              <ProjectComp
-                handleClick={handleClick}
-                project={project}
-                formatDate={formatDate}
-              />
-            ) : (
-              <div className="project-component-hero">
-                <div className="overview-info-comp">
-                  These Students have yet not submitted projects...
-                </div>
-                <div className="projectInfoComp">
-                  <div className="projectHead">
-                    <span>Name</span>
-                    <span>Email</span>
-                    <span>Department</span>
-                    <span>Projects</span>
-                    <span>Status</span>
-                    <span>Enrolled</span>
-                  </div>
-                </div>
-                {studentsNotSubmitted.map((p) => (
-                  <div className="projectComponent-hero">
-                    <span className="projectname-css">{p.name}</span>
-                    <span>{p.email}</span>
-                    <span>{p.university}</span>
-                    <span>{p.projects}</span>
-                    <span
-                      className={
-                        p.status == "active"
-                          ? "org-active-student"
-                          : "org-inactive-student"
-                      }
-                    >
-                      {p.status}
-                    </span>
-                    <span>{p.enrolled}</span>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
+          <div className="proposal-status-hero">
+            <div className={action == "review" ? "action-border-bottom" : ""}>
+              <Button type="text" onClick={() => setAction("review")}>
+                <WatchLaterOutlinedIcon
+                  style={{
+                    fontSize: "small",
+                  }}
+                />
+                Pending Review{" "}
+                <Badge count={project.length} showZero color="#faad14" />
+              </Button>
+            </div>
+            <div className={action == "unsubmit" ? "action-border-bottom" : ""}>
+              <Button type="text" onClick={() => setAction("unsubmit")}>
+                <UnsubscribeOutlinedIcon
+                  style={{
+                    fontSize: "small",
+                  }}
+                />
+                Unsubmitted <Badge count={25} />
+              </Button>
+            </div>
+            <div className={action == "approve" ? "action-border-bottom" : ""}>
+              <Button type="text" onClick={() => setAction("approve")}>
+                <CheckBoxOutlinedIcon
+                  style={{
+                    fontSize: "small",
+                  }}
+                />
+                Approved
+                <Badge
+                  className="site-badge-count-109"
+                  count={109}
+                  style={{
+                    backgroundColor: "#52c41a",
+                  }}
+                />
+              </Button>
+            </div>
+          </div>
+          {action == "review" ? (
+            <ProjectComp
+              handleClick={handleClick}
+              project={project}
+              formatDate={formatDate}
+            />
+          ) : (
+            <div className="project-component-hero">
+              <div className="overview-info-comp">
+                These Students have yet not submitted projects...
+              </div>
+              <div className="projectInfoComp">
+                <div className="projectHead">
+                  <span>Name</span>
+                  <span>Email</span>
+                  <span>Department</span>
+                  <span>Projects</span>
+                  <span>Status</span>
+                  <span>Enrolled</span>
+                </div>
+              </div>
+              {studentsNotSubmitted.map((p) => (
+                <div className="projectComponent-hero">
+                  <span className="projectname-css">{p.name}</span>
+                  <span>{p.email}</span>
+                  <span>{p.university}</span>
+                  <span>{p.projects}</span>
+                  <span
+                    className={
+                      p.status == "active"
+                        ? "org-active-student"
+                        : "org-inactive-student"
+                    }
+                  >
+                    {p.status}
+                  </span>
+                  <span>{p.enrolled}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-        <Modal open={isModal} footer="" onCancel={() => setIsmodal(false)}>
-          <Call />
-        </Modal>
-        <Modal open={isInfotab} footer="" onCancel={() => setIsinfotab(false)}>
-          <ProjectSubmissionCard
-            infoProject={projectData}
-            info={isInfotab}
-            formatDate={formatDate}
-          />
-        </Modal>
-      </BrowserRouter>
+      </div>
+      <Modal open={isModal} footer="" onCancel={() => setIsmodal(false)}>
+        <Call />
+      </Modal>
+      <Modal open={isInfotab} footer="" onCancel={() => setIsinfotab(false)}>
+        <ProjectSubmissionCard
+          infoProject={projectData}
+          info={isInfotab}
+          formatDate={formatDate}
+        />
+      </Modal>
     </div>
   );
 }

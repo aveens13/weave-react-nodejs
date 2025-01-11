@@ -33,6 +33,7 @@ exports.fileupload = async (req, res) => {
           projectId: req.params.projectId,
           authorId: req.params.userId,
           fileSize: file.size,
+          fileTag: req.params.tag,
         },
       });
       res.status(200).send(result);
@@ -51,6 +52,32 @@ exports.getFiles = async (req, res) => {
     },
   });
   res.status(200).send(result);
+};
+
+exports.getProposal = async (req, res) => {
+  try {
+    const result = await prisma.file.findFirst({
+      where: {
+        projectId: req.params.projectId,
+        fileTag: "proposal", // Ensure fileTag is "proposal"
+      },
+    });
+
+    if (result) {
+      console.log(result);
+
+      return res.status(200).json({ success: true, data: result });
+    } else {
+      return res
+        .status(404)
+        .json({ success: false, message: "Proposal not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
 };
 
 exports.fileAction = async (req, res) => {

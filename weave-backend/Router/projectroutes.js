@@ -14,19 +14,23 @@ router.get("/api/project/:userId", projects.getProjectusingMember);
 router.get("/api/projectinfo/:projectId", projects.getIndividualProject);
 router.post("/api/pushcallforproposal", projects.pushCall);
 router.get("/api/notification/:userId", projects.getNotification);
+router.get(
+  "/api/readnotification/:userId/:notificationId",
+  projects.markNotificationRead
+);
 router.get("/api/messages/:projectId", projects.getMessages);
 router.get("/api/pinproject/:userId/:projectId", projects.pinproject);
 
 //File Actions
 //Router to upload files
 router.post(
-  "/api/fileupload/:projectId/:userId",
+  "/api/fileupload/:projectId/:userId/:tag",
   fileUpload({ createParentPath: true }),
   file.fileupload
 );
 router.get("/api/files/:projectId", file.getFiles);
 router.get("/api/file/:fileId", file.fileAction);
-
+router.get("/api/fileproposal/:projectId", file.getProposal);
 //Task Actions
 router.get("/api/tasks/:projectId", projects.getTasks);
 router.get("/api/:id/tasks", projects.getIndividaulTasks);
