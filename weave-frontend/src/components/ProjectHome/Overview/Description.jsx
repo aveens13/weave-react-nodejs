@@ -7,12 +7,12 @@ import { ModeCommentTwoTone } from "@mui/icons-material";
 import Textarea from "./message_component/text_area";
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Space, Upload, Modal } from "antd";
-
+import { UserContext } from "../../../App";
 export default function Description({ project, taskInfo }) {
   const [open, setOpen] = useState(false);
   const [info, setInfo] = useState("");
   const [confirmLoading, setConfirmLoading] = useState(false);
-
+  const user = React.useContext(UserContext);
   //For modal
   const showModal = () => {
     setOpen(true);
@@ -86,7 +86,7 @@ export default function Description({ project, taskInfo }) {
                   Create Project brief
                 </button>
                 <Upload
-                  action={`/api/fileupload/${project.projectId}`}
+                  action={`/api/fileupload/${project.projectId}/${user.data.userId}/proposal`}
                   listType="picture"
                   maxCount={1}
                 >

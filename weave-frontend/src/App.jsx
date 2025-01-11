@@ -3,7 +3,7 @@ import Landingpage from "./components/landingpage/landingpage";
 import React, { useState, useEffect } from "react";
 import User from "./components/User/User";
 import Load from "./components/Loading";
-import Organization from "./components/organization/Organization";
+import OrganizationMain from "./components/organization/OrganizationMain";
 
 export const UserContext = React.createContext();
 function App() {
@@ -35,7 +35,7 @@ function App() {
     if (userData.data.accountType == "Organization") {
       return (
         <UserContext.Provider value={userData}>
-          <Organization />
+          <OrganizationMain />
         </UserContext.Provider>
       );
     }
