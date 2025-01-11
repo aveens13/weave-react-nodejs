@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./organization.css";
+import "../User/user.css";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsActiveOutlined";
 import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";

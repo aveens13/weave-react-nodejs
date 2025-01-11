@@ -12,6 +12,9 @@ export default function ExplorePage() {
       tags: ['AI', 'Chatbot'],
       languages: ['Python', 'JavaScript'],
       members: [{ name: 'Alice' }, { name: 'Bob' }],
+      image: '../../../public/8.avif',
+      liked: true,
+      likeCount: 5,
     },
     {
       projectId: 2,
@@ -19,6 +22,9 @@ export default function ExplorePage() {
       tags: ['Web', 'E-Commerce'],
       languages: ['React', 'Node.js'],
       members: [{ name: 'Charlie' }, { name: 'Dave' }],
+      image: '../../../public/7.avif',
+      liked: false,
+      likeCount: 2,
     },
     {
       projectId: 3,
@@ -26,6 +32,9 @@ export default function ExplorePage() {
       tags: ['Data Science', 'Visualization'],
       languages: ['D3.js', 'Python'],
       members: [{ name: 'Eve' }, { name: 'Frank' }],
+      image: '../../../public/6.avif',
+      liked: true,
+      likeCount: 3,
     },
     {
       projectId: 4,
@@ -33,19 +42,78 @@ export default function ExplorePage() {
       tags: ['Mobile', 'Fitness'],
       languages: ['Flutter', 'Dart'],
       members: [{ name: 'Grace' }, { name: 'Hank' }],
+      image: '../../../public/5.jpg',
+      liked: false,
+      likeCount: 0,
     },
     {
       projectId: 5,
-      projectTitle: 'E-Commerce Platform',
-      tags: ['Web', 'E-Commerce'],
-      languages: ['React', 'Node.js'],
-      members: [{ name: 'Charlie' }, { name: 'Dave' }],
+      projectTitle: 'Machine Learning Model',
+      tags: ['AI', 'ML'],
+      languages: ['Python', 'TensorFlow'],
+      members: [{ name: 'Ivy' }],
+      image: '../../../public/4.avif',
+      liked: true,
+      likeCount: 10,
+    },
+    {
+      projectId: 6,
+      projectTitle:
+        'Portfolio Website For Aspiring Candidates of The Year of March in the Winter',
+      tags: ['Web', 'Portfolio'],
+      languages: ['HTML', 'CSS', 'JavaScript'],
+      members: [{ name: 'John' }],
+      image: '../../../public/3.jpg',
+      liked: false,
+      likeCount: 1,
+    },
+    {
+      projectId: 7,
+      projectTitle: 'Game Development',
+      tags: ['Gaming', 'Unity'],
+      languages: ['C#'],
+      members: [{ name: 'Sam' }, { name: 'Chris' }],
+      image: '../../../public/2.jpg',
+      liked: true,
+      likeCount: 8,
+    },
+    {
+      projectId: 8,
+      projectTitle: 'Finance Tracker',
+      tags: ['Finance', 'Tools'],
+      languages: ['Java', 'Spring'],
+      members: [{ name: 'Anna' }],
+      image: '../../../public/1.jpg',
+      liked: false,
+      likeCount: 0,
     },
   ]);
 
-  function handleClick(id) {
-    console.log(`Project clicked: ${id}`);
-  }
+  const handleLikeToggle = (projectId) => {
+    setProjects((prevProjects) =>
+      prevProjects.map((project) =>
+        project.projectId === projectId
+          ? {
+              ...project,
+              liked: !project.liked,
+              likeCount: project.liked
+                ? project.likeCount - 1
+                : project.likeCount + 1,
+            }
+          : project
+      )
+    );
+  };
+
+  const likedProjects = projects.filter((project) => project.liked);
+
+  // Group projects by their first tag
+  const groupedProjects = projects.reduce((groups, project) => {
+    const groupKey = project.tags[0]; // First tag as key
+    if (!groups[groupKey]) groups[groupKey] = [];
+    groups[groupKey].push(project);
+    return groups;
+  }, {});
 
   return (
     <div className='explore-container'>
@@ -57,22 +125,48 @@ export default function ExplorePage() {
         </p>
         <SearchBar />
       </div>
-      <div className='projects-section'>
-        <h4 className='projects-heading'>Computer Science Projects</h4>
-        <div className='projects-grid'>
-          {projects.map((p) => (
-            <ProjectCard
-              key={p.projectId}
-              tags={p.tags}
-              languages={p.languages}
-              title={p.projectTitle}
-              authors={p.members.map((member) => member.name)}
-              posterUrl={image} // Replace with dynamic poster URL if available
-              onClick={() => handleClick(p.projectId)}
-            />
-          ))}
+
+      {likedProjects.length > 0 && (
+        <div className='liked-projects-section'>
+          <h4 className='projects-heading'>Liked Projects</h4>
+          <div className='projects-grid'>
+            {likedProjects.map((project) => (
+              <ProjectCard
+                key={project.projectId}
+                tags={project.tags}
+                languages={project.languages}
+                title={project.projectTitle}
+                authors={project.members.map((member) => member.name)}
+                posterUrl={project.image ? project.image : image}
+                onLikeToggle={() => handleLikeToggle(project.projectId)}
+                liked={project.liked}
+                likeCount={project.likeCount}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
+
+      {Object.keys(groupedProjects).map((tag) => (
+        <div key={tag} className='projects-section'>
+          <h4 className='projects-heading'>{tag} Projects</h4>
+          <div className='projects-grid'>
+            {groupedProjects[tag].map((project) => (
+              <ProjectCard
+                key={project.projectId}
+                tags={project.tags}
+                languages={project.languages}
+                title={project.projectTitle}
+                authors={project.members.map((member) => member.name)}
+                posterUrl={project.image ? project.image : image}
+                onLikeToggle={() => handleLikeToggle(project.projectId)}
+                liked={project.liked}
+                likeCount={project.likeCount}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
