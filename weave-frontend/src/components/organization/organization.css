@@ -12,8 +12,8 @@
 
 .main-page-hero-organization .org-main-hero {
   display: flex;
-  margin: 2rem;
-  padding: 1rem;
+  /* margin: 2rem; */
+  /* padding: 1rem; */
   flex-direction: column;
   width: 100%;
 }

@@ -24,69 +24,6 @@ function Home(props) {
   // const [proj, setProj] = useState([]);
   const [projects, setProjects] = useState([
     // {
-    //   projectId: 1,
-    //   projectTitle: "AI-Powered Chatbot",
-    //   tags: ["AI", "Chatbot"],
-    //   languages: ["Python", "JavaScript"],
-    //   members: [{ name: "Alice" }, { name: "Bob" }],
-    //   image: "../../../public/1.jpg",
-    //   pinned: true,
-    // },
-    // {
-    //   projectId: 2,
-    //   projectTitle: "E-Commerce Platform",
-    //   tags: ["Web", "E-Commerce"],
-    //   languages: ["React", "Node.js"],
-    //   members: [{ name: "Charlie" }, { name: "Dave" }],
-    //   image: "../../../public/2.jpg",
-    //   pinned: false,
-    // },
-    // {
-    //   projectId: 3,
-    //   projectTitle: "Data Visualization Tool",
-    //   tags: ["Data Science", "Visualization"],
-    //   languages: ["D3.js", "Python"],
-    //   members: [{ name: "Eve" }, { name: "Frank" }],
-    //   image: "../../../public/3.jpg",
-    //   pinned: true,
-    // },
-    // {
-    //   projectId: 4,
-    //   projectTitle: "Mobile Fitness App",
-    //   tags: ["Mobile", "Fitness"],
-    //   languages: ["Flutter", "Dart"],
-    //   members: [{ name: "Grace" }, { name: "Hank" }],
-    //   image: "../../../public/3.jpg",
-    //   pinned: false,
-    // },
-    // {
-    //   projectId: 5,
-    //   projectTitle: "Machine Learning Model",
-    //   tags: ["AI", "ML"],
-    //   languages: ["Python", "TensorFlow"],
-    //   members: [{ name: "Ivy" }],
-    //   image: "../../../public/2.jpg",
-    //   pinned: false,
-    // },
-    // {
-    //   projectId: 6,
-    //   projectTitle: "Portfolio Website",
-    //   tags: ["Web", "Portfolio"],
-    //   languages: ["HTML", "CSS", "JavaScript"],
-    //   members: [{ name: "John" }],
-    //   image: "../../../public/3.jpg",
-    //   pinned: false,
-    // },
-    // {
-    //   projectId: 7,
-    //   projectTitle: "Game Development",
-    //   tags: ["Gaming", "Unity"],
-    //   languages: ["C#"],
-    //   members: [{ name: "Sam" }, { name: "Chris" }],
-    //   image: "../../../public/1.jpg",
-    //   pinned: false,
-    // },
-    // {
     //   projectId: 8,
     //   projectTitle: "Finance Tracker",
     //   tags: ["Finance", "Tools"],
@@ -106,13 +43,19 @@ function Home(props) {
     });
   }, [create]);
 
-  // useEffect(() => {
-  //   fetch(`/api/${user.data.userId}/tasks`).then((response) => {
-  //     response.json().then((e) => {
-  //       settask(e);
-  //     });
-  //   });
-  // }, []);
+  useEffect(() => {
+    fetch(`/api/${user.data.userId}/tasks`).then((response) => {
+      response.json().then((e) => {
+        settask(e);
+        console.log(e);
+      });
+    });
+  }, []);
+
+  function markRead(key) {
+    fetch(`/api/readnotification/${user.data.userId}/${key}`);
+    api.destroy(key);
+  }
 
   useEffect(() => {
     fetch(`/api/notification/${user.data.userId}`).then((response) => {
@@ -125,7 +68,7 @@ function Home(props) {
               <Button
                 color="default"
                 variant="solid"
-                onClick={() => api.destroy(key)}
+                onClick={() => markRead(key)}
               >
                 Mark as read
               </Button>
@@ -249,8 +192,8 @@ function Home(props) {
         </div>
       </div>
       <div className="dashboard_tasks_calendar">
-        <DashboardTaskDue />
-        <CalendarSection />
+        <DashboardTaskDue tasks={task} />
+        <CalendarSection tasks={task} />
       </div>
       <Modal
         title="Create a project"
