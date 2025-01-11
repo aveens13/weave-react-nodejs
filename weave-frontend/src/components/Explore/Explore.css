@@ -1,24 +1,21 @@
-/* Explore.css */
 .explore-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  background-color: #f9f9f9;
-  font-family: 'Arial', sans-serif;
+  /* background-color: #f9f9f9; */
+  font-family: "Arial", sans-serif;
 }
 
 .explore-section-hero {
   width: 100%;
-  max-width: 85%;
   margin: 0 auto;
   text-align: center;
 }
 
 .explore-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
+  font-size: 2.3rem;
+  font-weight: 500;
+  color: #000;
   margin-bottom: 5px;
 }
 
@@ -29,9 +26,9 @@
   line-height: 1.5;
 }
 
-.projects-section {
+.projects-section,
+.liked-projects-section {
   width: 100%;
-  max-width: 85%;
   margin: 20px auto 0;
 }
 
@@ -44,20 +41,31 @@
 }
 
 .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start; /* Ensures items align to the left */
 }
 
 .project-card {
+  flex: 1 1 calc(280px); /* Minimum width of 280px */
+  max-width: 280px; /* Prevents cards from expanding too much */
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease;
+  margin-bottom: 15px;
 }
 
 .project-card:hover {
   transform: translateY(-5px);
+}
+
+/* Style for the liked projects section */
+.liked-projects-section .projects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start;
 }

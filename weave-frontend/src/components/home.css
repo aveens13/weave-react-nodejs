@@ -1,215 +1,141 @@
-.main_home{
-    display:flex;
-    flex-direction: row;
-    gap: 1rem;
-    /* position: relative; */
-    height: 100%;
-    /* margin-left:1.5rem; */
-    border-radius: 2rem;
-    padding: 1.5rem;
-    overflow-y: auto;
+.dashboard_main {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  /* background-color: #f9f9f9; */
+  /* position: relative; */
+  justify-content: space-between;
+  /* height: 100%; */
+  max-height: 100vh;
+  margin-left: 2.3rem;
+  padding: 1.2rem;
+  overflow: hidden;
+  /* overflow-y: auto; */
+}
+.dashboard_main h3 {
+  margin-top: 0.8rem;
 }
 
-.project{
-    width:75%;
-    /* height:100%; */
-    background-color: white;
-    padding: 0.5rem;
-
-    /* background-color: aquamarine; */
-    
+.dashboard_tasks_calendar {
+  position: sticky;
+  justify-content: flex-start;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  width: 25rem;
 }
 
-.title{
+/* .dashboard_tasks_calendar {
+    z-index: 1000; /* Ensures it's above other content */
+/* position: fixed; Makes it stay fixed during scrolling */
+/* justify-content: flex-end; Aligns items at the bottom */
+/* display: flex; */
+/* flex-direction: column; */
+/* align-items: center; */
+/* width: 25rem; Adjust width as needed */
+/* top:    0px; Ensures it starts from the top of the viewport */
+/* right: 0; Positions it on the right side of the viewport */
+/* height: 100%; Full height to match viewport */
+/* background-color: #f9f9f9; Add a background color if needed */
+/* box-shadow: -1px 0 3px rgba(0, 0, 0, 0.1); Optional shadow for better appearance */
+/* }  */
+
+.dashboard_project_section {
+  display: flex;
+  flex-wrap: wrap;
+  height: calc(88vh);
+  flex-direction: column;
+  overflow-y: auto;
+  /* justify-content: space-around; */
+  width: 80%;
+  /* padding-bottom: 2rem; */
+  /* margin-bottom: 2rem; */
+  /* margin: 1rem 1rem 1rem 1rem; */
+  /* Hide the scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+.dashboard_project_cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard_project_section::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.dashboard_pinned_projects {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.dashboard_unpinned_projects {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.dashboard_pinned_cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 20px;
+  margin-bottom: 2rem;
+}
+
+.dashboard_unpinned_cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 20px;
+  /* max-height: 20rem; */
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+#create_project_pinned {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  padding: 0.6rem 0.6rem 0.6rem 0.6rem;
+  border: none;
+  border-radius: 0.3rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  color: white;
+  background-color: #111;
+  cursor: pointer;
+  width: fit-content;
+  height: 2.8rem;
+}
+
+/* #create_project_button_u{
     display:flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0.7rem;
-    /* background-color: aqua; */
-}
-
-.title_left{
-    margin-left: 0.2rem;
-}
-
-.title_right{
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    margin-right: 1.5rem;
-    gap: 1.5rem;
-
-}
-
-#create{
-    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    padding: 0.6rem 0.6rem 0.6rem 0.6rem;
     border: none;
     border-radius: 0.3rem;
     font-weight: 600;
-    letter-spacing: 0.08rem;
+    letter-spacing: 0.1rem;
     color:white;
-    background-color: blueviolet;
+    background-color: #111;
     cursor: pointer;
+    width: fit-content;
+    height: 2.8rem;  
+} */
+
+.dashboard_pinned_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.card{
-    display: grid;
-    grid-template-columns: repeat(3,3fr);
-    grid-column-gap:3rem;
-    grid-row-gap:3rem;
-    margin: 2rem;
-    /* width:28%; */
-    /* height:100%; */
-    /* cursor: pointer; */
-}
-
-.side_card{
-    display: flex;
-    flex-direction: column;
-    width: 25%;
-    align-items: center;
-    /* background-color: #A9A9A9; */
-}
-
-.task_title h1{
-    text-align: center;
-    margin-bottom: 2rem;
-    display: block;
-}
-
-.main_task_due{
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    height:55%;
-    width:80%;
-    padding:1rem;
-    border-radius: 0.8rem;
-    margin: 0rem 0.5rem 1rem 0.5rem;
-    gap: 1rem;
-    overflow: auto;
-}
-.main_task_due::-webkit-scrollbar{
-    border-radius: 10px;
-    background-color: gray;
-    width: 0.4rem;
-}
-.main_task_due::-webkit-scrollbar-thumb{
-    background-color: blueviolet;
-    border-radius: 0.3rem;
-}
-
-.tasks_due ul{
-    margin: 0;
-    padding: 0;
-}
-.tasks {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1rem;
-}
-
-.individual_tasks{
-    display:flex;
-    flex-direction: row;
-    /* justify-content: center; */
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    height: 1.5rem;
-}
- .showing{
-    display:flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 1rem ;
-}
-
-.showing span{
-    height: 1.5rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    width: 100%;
-    display: flex;
-    margin: 0.2rem 0;
-    border-radius: 0.4rem;
-    justify-content: center;
-    align-items: center;
-    background-color: #c0e4cc;
-}
-
-
-
-
-input[type=checkbox]{
-    display:none;
-}
-
-input[type=checkbox] + span:before{
-    content:'\2714';
-    border: 0.1em solid black;
-    width: 0.5rem;
-    height: 0.4rem;
-    padding-left: 0.1rem;
-    padding-bottom:0.1rem;
-    border-radius: 0.2rem;
-    margin-right:0.3rem;
-    color:transparent;
-
-}
-
-input[type=checkbox]:checked + span:before{
-    color: white;
-    background-color: blueviolet;
-}
-
-.task_deadline{
-    font-size: 0.85rem;
-    font-weight: 100;
-    /* color: #A9A9A9; */
-    font-style: italic;
-}
-
-
-.arrow_icon{
-    cursor:pointer;
-}
-
-.meetings{
-    background-color: white;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    height:15rem;
-    width: 80%;
-    padding: 0.5rem;
-    margin: 0rem 0.5rem 1rem 0.5rem;
-    border-radius: 0.8rem;
-}
-
-.individual_meeting{
-    display:flex;
-    flex-direction: row;
-    padding: 3rem;
-    border: 1px black;
-    gap: 2rem;
-}
-
-.meeting_detail > span{
-    font-weight: 500;
-    font-size: 1rem;
-    color: #A9A9A9;
-}
-
-.meeting_detail > p{
-    font-weight: 700;
-}
-.meeting_detail > h3{
-    color: #f0d3b1;
-}
-.meeting_icon{
-    color: #f0d3b1;
+.dashboard_unpinned_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

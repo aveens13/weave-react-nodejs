@@ -18,6 +18,7 @@
     "@fullcalendar/timegrid": "^6.1.7",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.3",
+    "@mui/x-date-pickers": "^7.23.6",
     "@nivo/core": "^0.83.0",
     "@nivo/pie": "^0.83.0",
     "antd": "^5.5.1",

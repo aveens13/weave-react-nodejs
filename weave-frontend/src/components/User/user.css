@@ -1,22 +1,21 @@
-
-.user{
-    display: grid;
-    grid-template-columns: 4rem calc(100% - 4rem);
-    width: 100%;
-    /* border: 1px solid red; */
-    /* overflow-x: hidden; */
-    /* overflow-y: hidden; */
+.user {
+  display: flex;
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Prevent scroll on the main container */
 }
 
-.rest{
-    height: 100vh;
-    display: flex;
-    flex-direction: column ;
-}
-.home{
-    overflow: auto;
+.sidenav {
+  width: 16.5%; /* Adjust width as needed */
+  height: 100vh; /* Full height of the viewport */
+  background-color: #f4f4f4; /* Background color for SideNav */
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensures it's above other content */
 }
 
-.sidenav{
-    z-index: 999;
+.rest-user {
+  width: 83.5%; /* Takes the remaining width beside the sidenav */
+  height: 100vh;
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 3%; /* Optional padding for content */
+  background-color: #fff; /* Background color for the main content */
 }

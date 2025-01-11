@@ -27,8 +27,8 @@ function User() {
         <div className="sidenav">
           <SideNav className="side_nav" handlePin={handlePin} />
         </div>
-        <div className="rest">
-          <TopNav />
+        <div className="rest-user">
+          {/* <TopNav /> */}
           <Routes>
             <Route
               path="/"
