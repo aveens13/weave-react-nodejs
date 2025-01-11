@@ -153,10 +153,9 @@
 } */
 
 .main_box:hover {
-  width: 20rem;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
+  width: 15rem;
   z-index: 100;
+  font-size: small;
 }
 
 .main_box:hover .logo {

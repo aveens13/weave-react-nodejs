@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./uploader.css";
+import { UserContext } from "../../../App";
 export default function Uploader({ close, project }) {
   const [file, setFile] = useState("");
-
+  const user = React.useContext(UserContext);
   function handleChange(e) {
     setFile(e.target.files[0]);
   }
@@ -13,10 +14,13 @@ export default function Uploader({ close, project }) {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch(`/api/fileupload/${project.projectId}`, {
-      method: "POST",
-      body: formData,
-    });
+    const response = await fetch(
+      `/api/fileupload/${project.projectId}/${user.data.userId}`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     if (response.ok) {
       response.json().then((e) => {

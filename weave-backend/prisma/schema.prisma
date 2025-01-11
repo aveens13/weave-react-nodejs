@@ -19,16 +19,17 @@ model Organization {
 }
 
 model User {
-  userId         String    @id @default(uuid())
+  userId         String         @id @default(uuid())
   name           String
-  email          String    @unique
+  email          String         @unique
   password       String
-  accountType    Role      @default(User)
-  memberProject  Project[] @relation("member")
+  accountType    Role           @default(User)
+  memberProject  Project[]      @relation("member")
   File           File[]
   Task           Task[]
   Message        Message[]
   pinnedProjects Project[]
+  Notification   Notification[]
 }
 
 model Project {
@@ -85,7 +86,17 @@ model Message {
   projectId     String
 }
 
+model Notification {
+  notificationID String   @id @default(uuid())
+  description    String
+  timeOfDeliver  DateTime @default(now())
+  status         String   @default("unread")
+  user           User     @relation(fields: [userId], references: [userId])
+  userId         String
+}
+
 enum Role {
   User
   Supervisor
+  Organization
 }

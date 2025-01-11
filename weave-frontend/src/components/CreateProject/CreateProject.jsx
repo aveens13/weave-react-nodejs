@@ -2,13 +2,42 @@ import "./createproject.css";
 import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Member from "./Member";
-import { Button } from "antd";
+import { Button, Select } from "antd";
 import { UserContext } from "../../App";
 export default function CreateProject(props) {
   const user = React.useContext(UserContext);
   const [members, setMembers] = useState([user.data.email]);
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
+  const [org, setOrg] = useState(null);
+  const [fillValue, setFillValue] = useState([
+    {
+      value: null,
+      label: "Personal Project",
+    },
+  ]);
+
+  // Run this code only once when the component mounts or when `props.notificationforcall.data` changes
+  useEffect(() => {
+    if (props.notificationforcall?.data) {
+      const newValues = props.notificationforcall.data.map((notification) => {
+        const formattedDeadline = new Date(
+          notification.timeOfDeliver
+        ).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        return {
+          value: `Kathmandu University (${formattedDeadline})`,
+          label: `Kathmandu University (${formattedDeadline})`,
+        };
+      });
+
+      setFillValue((prev) => [...prev, ...newValues]);
+    }
+  }, [props.notificationforcall?.data]);
+
   function handleAddmember(event) {
     event.preventDefault();
     fetch(`/api/checkmail/${email}`).then((response) => {
@@ -41,6 +70,10 @@ export default function CreateProject(props) {
       });
     });
   }
+
+  function handleChange(value) {
+    setOrg(value.value);
+  }
   // Handle the form
   const handleForm = async (event) => {
     console.log("called");
@@ -48,7 +81,11 @@ export default function CreateProject(props) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     let circulartoPlain = Object.fromEntries(formData);
-    circulartoPlain = { ...circulartoPlain, members: members };
+    circulartoPlain = {
+      ...circulartoPlain,
+      members: members,
+      organization: org,
+    };
     const formDataJsonString = JSON.stringify(circulartoPlain);
 
     const response = await fetch("http://localhost:8000/api/create-project", {
@@ -87,23 +124,23 @@ export default function CreateProject(props) {
               />
             </div>
           </div>
-          <p className="gray">
-            Input tags to make your project visible with related contents.
-          </p>
-          <label htmlFor="organization">Choose your Organization </label>
+          <label htmlFor="organization">
+            If you are creating this project for Organization choose your
+            organization with deadline shown in the bracket as organization
+            deadline for the call.
+          </label>
 
-          <input
-            type="text"
-            name="organization"
-            id="organization"
-            placeholder="Organization Name"
-          />
-          <p className="gray">* Leave it blank if this is personal project</p>
-          <input
-            type="text"
-            name="projectSupervisor"
-            id="Title"
-            placeholder="Project Supervisor"
+          <Select
+            labelInValue
+            defaultValue={{
+              value: null,
+              label: "Personal Project",
+            }}
+            style={{
+              width: "20rem",
+            }}
+            onChange={handleChange}
+            options={fillValue}
           />
           <label htmlFor="add-members">Add members</label>
           <input

@@ -14,23 +14,77 @@ import ProjectSubmissionCard from "./project/ProjectSubmissionCard";
 export default function Organization() {
   const [isModal, setIsmodal] = useState(false);
   const [isInfotab, setIsinfotab] = useState(false);
+  const [action, setAction] = useState("review");
   const [projectData, setProjectData] = useState({});
-  const [options, setOptions] = useState([
-    {
-      value: "Weave",
-    },
-    {
-      value: "Locus-hackaweek",
-    },
-    {
-      value: "Prompt Optimizer",
-    },
-  ]);
-
+  const [options, setOptions] = useState([]);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short", // Use "short" for abbreviated month names like "Feb"
+      day: "numeric",
+    });
+  };
   const handleClick = (projectInfo) => {
     setProjectData(projectInfo);
     setIsinfotab(true);
   };
+
+  const studentsNotSubmitted = [
+    {
+      name: "Krishna Lamsal",
+      email: "krishna@gmail.com",
+      university: "Department of CIEG",
+      projects: 14,
+      status: "active",
+      enrolled: "Dec 23, 2020",
+    },
+    {
+      name: "Sashank Baral",
+      email: "sashank@gmail.com",
+      university: "Department of CSE",
+      projects: 12,
+      status: "inactive",
+      enrolled: "Dec 23, 2020",
+    },
+    {
+      name: "Avinav Bhattarai",
+      email: "avinav@outlook.com",
+      university: "Department of Che. Eng",
+      projects: 9,
+      status: "inactive",
+      enrolled: "Jan 23, 2020",
+    },
+    {
+      name: "Sulav Pokharel",
+      email: "sulav@yahoo.com",
+      university: "Department of Pharmacy",
+      projects: 18,
+      status: "active",
+      enrolled: "March 23, 2020",
+    },
+  ];
+
+  const [project, setProject] = useState([]);
+
+  useEffect(() => {
+    fetch(`/api/getorgprojects`).then((response) => {
+      response.json().then((e) => {
+        console.log(e);
+        setProject(e.data);
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (project.length > 0) {
+      const searchQuery = project.map((p) => ({
+        value: p.projectTitle,
+      }));
+      setOptions(searchQuery);
+    }
+  }, [project]);
+
   return (
     <div className="organization--hero">
       <BrowserRouter>
@@ -84,49 +138,101 @@ export default function Organization() {
               </div>
             </div>
             <div className="proposal-status-hero">
-              <Button type="text">
-                <WatchLaterOutlinedIcon
-                  style={{
-                    fontSize: "small",
-                  }}
-                />{" "}
-                Pending Review <Badge count={11} showZero color="#faad14" />
-              </Button>
-              <Button type="text">
-                <UnsubscribeOutlinedIcon
-                  style={{
-                    fontSize: "small",
-                  }}
-                />{" "}
-                Unsubmitted <Badge count={25} />
-              </Button>
-              <Button type="text">
-                <CheckBoxOutlinedIcon
-                  style={{
-                    fontSize: "small",
-                  }}
-                />{" "}
-                Approved
-                <Badge
-                  className="site-badge-count-109"
-                  count={109}
-                  style={{
-                    backgroundColor: "#52c41a",
-                  }}
-                />
-              </Button>
+              <div className={action == "review" ? "action-border-bottom" : ""}>
+                <Button type="text" onClick={() => setAction("review")}>
+                  <WatchLaterOutlinedIcon
+                    style={{
+                      fontSize: "small",
+                    }}
+                  />
+                  Pending Review{" "}
+                  <Badge count={project.length} showZero color="#faad14" />
+                </Button>
+              </div>
+              <div
+                className={action == "unsubmit" ? "action-border-bottom" : ""}
+              >
+                <Button type="text" onClick={() => setAction("unsubmit")}>
+                  <UnsubscribeOutlinedIcon
+                    style={{
+                      fontSize: "small",
+                    }}
+                  />
+                  Unsubmitted <Badge count={25} />
+                </Button>
+              </div>
+              <div
+                className={action == "approve" ? "action-border-bottom" : ""}
+              >
+                <Button type="text" onClick={() => setAction("approve")}>
+                  <CheckBoxOutlinedIcon
+                    style={{
+                      fontSize: "small",
+                    }}
+                  />
+                  Approved
+                  <Badge
+                    className="site-badge-count-109"
+                    count={109}
+                    style={{
+                      backgroundColor: "#52c41a",
+                    }}
+                  />
+                </Button>
+              </div>
             </div>
-            <ProjectComp handleClick={handleClick} />
-            <div className="explore-projects-org-dash">
-              <span>Explore your users' top projects</span>
-            </div>
+            {action == "review" ? (
+              <ProjectComp
+                handleClick={handleClick}
+                project={project}
+                formatDate={formatDate}
+              />
+            ) : (
+              <div className="project-component-hero">
+                <div className="overview-info-comp">
+                  These Students have yet not submitted projects...
+                </div>
+                <div className="projectInfoComp">
+                  <div className="projectHead">
+                    <span>Name</span>
+                    <span>Email</span>
+                    <span>Department</span>
+                    <span>Projects</span>
+                    <span>Status</span>
+                    <span>Enrolled</span>
+                  </div>
+                </div>
+                {studentsNotSubmitted.map((p) => (
+                  <div className="projectComponent-hero">
+                    <span className="projectname-css">{p.name}</span>
+                    <span>{p.email}</span>
+                    <span>{p.university}</span>
+                    <span>{p.projects}</span>
+                    <span
+                      className={
+                        p.status == "active"
+                          ? "org-active-student"
+                          : "org-inactive-student"
+                      }
+                    >
+                      {p.status}
+                    </span>
+                    <span>{p.enrolled}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
         <Modal open={isModal} footer="" onCancel={() => setIsmodal(false)}>
           <Call />
         </Modal>
         <Modal open={isInfotab} footer="" onCancel={() => setIsinfotab(false)}>
-          <ProjectSubmissionCard infoProject={projectData} info={isInfotab} />
+          <ProjectSubmissionCard
+            infoProject={projectData}
+            info={isInfotab}
+            formatDate={formatDate}
+          />
         </Modal>
       </BrowserRouter>
     </div>

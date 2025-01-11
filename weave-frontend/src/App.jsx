@@ -32,7 +32,7 @@ function App() {
   if (state == "landing") {
     return <Landingpage state={handleState} />;
   } else if (state == "login") {
-    if (userData.data.accountType == "Supervisor") {
+    if (userData.data.accountType == "Organization") {
       return (
         <UserContext.Provider value={userData}>
           <Organization />
