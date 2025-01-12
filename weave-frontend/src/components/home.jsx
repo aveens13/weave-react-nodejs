@@ -160,12 +160,14 @@ function Home(props) {
             {projects.some((project) => project.isPinned) && (
               <div className="dashboard_pinned_title">
                 <h3>Pinned Projects</h3>
-                <button
-                  id="create_project_pinned"
+                <Button
+                  // id="create_project_pinned"
+                  color="default"
+                  variant="solid"
                   onClick={() => setCreate(true)}
                 >
                   <AddIcon /> New Project
-                </button>
+                </Button>
               </div>
             )}
             <div className="dashboard_pinned_cards">
@@ -197,13 +199,13 @@ function Home(props) {
             <div className="dashboard_unpinned_title">
               <h3>My Projects</h3>
               {!projects.some((project) => project.isPinned) && (
-                <button
-                  id="create_project_pinned"
+                <Button
+                  color="default"
+                  variant="solid"
                   onClick={() => setCreate(true)}
                 >
-                  {" "}
-                  <AddIcon /> New Project{" "}
-                </button>
+                  <AddIcon /> New Project
+                </Button>
               )}
             </div>
             <div className="dashboard_unpinned_cards">
