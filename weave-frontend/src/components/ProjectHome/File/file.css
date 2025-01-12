@@ -18,7 +18,7 @@
   align-items: center;
   padding: 0.6rem 1rem;
   margin-left: auto;
-  background-color: blueviolet;
+  background-color: #c41d7f;
   color: white;
   transition: all 0, 2s linear;
 }
@@ -58,6 +58,7 @@
 .all-file-section {
   display: flex;
   flex-direction: column;
+  font-size: 1rem;
 }
 .file-items {
   display: flex;
@@ -81,7 +82,7 @@
   display: flex;
   width: 100%;
   text-align: center;
-  color: #9f9f9f;
+  color: #111;
 }
 
 .all-file-section ul li img {
@@ -102,4 +103,11 @@
 .all-file-section .file-items:hover {
   background-color: #f9f9fb;
   cursor: pointer;
+}
+
+.file-wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 20rem;
 }

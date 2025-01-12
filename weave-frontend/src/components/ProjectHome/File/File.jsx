@@ -96,6 +96,8 @@ export default function File({ project }) {
               listStyle: `none`,
               display: `flex`,
               justifyContent: `space-around`,
+              fontWeight: 600,
+              fontSize: `1rem`,
             }}
           >
             <li>Name</li>
