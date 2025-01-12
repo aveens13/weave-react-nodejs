@@ -16,6 +16,7 @@ export default function Signup(props) {
       type: "loading",
       content: "Signing Up...",
     });
+
     const response = await fetch("/api/v1/user/", {
       method: "POST",
       headers: {
@@ -88,9 +89,17 @@ export default function Signup(props) {
                   placeholder="********"
                 />
                 <div className="accountType">
-                  <Radio.Group defaultValue="User" className="types">
-                    <Radio value="User">User</Radio>
-                    <Radio value="Organization">Organization</Radio>
+                  <Radio.Group
+                    defaultValue="User"
+                    className="types"
+                    name="accountType"
+                  >
+                    <Radio value="User" name="accountType">
+                      User
+                    </Radio>
+                    <Radio value="Organization" name="accountType">
+                      Organization
+                    </Radio>
                   </Radio.Group>
                 </div>
                 <div className="submitbutton">
