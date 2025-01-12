@@ -17,5 +17,6 @@
   height: 100vh;
   overflow-y: auto; /* Enable vertical scrolling */
   padding: 3%; /* Optional padding for content */
+  padding-top: 1%;
   background-color: #fff; /* Background color for the main content */
 }
