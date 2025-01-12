@@ -48,8 +48,18 @@ export default function Board({ taskInfo }) {
         ref={isDroppable ? drop : null} // Attach the drop ref only if droppable
       >
         <div className={`kanban_grid_header ${status}`}>
-          <span>{status.charAt(0).toUpperCase() + status.slice(1)}</span>
-        </div>
+  <span>
+    {status === "created"
+      ? "To Do"
+      : status === "progress"
+      ? "Doing"
+      : status === "completed"
+      ? "Done"
+      : status === "missing"
+      ? "Missing"
+      : status}
+  </span>
+</div>
         <div className="kanban_grid_tasks">{children}</div>
       </div>
     );
