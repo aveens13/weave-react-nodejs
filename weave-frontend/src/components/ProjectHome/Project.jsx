@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import DropDown from './Dropdown';
-import Modal from '../Modal/Modal';
-import './project.css';
-import Board from './Board/Board';
-import AddTask from './Addtask';
-import File from './File/File';
-import Overview from './Overview/Overview';
-import Loader from '../Loader';
-import Calendar from '../calendar/calendar';
-import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
+import { useState, useEffect } from "react";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import DropDown from "./Dropdown";
+// import Modal from '../Modal/Modal';
+import "./project.css";
+import Board from "./Board/Board";
+import AddTask from "./Addtask";
+import File from "./File/File";
+import Overview from "./Overview/Overview";
+import Loader from "../Loader";
+import Calendar from "../calendar/calendar";
+import { useNavigate } from "react-router-dom";
+import { Button, Modal } from "antd";
 export default function Project(props) {
   const [tasks, setTasks] = useState([]);
   const [drop, setDrop] = useState(false);
-  const [navig, setNavig] = useState('overview');
+  const [navig, setNavig] = useState("overview");
   const [loading, setLoading] = useState(true);
   const [buttonLoad, setButtonLoad] = useState(false);
   const [isShowing, setIsShowing] = useState(false);
@@ -32,8 +32,8 @@ export default function Project(props) {
           setProjectData(e);
         });
       } else {
-        console.log('Came here');
-        navigate('/');
+        console.log("Came here");
+        navigate("/");
       }
     });
   };
@@ -45,24 +45,27 @@ export default function Project(props) {
     fetch(`/api/tasks/${props.projectId}`).then((response) => {
       response.json().then((e) => {
         setTasks(e);
+        console.log("Tasks Fetched");
       });
     });
   };
   useEffect(fetchTask, [isShowing]);
 
   //This adds a new task
-  async function handleAddTask(formdata) {
+  async function handleAddTask(formdata, setLoader) {
     const response = await fetch(`/api/task/${props.projectId}`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: formdata,
     });
     response.json().then((e) => {
+      setLoader(false);
       console.log(e);
+      fetchTask();
+      setIsShowing(false);
     });
-    setIsShowing(false);
   }
 
   //Function to handle create logsheet
@@ -72,9 +75,9 @@ export default function Project(props) {
       .then((response) => response.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = url;
-        a.download = 'logsheet.pdf';
+        a.download = "logsheet.pdf";
         a.click(); //Automatically calling the download
       })
       .finally(() => {
@@ -86,50 +89,50 @@ export default function Project(props) {
     return <Loader />;
   }
   return (
-    <div className='project-home-hero'>
-      <div className='document-section'>
-        <div className='document--hero'>
-          <div className='top-document-info'>
+    <div className="project-home-hero">
+      <div className="document-section">
+        <div className="document--hero">
+          <div className="top-document-info">
             <ul style={{ paddingLeft: 0 }}>
               <li
-                onClick={() => setNavig('overview')}
-                className={navig == 'overview' ? 'active' : ''}
+                onClick={() => setNavig("overview")}
+                className={navig == "overview" ? "active" : ""}
                 style={{ marginLeft: 0 }}
               >
                 Overview
               </li>
               <li
-                onClick={() => setNavig('board')}
-                className={navig == 'board' ? 'active' : ''}
+                onClick={() => setNavig("board")}
+                className={navig == "board" ? "active" : ""}
               >
                 Board
               </li>
               <li
-                onClick={() => setNavig('calendar')}
-                className={navig == 'calendar' ? 'active' : ''}
+                onClick={() => setNavig("calendar")}
+                className={navig == "calendar" ? "active" : ""}
               >
                 Calendar
               </li>
               <li
-                onClick={() => setNavig('file')}
-                className={navig == 'file' ? 'active' : ''}
+                onClick={() => setNavig("file")}
+                className={navig == "file" ? "active" : ""}
               >
                 File
               </li>
-              {navig == 'board' && (
+              {navig == "board" && (
                 <li>
                   <button onClick={() => setIsShowing(true)}>
                     Add New Task
                   </button>
                 </li>
               )}
-              {navig == 'board' && (
+              {navig == "board" && (
                 <li>
                   {/* <button onClick={handleCreateLogsheet}>
                     Create Logsheet
                   </button> */}
                   <Button
-                    type='primary'
+                    type="primary"
                     loading={buttonLoad}
                     onClick={handleCreateLogsheet}
                   >
@@ -138,9 +141,9 @@ export default function Project(props) {
                 </li>
               )}
 
-              <li className='top-document'>
+              <li className="top-document">
                 <div
-                  className='drop-icon'
+                  className="drop-icon"
                   onClick={() =>
                     setDrop((prev) => {
                       return !prev;
@@ -161,17 +164,25 @@ export default function Project(props) {
           )}
         </div>
       </div>
-      {navig == 'board' ? (
+      {navig == "board" ? (
         <Board taskInfo={tasks} />
-      ) : navig == 'calendar' ? (
+      ) : navig == "calendar" ? (
         <Calendar project={projectData} />
-      ) : navig == 'file' ? (
+      ) : navig == "file" ? (
         <File project={projectData} />
       ) : (
         <Overview project={projectData} taskInfo={tasks} />
       )}
-      <Modal open={isShowing} close={() => setIsShowing(false)}>
-        <AddTask handleAddTask={handleAddTask} project={projectData} />
+      <Modal
+        open={isShowing}
+        footer={null}
+        onCancel={() => setIsShowing(false)}
+      >
+        <AddTask
+          handleAddTask={handleAddTask}
+          project={projectData}
+          close={() => setIsShowing(false)}
+        />
       </Modal>
     </div>
   );
