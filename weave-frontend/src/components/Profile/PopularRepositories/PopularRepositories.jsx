@@ -2,9 +2,12 @@ import ProjectCard from "../../Explore/ProjectCard/ProjectCard";
 import React, { useState } from "react";
 import "./PopularRepositories.css";
 import image from "../../../assets/image.jpg";
-
+import { UserContext } from "../../../App";
 // import image from "../../../assets/profile.jpeg"
 export default function PopularRepoPage() {
+  const user = React.useContext(UserContext);
+  console.log(user.data.pinnedProjects);
+  
   console.log(image); 
   const [projects, setProjects] = useState([
     {
