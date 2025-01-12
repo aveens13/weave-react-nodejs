@@ -63,7 +63,7 @@ const ProfileHeader = () => {
               <div className="profile-basic-details">
                 <h1>{user.data.name}</h1>
                 <p>
-                  {profile.role} @ {profile.organization}
+                  {user.data.accountType} @ {profile.organization}
                 </p>
                 <p>
                   <EnvironmentOutlined /> {profile.location}
