@@ -1,6 +1,4 @@
-Here's the updated README file including the new feature:
 
----
 
 # 🌐 **Weave React NodeJS**  
 ![License](https://img.shields.io/badge/License-MIT-blue)  
