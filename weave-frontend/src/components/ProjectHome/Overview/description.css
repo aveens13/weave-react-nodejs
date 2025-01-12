@@ -10,8 +10,9 @@
 }
 .description--hero h3 {
   font-family: 'Lato', sans-serif;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 400;
+  /* margin-bottom: 10px; */
 }
 .description--hero p {
   font-family: 'Lato', sans-serif;
@@ -156,5 +157,5 @@
   margin-left: auto;
 }
 .footer-section p {
-  color: #f0d3b1;
+  color: orange;
 }
