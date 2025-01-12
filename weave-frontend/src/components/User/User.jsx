@@ -1,3 +1,4 @@
+
 import TopNav from "../topnav";
 import SideNav from "../sidenav";
 import Home from "../home";
@@ -6,9 +7,10 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Project from "../ProjectHome/Project";
 import "./user.css";
 import { useState } from "react";
-import Profilepage from "../Profilepage/profilepage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
+import Profile from '../Profile/profilepage';
+
 
 function User() {
   // console.table(getmonth(3));
@@ -24,8 +26,9 @@ function User() {
     // navigate("/project");
   };
   return (
-    <div className="user">
+    <div className='user'>
       <BrowserRouter>
+
         <QueryClientProvider client={queryClient}>
           <div className="sidenav">
             <SideNav className="side_nav" handlePin={handlePin} />
@@ -42,7 +45,7 @@ function User() {
                 element={<Project projectId={projectId} />}
               />
               <Route path="/explore" element={<ExplorePage />} />
-              <Route path="/profile" element={<Profilepage />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </div>
         </QueryClientProvider>
