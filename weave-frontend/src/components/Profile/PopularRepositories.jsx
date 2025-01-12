@@ -1,9 +1,13 @@
+
 import ProjectCard from "../Explore/ProjectCard/ProjectCard";
 import React, { useState } from "react";
 import "./PopularRepositories.css";
 import image from "../../assets/image.jpg";
 
+
+// import image from "../../../assets/profile.jpeg"
 export default function PopularRepoPage() {
+  console.log(image); 
   const [projects, setProjects] = useState([
     {
       projectId: 1,

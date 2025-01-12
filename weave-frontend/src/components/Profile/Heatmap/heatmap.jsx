@@ -1,84 +1,61 @@
-import React from "react";
-import "./Heatmap.css";
+import React, { useState, useEffect } from "react";
+import HeatMap from "@uiw/react-heat-map";
 
-const Heatmap = ({ data }) => {
-  const getColor = (value) => {
-    switch (value) {
-      case 0: return "#f2a7e5"; // Least activity (lightest shade)
-      case 1: return "#e56fd0"; // Slight activity (lighter shade)
-      case 2: return "#e147d7"; // Medium activity (base color)
-      case 3: return "#bb3fae"; // High activity (darker shade)
-      case 4: return "#9b2e8f"; // Most activity (darkest shade)
-      default: return "#f2a7e5"; // Default (lightest)
-    }
-  };
-
+// Function to generate dummy data
+export const generateDummyData = () => {
+  const data = [];
   const startDate = new Date(2024, 0, 1); // January 1, 2024
-  const daysInYear = [...Array(366)].map((_, index) => {
-    const date = new Date(startDate);
-    date.setDate(startDate.getDate() + index);
-    return date;
-  });
+  const endDate = new Date(2024, 11, 31); // December 31, 2024
 
-  // Group days into weeks (7 days per row)
-  const weeks = [];
-  const months = [];
-  let lastMonth = null;
-
-  for (let i = 0; i < daysInYear.length; i += 7) {
-    const week = daysInYear.slice(i, i + 7);
-    weeks.push(week);
-
-    const currentMonth = week[0].toLocaleString("default", { month: "short" });
-    if (currentMonth !== lastMonth) {
-      months.push(currentMonth);
-      lastMonth = currentMonth;
-    } else {
-      months.push(""); // Empty string to maintain spacing
-    }
+  while (startDate <= endDate) {
+    const dateString = startDate.toISOString().split("T")[0];
+    data.push({
+      date: dateString,
+      count: Math.floor(Math.random() * 5), // Random contributions (0-4)
+    });
+    startDate.setDate(startDate.getDate() + 1); // Move to the next day
   }
 
+  return data;
+};
+
+const Heatmap = () => {
+  // State for heatmap data and rounded corners range
+  const [heatmapData, setHeatmapData] = useState([]);
+  const [range, setRange] = useState(5);
+
+  // Generate dummy data on component mount
+  useEffect(() => {
+    setHeatmapData(generateDummyData());
+  }, []);
+
   return (
-    <div className="heatmap-container">
-      <div className="month-labels">
-        {months.map((month, index) => (
-          <div key={index} className="month-label">
-            {month}
-          </div>
-        ))}
-      </div>
-
-      <div className="weeks">
-        {weeks.map((week, weekIndex) => (
-          <div key={weekIndex} className="week">
-            {week.map((date) => {
-              const dateString = date.toISOString().split("T")[0];
-              return (
-                <div
-                  key={dateString}
-                  className="day"
-                  style={{ backgroundColor: getColor(data[dateString] || 0) }}
-                  title={`Date: ${dateString}, Contributions: ${data[dateString] || 0}`}
-                />
-              );
-            })}
-          </div>
-        ))}
-      </div>
-
-      {/* Activity Gradient Legend */}
-      <div className="legend">
-        <div className="legend-text"> Less activity </div>
-        <div className="color-blocks">
-          <div className="color-block color-block-1"></div>
-          <div className="color-block color-block-2"></div>
-          <div className="color-block color-block-3"></div>
-          <div className="color-block color-block-4"></div>
-          <div className="color-block color-block-5"></div>
-        </div>
-        <div className="legend-text">More activity</div>
-      </div>
-
+    <div className="heatmap">
+      <h1>Activity Heatmap</h1>
+      <HeatMap
+        value={heatmapData}
+        width={1000}
+        rectSize={15} // Adjust size of each block
+        legendCellSize={15} // Legend block size
+        space={2} // Space between blocks
+        startDate={new Date("2024-01-01")} // Starting date
+        endDate={new Date("2024-12-31")} // Ending date
+        panelColors={{
+          0: "#fff", // Lowest activity
+          1: "#FFE0B2",
+          2: "#FFC080",
+          3: "#FFA040",
+          4: "#FF9F00", // Highest activity
+        }}
+        legendRender={(props) => {
+          const { key, ...rest } = props; // Extract key from props
+          return <rect {...rest} y={props.y + 10} rx={range} key={key} />;
+        }}
+        
+        rectProps={{
+          rx: range, // Rounded corners for blocks
+        }}
+      />
     </div>
   );
 };

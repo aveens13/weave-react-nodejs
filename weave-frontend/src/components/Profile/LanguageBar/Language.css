@@ -1,8 +1,10 @@
 /* Container for the progress bar component */
 .progress-bar-container {
-    width: 100%;
+    width: 60%;
     font-family: Arial, sans-serif;
     display: flex;
+    flex-direction: column;
+    
   }
   
   /* Styling for each language item */
