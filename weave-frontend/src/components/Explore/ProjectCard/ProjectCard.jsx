@@ -10,7 +10,14 @@ const ProjectCard = ({
   languages = ["HTML", "CSS", "JavaScript"],
   title = "Untitled Project",
   authors = [{ name: "John" }],
-  posterUrl = "../../../public/3.jpg",
+  posterUrl = [
+    "../../../public/3.jpg",
+    "../../../public/7.avif",
+    "../../../public/2.jpg",
+    "../../../public/5.jpg",
+    "../../../public/4.avif",
+    "../../../public/8.avif",
+  ],
   onLikeToggle,
   liked = false,
   likeCount = 0,
@@ -21,16 +28,16 @@ const ProjectCard = ({
   handleClick,
   projectId,
 }) => {
+  const randomNum = Math.floor(Math.random() * 5);
   return (
     <div className="project-card">
       <div
         className="project-poster"
         style={{
-          backgroundImage: `url(${posterUrl})`,
+          backgroundImage: `url(${posterUrl[randomNum]})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        onClick={() => handleClick(projectId)}
       >
         {tags && (
           <div className="tags-krishna">
@@ -52,7 +59,10 @@ const ProjectCard = ({
           </div>
         )}
       </div>
-      <div className="project-info-krishna">
+      <div
+        className="project-info-krishna"
+        onClick={() => handleClick(projectId)}
+      >
         <p className="languages-krishna-main">{languages.join(", ")}</p>
         <h3 className="project-title">{title}</h3>
         <p className="authors">
