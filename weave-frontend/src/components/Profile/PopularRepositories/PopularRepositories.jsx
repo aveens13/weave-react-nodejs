@@ -1,12 +1,12 @@
 import ProjectCard from "../../Explore/ProjectCard/ProjectCard";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./PopularRepositories.css";
 import image from "../../../assets/image.jpg";
 import { UserContext } from "../../../App";
 // import image from "../../../assets/profile.jpeg"
-export default function PopularRepoPage({user}) {
+export default function PopularRepoPage({ user }) {
   // const user = React.useContext(UserContext);
-  
+
   const [projects, setProjects] = useState([
     {
       projectId: 1,
@@ -57,7 +57,6 @@ export default function PopularRepoPage({user}) {
   // },[user])
 
   // console.log("Pinned Projects after Usestate", projects);
-  
 
   const handleLikeToggle = (projectId) => {
     setProjects((prevProjects) =>
@@ -82,19 +81,23 @@ export default function PopularRepoPage({user}) {
       </div>
 
       <div className="projects-grid">
-        {projects.length > 0 ? (projects.map((project) => (
-          <ProjectCard
-            key={project.projectId}
-            // tags={project.tags.split(",")}
-            // languages={project.languages}
-            title={project.projectTitle}
-            authors={project.members.map((member) => member.name)}
-            posterUrl={project.image ? project.image : image}
-            // onLikeToggle={() => handleLikeToggle(project.projectId)}
-            // liked={project.liked}
-            // likeCount={project.likeCount}
-          />
-        ))):<>No Pinned Projects</>}
+        {projects.length > 0 ? (
+          projects.map((project) => (
+            <ProjectCard
+              key={project.projectId}
+              // tags={project.tags.split(",")}
+              // languages={project.languages}
+              title={project.projectTitle}
+              authors={project.members.map((member) => member.name)}
+              // posterUrl={project.image ? project.image : image}
+              // onLikeToggle={() => handleLikeToggle(project.projectId)}
+              // liked={project.liked}
+              // likeCount={project.likeCount}
+            />
+          ))
+        ) : (
+          <>No Pinned Projects</>
+        )}
       </div>
     </div>
   );

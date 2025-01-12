@@ -10,7 +10,21 @@ const ProjectCard = ({
   languages = ["HTML", "CSS", "JavaScript"],
   title = "Untitled Project",
   authors = [{ name: "John" }],
-  posterUrl = "../../../public/3.jpg",
+  posterUrl = [
+    "../../../public/2.jpg",
+    "../../../public/3.jpg",
+    "../../../public/4.avif",
+    "../../../public/5.jpg",
+    "../../../public/6.avif",
+    "../../../public/7.avif",
+    "../../../public/8.avif",
+    "../../../public/9.avif",
+    "../../../public/10.avif",
+    "../../../public/11.avif",
+    "../../../public/12.avif",
+    "../../../public/13.avif",
+    "../../../public/14.avif",
+  ],
 
   onLikeToggle,
   liked = false,
@@ -22,13 +36,13 @@ const ProjectCard = ({
   handleClick,
   projectId,
 }) => {
-  const randomNum = Math.floor(Math.random() * 5);
+  const randomNum = Math.floor(Math.random() * 12);
   return (
     <div className="project-card">
       <div
         className="project-poster"
         style={{
-          backgroundImage: `url(${posterUrl})`,
+          backgroundImage: `url(${posterUrl[randomNum]})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
