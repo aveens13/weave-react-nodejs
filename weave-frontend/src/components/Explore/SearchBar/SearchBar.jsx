@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SearchBar.css';
 
-const SearchBar = () => {
+const SearchBar = ({ onFilterChange }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeProjectTypes, setActiveProjectTypes] = useState([]);
-  const [activeLanguages, setActiveLanguages] = useState([]);
   const [activeFilters, setActiveFilters] = useState([]);
+  const [activeLanguages, setActiveLanguages] = useState([]);
 
-  const projectTypes = [
-    'All',
-    'AI Application',
-    'Data Analysis',
-    'Web Design',
-    'Mobile App Development',
-    'Game Development',
-    'Cybersecurity',
+  const filters = [
+    'Data Science',
+    'Fitness',
+    'Finance',
+    'Mobile',
+    'Gaming',
+    'Web',
+    'AI',
+    'ML',
   ];
 
   const languages = [
@@ -28,18 +28,12 @@ const SearchBar = () => {
     'Swift',
   ];
 
-  const filters = ['Dolby ATMOS', 'Mastering', 'Mixing', 'Studio Booking'];
-
-  const handleProjectTypeClick = (type) => {
-    if (type === 'All') {
-      setActiveProjectTypes(['All']);
-    } else {
-      setActiveProjectTypes((prev) =>
-        prev.includes(type)
-          ? prev.filter((item) => item !== type)
-          : [...prev.filter((item) => item !== 'All'), type]
-      );
-    }
+  const handleFilterClick = (filter) => {
+    setActiveFilters((prev) =>
+      prev.includes(filter)
+        ? prev.filter((item) => item !== filter)
+        : [...prev, filter]
+    );
   };
 
   const handleLanguageClick = (language) => {
@@ -54,19 +48,15 @@ const SearchBar = () => {
     }
   };
 
-  const handleFilterClick = (filter) => {
-    setActiveFilters((prev) =>
-      prev.includes(filter)
-        ? prev.filter((item) => item !== filter)
-        : [...prev, filter]
-    );
+  const handleClearAll = () => {
+    setActiveFilters([]);
+    setActiveLanguages([]);
   };
 
-  const handleClearAll = () => {
-    setActiveProjectTypes([]);
-    setActiveLanguages([]);
-    setActiveFilters([]);
-  };
+  // Notify parent about activeFilters changes
+  useEffect(() => {
+    onFilterChange(activeFilters);
+  }, [activeFilters, onFilterChange]);
 
   return (
     <div className='search-bar-container'>
@@ -123,25 +113,25 @@ const SearchBar = () => {
               </button>
             </div>
             <div className='modal-body'>
-              {/* Project Types */}
+              {/* Filters Section */}
               <div className='filter-section'>
-                <h3>Project Types</h3>
+                <h3>Filters</h3>
                 <div className='filter-items'>
-                  {projectTypes.map((type) => (
+                  {filters.map((filter) => (
                     <button
-                      key={type}
+                      key={filter}
                       className={`filter-item ${
-                        activeProjectTypes.includes(type) ? 'clicked' : ''
+                        activeFilters.includes(filter) ? 'clicked' : ''
                       }`}
-                      onClick={() => handleProjectTypeClick(type)}
+                      onClick={() => handleFilterClick(filter)}
                     >
-                      {type}
+                      {filter}
                     </button>
                   ))}
                 </div>
               </div>
 
-              {/* Languages */}
+              {/* Languages Section */}
               <div className='filter-section'>
                 <h3>Languages</h3>
                 <div className='filter-items'>

@@ -58,8 +58,7 @@ export default function ExplorePage() {
     },
     {
       projectId: 6,
-      projectTitle:
-        'Portfolio Website For Aspiring Candidates of The Year of March in the Winter',
+      projectTitle: 'Portfolio Website',
       tags: ['Web', 'Portfolio'],
       languages: ['HTML', 'CSS', 'JavaScript'],
       members: [{ name: 'John' }],
@@ -89,6 +88,8 @@ export default function ExplorePage() {
     },
   ]);
 
+  const [activeFilters, setActiveFilters] = useState([]);
+
   const handleLikeToggle = (projectId) => {
     setProjects((prevProjects) =>
       prevProjects.map((project) =>
@@ -105,10 +106,19 @@ export default function ExplorePage() {
     );
   };
 
+  const handleFilterChange = (filters) => {
+    setActiveFilters(filters);
+  };
+
   const likedProjects = projects.filter((project) => project.liked);
 
-  // Group projects by their first tag
-  const groupedProjects = projects.reduce((groups, project) => {
+  const filteredProjects = activeFilters.length
+    ? projects.filter((project) =>
+        project.tags.some((tag) => activeFilters.includes(tag))
+      )
+    : projects;
+
+  const groupedProjects = filteredProjects.reduce((groups, project) => {
     const groupKey = project.tags[0]; // First tag as key
     if (!groups[groupKey]) groups[groupKey] = [];
     groups[groupKey].push(project);
@@ -123,10 +133,11 @@ export default function ExplorePage() {
           Discover innovative projects created by talented developers and
           students.
         </p>
-        <SearchBar />
+        <SearchBar onFilterChange={handleFilterChange} />
       </div>
 
-      {likedProjects.length > 0 && (
+      {/* Show "Liked Projects" section only if no filters are active */}
+      {likedProjects.length > 0 && activeFilters.length === 0 && (
         <div className='liked-projects-section'>
           <h4 className='projects-heading'>Liked Projects</h4>
           <div className='projects-grid'>
