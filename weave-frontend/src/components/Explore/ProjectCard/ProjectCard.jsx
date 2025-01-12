@@ -10,14 +10,8 @@ const ProjectCard = ({
   languages = ["HTML", "CSS", "JavaScript"],
   title = "Untitled Project",
   authors = [{ name: "John" }],
-  posterUrl = [
+  posterUrl = 
     "../../../public/3.jpg",
-    "../../../public/7.avif",
-    "../../../public/2.jpg",
-    "../../../public/5.jpg",
-    "../../../public/4.avif",
-    "../../../public/8.avif",
-  ],
   onLikeToggle,
   liked = false,
   likeCount = 0,
@@ -34,7 +28,7 @@ const ProjectCard = ({
       <div
         className="project-poster"
         style={{
-          backgroundImage: `url(${posterUrl[randomNum]})`,
+          backgroundImage: `url(${posterUrl})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
