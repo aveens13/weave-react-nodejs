@@ -96,10 +96,12 @@
   flex-wrap: wrap;
 }
 
-.dashboard_unpinned_cards,.dashboard_pinned_cards .project-card{
+.dashboard_pinned_cards .project-card {
   max-width: 250px;
 }
-
+.dashboard_unpinned_cards .project-card {
+  max-width: 250px;
+}
 
 #create_project_pinned {
   display: flex;
