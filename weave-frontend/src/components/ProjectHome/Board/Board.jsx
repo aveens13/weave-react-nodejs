@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import KanbanCard from "./kanban_card";
@@ -9,6 +9,10 @@ const ItemType = {
 
 export default function Board({ taskInfo }) {
   const [tasks, setTasks] = useState(taskInfo);
+
+  useEffect(() => {
+    setTasks(taskInfo);
+  }, [taskInfo]);
 
   function handleEvent(id, status) {
     // Prevent setting status to "missing"
@@ -48,18 +52,18 @@ export default function Board({ taskInfo }) {
         ref={isDroppable ? drop : null} // Attach the drop ref only if droppable
       >
         <div className={`kanban_grid_header ${status}`}>
-  <span>
-    {status === "created"
-      ? "To Do"
-      : status === "progress"
-      ? "Doing"
-      : status === "completed"
-      ? "Done"
-      : status === "missing"
-      ? "Missing"
-      : status}
-  </span>
-</div>
+          <span>
+            {status === "created"
+              ? "To Do"
+              : status === "progress"
+              ? "Doing"
+              : status === "completed"
+              ? "Done"
+              : status === "missing"
+              ? "Missing"
+              : status}
+          </span>
+        </div>
         <div className="kanban_grid_tasks">{children}</div>
       </div>
     );
@@ -84,7 +88,7 @@ export default function Board({ taskInfo }) {
       <div className="board_main">
         <div className="kanban_main">
           <Column status="created" title="To Do">
-          {tasks
+            {tasks
               .filter(
                 (task) =>
                   task.status === "created" &&
@@ -95,7 +99,7 @@ export default function Board({ taskInfo }) {
               ))}
           </Column>
           <Column status="progress">
-          {tasks
+            {tasks
               .filter(
                 (task) =>
                   task.status === "progress" &&
@@ -106,11 +110,8 @@ export default function Board({ taskInfo }) {
               ))}
           </Column>
           <Column status="completed">
-          {tasks
-              .filter(
-                (task) =>
-                  task.status === "completed"
-              )
+            {tasks
+              .filter((task) => task.status === "completed")
               .map((task) => (
                 <DraggableTask key={task.taskId} task={task} />
               ))}

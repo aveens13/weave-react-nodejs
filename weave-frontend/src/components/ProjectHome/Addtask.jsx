@@ -1,11 +1,16 @@
+import { Button } from "antd";
+import { useState } from "react";
+
 export default function AddTask({ handleAddTask, project }) {
+  const [loader, setLoader] = useState(false);
   async function handleCreate(event) {
+    setLoader(true);
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
     const circulartoPlain = Object.fromEntries(formData.entries());
     const formDataJsonString = JSON.stringify(circulartoPlain);
-    handleAddTask(formDataJsonString);
+    handleAddTask(formDataJsonString, setLoader);
   }
   return (
     <div className="login-registration-form">
@@ -47,11 +52,16 @@ export default function AddTask({ handleAddTask, project }) {
                 </select>
               </div>
               <div className="submitbutton">
-                <input
-                  className="submitBtn"
-                  type="submit"
-                  value="Create"
-                ></input>
+                <Button
+                  color="default"
+                  variant="solid"
+                  type="primary"
+                  htmlType="submit"
+                  size="large"
+                  loading={loader}
+                >
+                  Create
+                </Button>
               </div>
             </form>
           </div>

@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import FullCalendar from '@fullcalendar/react';
-import { formatDate } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import listPlugin from '@fullcalendar/list';
-import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
-import Modal from '../Modal/Modal';
-import AddTask from '../ProjectHome/Addtask';
-import './calendar.css';
+import { useEffect, useState } from "react";
+import FullCalendar from "@fullcalendar/react";
+import { formatDate } from "@fullcalendar/core";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import listPlugin from "@fullcalendar/list";
+import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
+import { Modal } from "antd";
+import AddTask from "../ProjectHome/Addtask";
+import "./calendar.css";
 
 const Calendar = (props) => {
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -39,7 +39,7 @@ const Calendar = (props) => {
       setIsShowing(false);
 
       const updatedEvents = calendarApi.getEvents();
-      localStorage.setItem('Events', JSON.stringify(updatedEvents));
+      localStorage.setItem("Events", JSON.stringify(updatedEvents));
       setCurrentEvents(updatedEvents);
     }
   };
@@ -55,32 +55,32 @@ const Calendar = (props) => {
       selected.event.remove();
 
       const updatedEvents = calendarApi.getEvents();
-      localStorage.setItem('Events', JSON.stringify(updatedEvents));
+      localStorage.setItem("Events", JSON.stringify(updatedEvents));
       setCurrentEvents(updatedEvents);
     }
   };
 
   return (
-    <Box m='0px'>
-      <Box display='flex' justifyContent='space-between'>
+    <Box m="0px">
+      <Box display="flex" justifyContent="space-between">
         {/* Calendar Sidebar */}
         <Box
-          flex='1 1 20%'
-          backgroundColor='#111'
-          p='15px'
-          borderRadius='8px'
-          color='#fff'
+          flex="1 1 20%"
+          backgroundColor="#111"
+          p="15px"
+          borderRadius="8px"
+          color="#fff"
         >
-          <Typography variant='h5'>Events</Typography>
+          <Typography variant="h5">Events</Typography>
           <List>
             {currentEvents.map((event) => (
               <ListItem
                 key={event.id}
                 sx={{
-                  backgroundColor: 'white',
-                  margin: '10px 0',
-                  color: 'black',
-                  borderRadius: '8px',
+                  backgroundColor: "white",
+                  margin: "10px 0",
+                  color: "black",
+                  borderRadius: "8px",
                 }}
               >
                 <ListItemText
@@ -88,9 +88,9 @@ const Calendar = (props) => {
                   secondary={
                     <Typography>
                       {formatDate(event.start, {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
                       })}
                     </Typography>
                   }
@@ -102,15 +102,15 @@ const Calendar = (props) => {
 
         {/* Main Calendar */}
         <Box
-          flex='1 1 100%'
-          ml='15px'
+          flex="1 1 100%"
+          ml="15px"
           sx={{
-            borderRadius: '10px', // Apply border-radius to calendar container
-            overflow: 'hidden',
+            borderRadius: "10px", // Apply border-radius to calendar container
+            overflow: "hidden",
           }}
         >
           <FullCalendar
-            height='75vh'
+            height="75vh"
             plugins={[
               dayGridPlugin,
               timeGridPlugin,
@@ -118,11 +118,11 @@ const Calendar = (props) => {
               listPlugin,
             ]}
             headerToolbar={{
-              left: 'prev,next today',
-              center: 'title',
-              right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
+              left: "prev,next today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
-            initialView='dayGridMonth'
+            initialView="dayGridMonth"
             editable
             selectable
             selectMirror
@@ -133,46 +133,50 @@ const Calendar = (props) => {
             initialEvents={[
               {
                 id: 1,
-                title: 'Database',
-                start: '2025-01-14',
-                end: '2025-01-19',
+                title: "Database",
+                start: "2025-01-14",
+                end: "2025-01-19",
               },
               {
                 id: 2,
-                title: 'File Uploader',
-                start: '2025-01-09',
-                end: '2025-01-12',
+                title: "File Uploader",
+                start: "2025-01-09",
+                end: "2025-01-12",
               },
               {
                 id: 3,
-                title: 'Frontend',
-                start: '2024-12-29',
-                end: '2025-01-03',
+                title: "Frontend",
+                start: "2024-12-29",
+                end: "2025-01-03",
               },
               {
                 id: 4,
-                title: 'Backend',
-                start: '2025-01-24',
-                end: '2025-01-27',
+                title: "Backend",
+                start: "2025-01-24",
+                end: "2025-01-27",
               },
             ]}
             customButtons={{
               prev: {
-                text: '<',
+                text: "<",
                 click: () => {},
               },
             }}
             buttonText={{
-              today: 'Today',
-              month: 'Month',
-              week: 'Week',
-              day: 'Day',
-              list: 'List',
+              today: "Today",
+              month: "Month",
+              week: "Week",
+              day: "Day",
+              list: "List",
             }}
           />
         </Box>
       </Box>
-      <Modal open={isShowing} close={() => setIsShowing(false)}>
+      <Modal
+        open={isShowing}
+        onCancel={() => setIsShowing(false)}
+        footer={null}
+      >
         <AddTask handleAddTask={handleAddTask} project={props.project} />
       </Modal>
     </Box>

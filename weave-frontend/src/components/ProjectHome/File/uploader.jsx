@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./uploader.css";
+import { Button } from "antd";
 import { UserContext } from "../../../App";
 export default function Uploader({ close, project }) {
   const [file, setFile] = useState("");
+  const [loader, setLoader] = useState(false);
   const user = React.useContext(UserContext);
   function handleChange(e) {
     setFile(e.target.files[0]);
@@ -10,7 +12,7 @@ export default function Uploader({ close, project }) {
 
   async function fileUpload(e) {
     e.preventDefault();
-
+    setLoader(true);
     const formData = new FormData();
     formData.append("file", file);
 
@@ -25,6 +27,7 @@ export default function Uploader({ close, project }) {
     if (response.ok) {
       response.json().then((e) => {
         console.log(e);
+        setLoader(false);
         close();
       });
     }
@@ -45,9 +48,14 @@ export default function Uploader({ close, project }) {
               id="fileID"
               onChange={handleChange}
             />
-            <button className="btn" onClick={fileUpload}>
+            <Button
+              color="default"
+              variant="solid"
+              onClick={fileUpload}
+              loading={loader}
+            >
               Upload
-            </button>
+            </Button>
           </form>
         </div>
       </div>
