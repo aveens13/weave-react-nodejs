@@ -29,14 +29,14 @@ export default function TaskCard(props) {
       className="card--main"
     >
       <div className="card--info">
-        <div className="title">
-          {props.task.status === "completed" ? (
+        <div className="card--info--upper">
+          {/* {props.task.status === "completed" ? (
             <Task className="task" />
           ) : (
             <Event className="event" />
-          )}
-          <h5>{props.task.title}</h5>
-          {props.task.status != "completed" ? (
+          )} */}
+          <label className="card--info--title">{props.task.title}</label>
+          {/* {props.task.status != "completed" ? (
             <button onClick={handleClick}>
               <RadioButtonUnchecked />
             </button>
@@ -44,14 +44,17 @@ export default function TaskCard(props) {
             <button className="checked">
               <CheckCircleOutline />
             </button>
-          )}
+          )} */}
+          <label className="card--info--description">{props.task.info}</label>
         </div>
-        <h3>{props.task.info}</h3>
-        <p className="date">{deadline}</p>
-        <div className="bottom">
-          <img src={image} alt="" />
-          <p>{props.task.name.name}</p>
-        </div>
+          <div className="card--info--lower">
+              <div className="bottom">
+                  <img src={image} alt="" />
+                  <p>{props.task.name.name}</p>
+              </div>
+                <p className="date">{deadline}</p>
+
+          </div>
       </div>
     </motion.div>
   );
