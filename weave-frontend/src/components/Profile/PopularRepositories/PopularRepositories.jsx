@@ -68,7 +68,7 @@ export default function PopularRepoPage() {
   return (
     <div className="explore-container">
       <div className="explore-section-hero">
-        <h3 className="explore-title">Popular Projects</h3>
+        <h1 className="explore-title">Popular Projects</h1>
       </div>
 
       <div className="projects-grid">

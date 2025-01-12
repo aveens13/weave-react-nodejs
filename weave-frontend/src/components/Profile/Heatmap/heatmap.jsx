@@ -34,14 +34,14 @@ const Heatmap = () => {
       <h1>Activity Heatmap</h1>
       <HeatMap
         value={heatmapData}
-        width={1000}
-        rectSize={15} // Adjust size of each block
-        legendCellSize={15} // Legend block size
-        space={2} // Space between blocks
+        width={1150}
+        rectSize={14} // Adjust size of each block
+        legendCellSize={12} // Legend block size
+        space={3} // Space between blocks
         startDate={new Date("2024-01-01")} // Starting date
         endDate={new Date("2024-12-31")} // Ending date
         panelColors={{
-          0: "#fff", // Lowest activity
+          0: "#FFF3E0", // Lowest activity
           1: "#FFE0B2",
           2: "#FFC080",
           3: "#FFA040",
@@ -49,9 +49,16 @@ const Heatmap = () => {
         }}
         legendRender={(props) => {
           const { key, ...rest } = props; // Extract key from props
-          return <rect {...rest} y={props.y + 10} rx={range} key={key} />;
+          return (
+            <rect
+              {...rest}
+              y={props.y} // Position legend properly
+              rx={range}
+              key={key}
+              fill={rest.fill} // Ensure the color of the legend cell
+            />
+          );
         }}
-        
         rectProps={{
           rx: range, // Rounded corners for blocks
         }}
