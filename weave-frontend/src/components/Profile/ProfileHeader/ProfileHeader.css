@@ -1,7 +1,6 @@
 
 .profile-header-card {
     width: 100%;
-    
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -45,25 +44,23 @@
   .profile-basic-details h1 {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #065fb3;
+    
   }
 
 
   .profile-basic-details p {
     margin: -2px 0 2px 0;
-    color: #0c68bd;
+
   }
 
   .edit-btn {
     width: 100%;
-    background-color: #ff6f61;
+    background-color: #c41d7f;
     color: white;
     border: none;
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    
-
-    
+    margin-left: 25px;
   }
   
   .additional-info {
