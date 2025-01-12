@@ -4,8 +4,12 @@ import { EnvironmentOutlined, UploadOutlined } from "@ant-design/icons";
 import { profileData } from "./profileData";
 import "./ProfileHeader.css";
 import "./ModalStyles.css"; // New CSS file for modal
+import { UserContext } from "../../../App";
+
 
 const ProfileHeader = () => {
+  const user = React.useContext(UserContext);
+  
   const [profile, setProfile] = useState(profileData);
 
   // State for modal visibility and form fields
@@ -15,7 +19,7 @@ const ProfileHeader = () => {
   const showModal = () => {
     setIsModalVisible(true);
     form.setFieldsValue({
-      name: profile.name,
+      name: user.data.name,
       organization: profile.organization,
       location: profile.location, // Pre-fill location
       profilePicture: profile.profilePicture,
@@ -34,7 +38,7 @@ const ProfileHeader = () => {
 
     setProfile({
       ...profile,
-      name: values.name,
+      name: user.data.name,
       organization: values.organization,
       location: values.location, // Update location
       profilePicture: updatedProfilePicture,
@@ -57,7 +61,7 @@ const ProfileHeader = () => {
           <Row gutter={[1000, 8]} align="middle" justify="space-between">
             <Col span={25}>
               <div className="profile-basic-details">
-                <h1>{profile.name}</h1>
+                <h1>{user.data.name}</h1>
                 <p>
                   {profile.role} @ {profile.organization}
                 </p>
