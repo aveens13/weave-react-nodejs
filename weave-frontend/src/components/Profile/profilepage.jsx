@@ -5,11 +5,11 @@ import './profilepage.css';
 import PopularRepoPage from './PopularRepositories/PopularRepositories'
 import LanguageProgressBar from "./LanguageBar/LanguageProgressBar"; // Import the Language component
 import initialLanguages from "./LanguageBar/data"; // Import the initial data
-
+import { UserContext } from '../../App';
 function Profile() {
   const [languages, setLanguages] = useState(initialLanguages);
 
-
+  const user = React.useContext(UserContext);
   return (
     <>
       
@@ -28,7 +28,7 @@ function Profile() {
         </div>
 
         <div className="repo"> 
-              <PopularRepoPage /> 
+              <PopularRepoPage user={user}/> 
           </div>      
           
         
