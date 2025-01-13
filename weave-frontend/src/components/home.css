@@ -44,7 +44,8 @@
 .dashboard_project_section {
   display: flex;
   flex-wrap: wrap;
-  height: calc(88vh);
+  /* height: calc(88vh); */
+  margin-bottom: 2rem;
   flex-direction: column;
   overflow-y: auto;
   /* justify-content: space-around; */
