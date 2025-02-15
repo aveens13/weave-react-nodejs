@@ -1,6 +1,6 @@
 
 
-# 🌐 **Weave React NodeJS**  
+# 🌐 **Weave - Create, Collaborate and Connect**  
 ![License](https://img.shields.io/badge/License-MIT-blue)  
 ![Technologies](https://img.shields.io/badge/Technologies-React%20%7C%20Node.js%20%7C%20PostgreSQL-green)  
 ![Azure](https://img.shields.io/badge/Hosted%20On-Azure-blueviolet)  
