@@ -1,9 +1,14 @@
 
 
-# 🌐 **Weave - Create, Collaborate and Connect**  
+# **Weave - Create, Collaborate and Connect**  
 ![License](https://img.shields.io/badge/License-MIT-blue)  
 ![Technologies](https://img.shields.io/badge/Technologies-React%20%7C%20Node.js%20%7C%20PostgreSQL-green)  
 ![Azure](https://img.shields.io/badge/Hosted%20On-Azure-blueviolet)  
+
+<div align="center">
+  <img src="weave-frontend/src/assets/user.png" width="45%">
+  <img src="weave-frontend/src/assets/org.png" width="45%">
+</div>
 
 **Weave** is a dynamic web application built using **React**, **Node.js**, and **PostgreSQL**, hosted on **Azure**. It offers a seamless workflow for organizations and users, combining intuitive UI/UX with powerful backend functionality.
 
