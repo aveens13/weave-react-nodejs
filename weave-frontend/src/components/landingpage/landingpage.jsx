@@ -48,9 +48,9 @@ export const Landingpage = (props) => {
             <h1 className="title-text">Streamline your</h1>
             <h1 className="title-text second">Project workflow</h1>
             <p className="title-paragraph">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Perferendis, unde labore impedit recusandae quae voluptatum ut
-              nulla? Ex, necessitatibus error!
+              Weave is a comprehensive platform that empowers students to
+              collaborate on projects seamlessly, while providing universities
+              to manage, and review academic projects effectively.
             </p>
             <div className="button-container">
               <button
